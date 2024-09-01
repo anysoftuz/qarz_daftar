@@ -11,9 +11,7 @@ class _BorrowingViewState extends State<BorrowingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Borrowing"),
-      ),
+      appBar: AppBar(title: const Text("Borrowing")),
     );
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -12,6 +16,25 @@ class OperationsView extends StatefulWidget {
 }
 
 class _OperationsViewState extends State<OperationsView> {
+  List<File> images = [];
+  List<int> indexs = [];
+
+  void imagesFile() async {
+    try {
+      final image = await ImagePicker().pickMultiImage();
+      if (image.isNotEmpty) {
+        for (var element in image) {
+          images.add(File(element.path));
+        }
+      }
+      setState(() {});
+    } on PlatformException catch (e) {
+      debugPrint(e.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +135,92 @@ class _OperationsViewState extends State<OperationsView> {
                 minLines: 5,
                 onChanged: (value) {},
               ),
+              const SizedBox(height: 16),
+              WButton(
+                onTap: () {
+                  imagesFile();
+                },
+                color: green.withOpacity(.2),
+                child: const Icon(
+                  Icons.camera_alt_outlined,
+                  color: green,
+                ),
+              ),
+              if (images.isNotEmpty) ...[
+                GridView.builder(
+                  itemCount: images.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                  ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        if (indexs.isNotEmpty) {
+                          if (indexs.contains(index)) {
+                            indexs.remove(index);
+                          } else {
+                            indexs.add(index);
+                          }
+                          setState(() {});
+                        }
+                      },
+                      onLongPress: () {
+                        if (indexs.contains(index)) {
+                          indexs.remove(index);
+                        } else {
+                          indexs.add(index);
+                        }
+                        setState(() {});
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: FileImage(images[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: indexs.isEmpty
+                            ? null
+                            : Align(
+                                alignment: Alignment.topRight,
+                                child: indexs.contains(index)
+                                    ? AppIcons.checkboxRadioActive
+                                        .svg(height: 14)
+                                    : AppIcons.checkboxRadio.svg(height: 14),
+                              ),
+                      ),
+                    );
+                  },
+                ),
+                if (indexs.isNotEmpty)
+                  TextButton(
+                    onPressed: () {
+                      for (var element in indexs) {
+                        images.removeAt(element);
+                      }
+                      indexs.clear();
+                      setState(() {});
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppIcons.trash.svg(color: red),
+                        const Text(
+                          "Delete photo",
+                          style: TextStyle(color: red),
+                        )
+                      ],
+                    ),
+                  ),
+              ]
             ],
           ),
         ),
