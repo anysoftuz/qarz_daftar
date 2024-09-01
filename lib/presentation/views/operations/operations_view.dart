@@ -80,13 +80,20 @@ class _OperationsViewState extends State<OperationsView> {
                 title: "Phone number",
                 hintText: "+998",
                 prefixIcon: AppIcons.phone.svg(),
-                suffixIcon: AppIcons.calendar.svg(),
+                suffixIcon: AppIcons.contact.svg(),
                 onChanged: (value) {},
               ),
               const SizedBox(height: 16),
               CustomTextField(
                 title: "Loan amount",
                 hintText: "0.00",
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("UZS"),
+                    AppIcons.arrowDown.svg(),
+                  ],
+                ),
                 onChanged: (value) {},
               ),
               const SizedBox(height: 16),
