@@ -44,11 +44,11 @@ sealed class AppRouts {
       ),
       GoRoute(
         path: AppRouteName.lending,
-        builder: (context, state) => const LendingView(),
+        builder: (context, state) => const LendingView(images: []),
       ),
       GoRoute(
         path: AppRouteName.borrowing,
-        builder: (context, state) => const BorrowingView(),
+        builder: (context, state) => const BorrowingView(images: []),
       ),
       GoRoute(
         path: AppRouteName.userdetails,

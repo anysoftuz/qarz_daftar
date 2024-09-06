@@ -73,16 +73,39 @@ class _MainViewState extends State<MainView> {
                 ],
               ),
             ),
-            FloatingActionButton(
-              onPressed: () {
+            WScaleAnimation(
+              onTap: () {
                 context.push(AppRouteName.operation);
               },
-              elevation: 0,
-              shape: const CircleBorder(
-                side: BorderSide(color: borderColor),
+              child: Container(
+                height: 64,
+                width: 64,
+                foregroundDecoration: BoxDecoration(
+                  color: mainBlue.withOpacity(.2),
+                  borderRadius: BorderRadius.circular(68),
+                  border: Border.all(color: mainBlue),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                      color: mainBlue.withOpacity(.2),
+                    ),
+                    BoxShadow(
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                      color: mainBlue.withOpacity(.2),
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.circular(68),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  color: mainBlue,
+                ),
               ),
-              backgroundColor: white,
-              child: const Icon(Icons.add),
             ),
           ],
         ),
@@ -116,7 +139,7 @@ class WBottomIteam extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: index == currentIndex ? green : null,
+          color: index == currentIndex ? mainBlue : null,
           borderRadius: BorderRadius.circular(68),
         ),
         child: index == currentIndex

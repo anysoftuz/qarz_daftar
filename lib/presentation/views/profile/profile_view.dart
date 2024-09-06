@@ -91,7 +91,7 @@ class _ProfileViewState extends State<ProfileView> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: green,
+                  color: mainBlue,
                 ),
               ),
             ),
@@ -214,6 +214,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ],
               ),
             ),
+            const SizedBox(height: 16),
             const SizedBox(height: 16),
             DecoratedBox(
               decoration: BoxDecoration(

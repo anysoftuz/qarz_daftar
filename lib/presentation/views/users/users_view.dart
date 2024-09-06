@@ -262,10 +262,10 @@ class _UsersViewState extends State<UsersView> {
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.add, color: green),
+                                Icon(Icons.add, color: mainBlue),
                                 Text(
                                   "Add new contact",
-                                  style: TextStyle(color: green),
+                                  style: TextStyle(color: mainBlue),
                                 ),
                               ],
                             ),

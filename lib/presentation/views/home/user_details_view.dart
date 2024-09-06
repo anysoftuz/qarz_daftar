@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/presentation/views/home/widgets/edit_deadline_dialog.dart';
+import 'package:qarz_daftar/presentation/views/home/widgets/edit_partial_pay_dialog.dart';
+import 'package:qarz_daftar/presentation/views/home/widgets/edit_pay_all_dialog.dart';
+import 'package:qarz_daftar/presentation/views/home/widgets/info_tile_itam.dart';
+import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
+import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/caller.dart';
 
 class UserDetailsView extends StatefulWidget {
   const UserDetailsView({super.key});
@@ -25,7 +32,11 @@ class _UserDetailsViewState extends State<UserDetailsView> {
           children: [
             Expanded(
               child: WButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>  const BorrowingView(images: []),
+                  ));
+                },
                 height: 48,
                 borderRadius: 8,
                 color: white,
@@ -44,12 +55,16 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             const SizedBox(width: 12),
             Expanded(
               child: WButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const LendingView(images: []),
+                  ));
+                },
                 height: 48,
                 borderRadius: 8,
                 color: white,
-                border: Border.all(color: green),
-                textColor: green,
+                border: Border.all(color: mainBlue),
+                textColor: mainBlue,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -106,7 +121,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 WButton(
                   height: 44,
                   width: 44,
-                  onTap: () {},
+                  onTap: () => Caller.makePhoneCall("+998990999192"),
                   child: AppIcons.phone.svg(color: white),
                 ),
               ],
@@ -132,99 +147,39 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    AppIcons.banknote.svg(height: 20, color: green),
-                    const SizedBox(width: 8),
-                    const Text(
-                      "Lent",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: green,
-                      ),
-                    ),
-                  ],
-                ),
-                const Text(
-                  "1 034 000 UZS",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: dark,
-                  ),
+                const InfoTileItam(
+                  title: 'Lent',
+                  subtitle: '1 034 000 UZS',
+                  icon: AppIcons.banknote,
+                  color: mainBlue,
                 ),
                 const SizedBox(height: 12),
-                Row(
-                  children: [
-                    AppIcons.calendar.svg(height: 20),
-                    const SizedBox(width: 8),
-                    const Text(
-                      "Given at",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: dark,
-                      ),
-                    ),
-                  ],
-                ),
-                const Text(
-                  "18.07.2024 16:43",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: dark,
-                  ),
+                const InfoTileItam(
+                  title: 'Given at',
+                  subtitle: '18.07.2024 16:43',
+                  icon: AppIcons.calendar,
                 ),
                 const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              AppIcons.secundomer.svg(height: 20),
-                              const SizedBox(width: 8),
-                              const Text(
-                                "Deadline",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: dark,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Text(
-                            "18.08.2024",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: dark,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Text(
-                      "3 days left",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: red,
-                      ),
-                    ),
-                  ],
+                const InfoTileItam(
+                  title: 'Deadline',
+                  subtitle: '18.08.2024',
+                  icon: AppIcons.secundomer,
+                  treling: '3 days left',
                 ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: WButton(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const Dialog(
+                              insetPadding: EdgeInsets.all(16),
+                              child: EditDeadlineDialog(),
+                            ),
+                          );
+                        },
                         color: white,
                         border: Border.all(color: borderColor),
                         textColor: dark,
@@ -241,7 +196,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: WButton(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const Dialog(
+                              insetPadding: EdgeInsets.all(16),
+                              child: EditPartialPayDialog(),
+                            ),
+                          );
+                        },
                         color: white,
                         border: Border.all(color: borderColor),
                         textColor: dark,
@@ -259,7 +222,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 ),
                 const SizedBox(height: 12),
                 WButton(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const Dialog(
+                        insetPadding: EdgeInsets.all(16),
+                        child: EditPayAllDialog(),
+                      ),
+                    );
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

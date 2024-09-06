@@ -34,34 +34,35 @@ class _ThemeViewState extends State<ThemeView> {
                   value: value,
                   index: 0,
                   trailing: AppIcons.moon.svg(
-                    color: value == 0 ? green : dark,
+                    color: value == 0 ? mainBlue : dark,
                   ),
                   title: 'Qorong’u',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                const Divider(),
                 ThemeIteam(
                   selectIndex: selectIndex,
                   value: value,
                   index: 1,
                   trailing: AppIcons.sun.svg(
-                    color: value == 1 ? green : dark,
+                    color: value == 1 ? mainBlue : dark,
                   ),
                   title: 'Yorug’',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                const Divider(),
                 ThemeIteam(
                   selectIndex: selectIndex,
                   value: value,
                   index: 2,
                   trailing: Icon(
                     Icons.phone_iphone,
-                    color: value == 2 ? green : dark,
+                    color: value == 2 ? mainBlue : dark,
                   ),
                   title: 'Qurilma mavzusi',
                   onTap: () {},
                 ),
+                const Divider(),
               ],
             );
           },
@@ -96,36 +97,28 @@ class ThemeIteam extends StatelessWidget {
         selectIndex.value = index;
         onTap();
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        decoration: BoxDecoration(
-          border: value == index ? Border.all(color: green) : null,
-          color: value == index ? white : whiteSmoke,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        padding: const EdgeInsets.all(20),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
-            if (trailing != null) ...[
-              trailing!,
-              const SizedBox(width: 8),
-            ],
+            if (value == index) AppIcons.succes.svg(),
+            const SizedBox(width: 12),
+            // if (trailing != null) ...[
+            //   trailing!,
+            //   const SizedBox(width: 8),
+            // ],
             Expanded(
               child: Text(
                 title,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: value == index ? green : dark,
+                  color: value == index ? mainBlue : dark,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: 12),
-            value == index
-                ? AppIcons.checkboxRadioActive.svg()
-                : AppIcons.checkboxRadio.svg(),
           ],
         ),
       ),

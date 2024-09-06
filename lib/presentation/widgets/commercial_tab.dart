@@ -59,15 +59,12 @@ class CommercialTab extends StatelessWidget {
               Row(
                 children: [
                   Expanded(child: Tab(text: tabLabels[i])),
-                  const SizedBox(
-                    height: 16,
-                    child: VerticalDivider(
-                      color: Color(0xFFAFB8C1),
-                      thickness: 0.65,
-                      width: 0.65,
-                      indent: 5,
-                      endIndent: 2,
-                    ),
+                  const VerticalDivider(
+                    color: Color(0xFFAFB8C1),
+                    thickness: 0.65,
+                    width: 0.65,
+                    indent: 5,
+                    endIndent: 2,
                   )
                 ],
               ),

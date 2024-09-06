@@ -60,6 +60,7 @@ class _NotificationSettingsViewState extends State<NotificationSettingsView> {
                     builder: (context, value, __) {
                       return CupertinoSwitch(
                         value: value,
+                        activeColor: mainBlue,
                         onChanged: (value) {
                           value1.value = value;
                         },

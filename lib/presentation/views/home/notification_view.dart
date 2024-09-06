@@ -51,7 +51,7 @@ class _NotificationViewState extends State<NotificationView> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: green,
+                            color: mainBlue,
                           ),
                         ),
                         TextSpan(

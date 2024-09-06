@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
+import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -51,7 +53,11 @@ class _OperationsViewState extends State<OperationsView> {
           children: [
             Expanded(
               child: WButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BorrowingView(images: images),
+                  ));
+                },
                 height: 48,
                 borderRadius: 8,
                 color: white,
@@ -70,12 +76,16 @@ class _OperationsViewState extends State<OperationsView> {
             const SizedBox(width: 12),
             Expanded(
               child: WButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => LendingView(images: images),
+                  ));
+                },
                 height: 48,
                 borderRadius: 8,
                 color: white,
-                border: Border.all(color: green),
-                textColor: green,
+                border: Border.all(color: mainBlue),
+                textColor: mainBlue,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -140,10 +150,10 @@ class _OperationsViewState extends State<OperationsView> {
                 onTap: () {
                   imagesFile();
                 },
-                color: green.withOpacity(.2),
+                color: mainBlue.withOpacity(.2),
                 child: const Icon(
                   Icons.camera_alt_outlined,
-                  color: green,
+                  color: mainBlue,
                 ),
               ),
               if (images.isNotEmpty) ...[

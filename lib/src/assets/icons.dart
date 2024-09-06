@@ -4,7 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AppIcons {
   static const calendar = "assets/icons/calendar.svg";
-    static const trash = "assets/icons/trash.svg";
+  static const trash = "assets/icons/trash.svg";
+  static const succes = "assets/icons/succes.svg";
+  static const upDown = "assets/icons/up-down.svg";
   static const contact = "assets/icons/contact.svg";
   static const arrowDown = "assets/icons/arrow_down.svg";
   static const leftPay = "assets/icons/left-pay.svg";

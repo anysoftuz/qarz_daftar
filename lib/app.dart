@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/app_routes.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
+import 'package:qarz_daftar/src/localization/localization.dart';
 
 import 'src/settings/settings_controller.dart';
 
@@ -30,19 +29,10 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           restorationScopeId: 'app',
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''),
-          ],
-          onGenerateTitle: (BuildContext context) =>
-              AppLocalizations.of(context)!.appTitle,
+          supportedLocales: Localization.supportedLocales,
+          localizationsDelegates: Localization.localizationsDelegates,
           theme: ThemeData(
-            colorSchemeSeed: green,
+            colorSchemeSeed: mainBlue,
             scaffoldBackgroundColor: whiteSmoke,
             appBarTheme: const AppBarTheme(
               backgroundColor: white,

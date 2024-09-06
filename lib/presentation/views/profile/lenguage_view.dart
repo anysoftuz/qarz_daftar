@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:qarz_daftar/presentation/views/profile/theme_view.dart';
 import 'package:qarz_daftar/src/assets/images.dart';
 
-
 class LenguageView extends StatefulWidget {
   const LenguageView({super.key});
 
@@ -35,7 +34,7 @@ class _LenguageViewState extends State<LenguageView> {
                   title: 'O’zbekcha',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                const Divider(),
                 ThemeIteam(
                   selectIndex: selectIndex,
                   value: value,
@@ -48,7 +47,7 @@ class _LenguageViewState extends State<LenguageView> {
                   title: 'Ўзбекча',
                   onTap: () {},
                 ),
-                const SizedBox(height: 16),
+                const Divider(),
                 ThemeIteam(
                   selectIndex: selectIndex,
                   value: value,
@@ -61,6 +60,7 @@ class _LenguageViewState extends State<LenguageView> {
                   title: 'Русский',
                   onTap: () {},
                 ),
+                const Divider(),
               ],
             );
           },
