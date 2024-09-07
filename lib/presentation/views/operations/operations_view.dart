@@ -138,6 +138,34 @@ class _OperationsViewState extends State<OperationsView> {
               ),
               const SizedBox(height: 16),
               CustomTextField(
+                hintText: "1 week / 1 month",
+                suffixIcon: AppIcons.arrowDown.svg(),
+                onChanged: (value) {},
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  SizedBox(
+                    height: 24,
+                    width: 24,
+                    child: Checkbox(
+                      value: true,
+                      onChanged: (value) {},
+                      activeColor: mainBlue,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    "Add to blacklist",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 16),
+              CustomTextField(
                 title: "The purpose of the loan",
                 hintText: "Type description...",
                 noHeight: true,

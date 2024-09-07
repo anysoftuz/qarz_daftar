@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/info_tile_itam.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
@@ -61,12 +60,19 @@ class EditDeadlineDialog extends StatelessWidget {
                   suffixIcon: AppIcons.calendar.svg(),
                   onChanged: (value) {},
                 ),
+                const SizedBox(height: 16),
                 Row(
                   children: [
-                    Checkbox(
-                      value: true,
-                      onChanged: (value) {},
+                    SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Checkbox(
+                        value: true,
+                        onChanged: (value) {},
+                        activeColor: mainBlue,
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     const Text(
                       "Add to blacklist",
                       style: TextStyle(
@@ -76,6 +82,7 @@ class EditDeadlineDialog extends StatelessWidget {
                     )
                   ],
                 ),
+                const SizedBox(height: 16),
               ],
             ),
           ),

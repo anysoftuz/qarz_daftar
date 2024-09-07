@@ -18,12 +18,13 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xff0969DA),
-              Color(0xff1E3197),
-            ],
-          ),
+          color: Color(0xFF102750),
+          // gradient: LinearGradient(
+          //   colors: <Color>[
+          //     Color(0xff0969DA),
+          //     Color(0xff1E3197),
+          //   ],
+          // ),
         ),
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -42,12 +43,13 @@ class _HomeViewState extends State<HomeView> {
               flexibleSpace: const FlexibleSpaceBar(
                 background: DecoratedBox(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0xff0969DA),
-                        Color(0xff1E3197),
-                      ],
-                    ),
+                    color: Color(0xFF102750),
+                    // gradient: LinearGradient(
+                    //   colors: <Color>[
+                    //     Color(0xff0969DA),
+                    //     Color(0xff1E3197),
+                    //   ],
+                    // ),
                   ),
                 ),
               ),
@@ -93,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xFF4DD470),
+                                        color: mainBlue,
                                       ),
                                     ),
                                   ],
