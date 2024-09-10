@@ -163,11 +163,10 @@ class _UsersViewState extends State<UsersView> {
                           ),
                         ),
                         subtitle: const Text(
-                          "4 days left",
+                          "01.02.2023",
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: red,
                           ),
                         ),
                         leading: const CircleAvatar(
