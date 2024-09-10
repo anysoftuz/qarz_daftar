@@ -11,23 +11,17 @@ import 'package:qarz_daftar/utils/log_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageRepository.getInstance();
-  // setupLocator();
-  // final settingsController = serviceLocator<SettingsController>();
-
-  // await settingsController.loadSettings();
 
   if (kDebugMode) {
     Bloc.observer = LogBlocObserver();
   }
 
-  runApp(
-    DependencyScope(
-      initialModel: AppScope(
-        themeMode: getTheme(StorageRepository.getString(StorageKeys.MODE)),
-      ),
-      child: const MyApp(),
+  runApp(DependencyScope(
+    initialModel: AppScope(
+      themeMode: getTheme(StorageRepository.getString(StorageKeys.MODE)),
     ),
-  );
+    child: const MyApp(),
+  ));
 }
 
 ThemeMode getTheme(String mode) {

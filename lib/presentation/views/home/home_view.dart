@@ -253,7 +253,7 @@ class _HomeViewState extends State<HomeView> {
                     width: double.infinity,
                     padding: const EdgeInsets.only(top: 16),
                     decoration: BoxDecoration(
-                      color: context.color.black,
+                      color: context.color.whiteSmoke,
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(32),
                       ),
@@ -321,7 +321,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
           body: ColoredBox(
-            color: context.color.black,
+            color: context.color.whiteSmoke,
             child: ListView.builder(
               itemCount: 16,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),

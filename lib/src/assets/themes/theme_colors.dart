@@ -76,7 +76,7 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
     greyText: Color(0xFF445776),
     iron: Color(0xffCCCECF),
     green: Color(0xff2CDB66),
-    whiteSmoke: Color(0xffF7F8FC),
+    whiteSmoke: Color(0xff1F242F),
     whiteGrey: Color(0xffF2F2F2),
     whiteBlack: Color(0xFF2C394C),
     blackGrey: Color(0xff555555),
