@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
+import 'package:qarz_daftar/presentation/views/users/users_filter_view.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -15,11 +18,16 @@ class _UsersViewState extends State<UsersView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.color.contColor,
       appBar: AppBar(
         title: const Text("List"),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const UsersFilterView(),
+              ));
+            },
             child: Row(
               children: [
                 AppIcons.filter.svg(),
@@ -57,7 +65,7 @@ class _UsersViewState extends State<UsersView> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                     itemBuilder: (context, index) => DecoratedBox(
                       decoration: BoxDecoration(
-                        color: white,
+                        color: context.color.borderColor,
                         borderRadius: index == 0
                             ? const BorderRadius.vertical(
                                 top: Radius.circular(8),
@@ -68,15 +76,20 @@ class _UsersViewState extends State<UsersView> {
                                   )
                                 : null,
                       ),
-                      child: const ListTile(
-                        title: Text(
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const UserProfileView(),
+                          ));
+                        },
+                        title: const Text(
                           "Jahongir Maqsudov",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        subtitle: Text(
+                        subtitle: const Text(
                           "4 days left",
                           style: TextStyle(
                             fontSize: 12,
@@ -84,7 +97,7 @@ class _UsersViewState extends State<UsersView> {
                             color: red,
                           ),
                         ),
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           radius: 24,
                           backgroundColor: backGroundColor,
                           child: Text(
@@ -96,7 +109,7 @@ class _UsersViewState extends State<UsersView> {
                             ),
                           ),
                         ),
-                        trailing: Column(
+                        trailing: const Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -105,7 +118,6 @@ class _UsersViewState extends State<UsersView> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: dark,
                               ),
                             ),
                             Text(
@@ -126,7 +138,7 @@ class _UsersViewState extends State<UsersView> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                     itemBuilder: (context, index) => DecoratedBox(
                       decoration: BoxDecoration(
-                        color: white,
+                        color: context.color.borderColor,
                         borderRadius: index == 0
                             ? const BorderRadius.vertical(
                                 top: Radius.circular(8),
@@ -174,7 +186,6 @@ class _UsersViewState extends State<UsersView> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: dark,
                               ),
                             ),
                             Text(
@@ -196,7 +207,7 @@ class _UsersViewState extends State<UsersView> {
                       children: [
                         CustomTextField(
                           hintText: "Search",
-                          fillColor: white,
+                          fillColor: context.color.borderColor,
                           prefixIcon: AppIcons.search.svg(),
                           onChanged: (String value) {},
                         ),
@@ -207,7 +218,7 @@ class _UsersViewState extends State<UsersView> {
                             itemBuilder: (context, index) => DecoratedBox(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                color: white,
+                                color: context.color.borderColor,
                               ),
                               child: ListTile(
                                 leading: const CircleAvatar(radius: 24),
@@ -251,7 +262,7 @@ class _UsersViewState extends State<UsersView> {
                       children: [
                         CustomTextField(
                           hintText: "Search",
-                          fillColor: white,
+                          fillColor: context.color.borderColor,
                           prefixIcon: AppIcons.search.svg(),
                           onChanged: (String value) {},
                         ),
@@ -277,7 +288,7 @@ class _UsersViewState extends State<UsersView> {
                             itemBuilder: (context, index) => DecoratedBox(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                color: white,
+                                color: context.color.borderColor,
                               ),
                               child: ListTile(
                                 leading: const CircleAvatar(radius: 24),

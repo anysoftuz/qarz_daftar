@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
@@ -9,14 +10,14 @@ class InfoTileItam extends StatelessWidget {
     required this.subtitle,
     required this.icon,
     this.treling = "",
-    this.color = black,
+    this.color,
     this.colorTreling = red,
   });
   final String title;
   final String subtitle;
   final String icon;
   final String treling;
-  final Color color;
+  final Color? color;
   final Color colorTreling;
 
   @override
@@ -29,7 +30,7 @@ class InfoTileItam extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  icon.svg(height: 20, color: color),
+                  icon.svg(height: 20, color: color ?? context.color.white),
                   const SizedBox(width: 8),
                   Text(
                     title,
@@ -46,7 +47,6 @@ class InfoTileItam extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: dark,
                 ),
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -11,7 +12,7 @@ class EditPayAllDialog extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: white,
+        color: context.color.contColor,
       ),
       padding: const EdgeInsets.all(16),
       width: double.infinity,
@@ -35,7 +36,7 @@ class EditPayAllDialog extends StatelessWidget {
                   right: -5,
                   child: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: AppIcons.close.svg(),
+                    icon: AppIcons.close.svg(color: context.color.white50),
                   ),
                 ),
               ],
@@ -68,10 +69,10 @@ class EditPayAllDialog extends StatelessWidget {
           WButton(
             onTap: () {},
             border: Border.all(
-              color: borderColor,
+              color: context.color.borderColor,
             ),
-            color: white,
-            textColor: black,
+            color: Colors.transparent,
+            textColor: context.color.white,
             text: "Cancel",
           ),
         ],

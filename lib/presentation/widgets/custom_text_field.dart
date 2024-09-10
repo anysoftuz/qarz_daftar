@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -147,21 +148,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         onPressed: widget.onprefixIconPressed ?? () {})
                     : null,
                 focusColor: white,
-                fillColor: widget.fillColor ?? white,
+                fillColor: widget.fillColor ?? Colors.transparent,
                 hoverColor: white,
                 filled: true,
                 border: widget.border ??
                     OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                          color: widget.borderColor ?? grey, width: 1),
+                        color: widget.borderColor ?? context.color.borderColor,
+                        width: 1,
+                      ),
                     ),
                 enabledBorder: widget.border ??
                     OutlineInputBorder(
                       borderRadius:
                           BorderRadius.circular(widget.borderRadius ?? 8),
                       borderSide: BorderSide(
-                        color: widget.borderColor ?? grey,
+                        color: widget.borderColor ?? context.color.borderColor,
                         width: widget.borderWidth ?? 1,
                       ),
                     ),
@@ -169,7 +172,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     OutlineInputBorder(
                       borderRadius:
                           BorderRadius.circular(widget.borderRadius ?? 8),
-                      borderSide: BorderSide(color: widget.borderColor ?? grey),
+                      borderSide: BorderSide(
+                        color: widget.borderColor ?? context.color.borderColor,
+                      ),
                     ),
                 hintText: widget.hintText,
                 hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(

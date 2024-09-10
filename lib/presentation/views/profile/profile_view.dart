@@ -1,6 +1,9 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/users/widgets/bar_chart.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
@@ -34,7 +37,7 @@ class _ProfileViewState extends State<ProfileView> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16).copyWith(bottom: 120),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,7 +45,7 @@ class _ProfileViewState extends State<ProfileView> {
               padding: const EdgeInsets.all(12).copyWith(right: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: white,
+                color: context.color.contColor,
               ),
               child: Row(
                 children: [
@@ -79,7 +82,7 @@ class _ProfileViewState extends State<ProfileView> {
                     onPressed: () {
                       context.push(AppRouteName.profileInfo);
                     },
-                    icon: AppIcons.edit.svg(),
+                    icon: AppIcons.edit.svg(color: context.color.white),
                   ),
                 ],
               ),
@@ -100,20 +103,20 @@ class _ProfileViewState extends State<ProfileView> {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: white,
+                color: context.color.contColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: '3 749 000',
                       style: TextStyle(
-                        color: dark,
+                        color: context.color.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
-                      children: [
+                      children: const [
                         TextSpan(
                           text: ' UZS',
                           style: TextStyle(
@@ -127,14 +130,14 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   const SizedBox(height: 4),
                   RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: '3 000',
                       style: TextStyle(
-                        color: dark,
+                        color: context.color.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
-                      children: [
+                      children: const [
                         TextSpan(
                           text: ' UZS',
                           style: TextStyle(
@@ -165,20 +168,20 @@ class _ProfileViewState extends State<ProfileView> {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: white,
+                color: context.color.contColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: '3 749 000',
                       style: TextStyle(
-                        color: dark,
+                        color: context.color.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
-                      children: [
+                      children: const [
                         TextSpan(
                           text: ' UZS',
                           style: TextStyle(
@@ -192,14 +195,14 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   const SizedBox(height: 4),
                   RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: '3 000',
                       style: TextStyle(
-                        color: dark,
+                        color: context.color.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
-                      children: [
+                      children: const [
                         TextSpan(
                           text: ' UZS',
                           style: TextStyle(
@@ -215,20 +218,21 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
             const SizedBox(height: 16),
+            const BarChartSample2(),
             const SizedBox(height: 16),
             DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: white,
+                color: context.color.contColor,
               ),
               child: ListTile(
                 onTap: () {
                   context.push(AppRouteName.settings);
                 },
-                leading: AppIcons.settings.svg(),
+                leading: AppIcons.settings.svg(color: context.color.white),
                 title: const Text("Settings"),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                trailing: AppIcons.arrowRight.svg(),
+                trailing: AppIcons.arrowRight.svg(color: context.color.white),
               ),
             ),
           ],
@@ -236,4 +240,14 @@ class _ProfileViewState extends State<ProfileView> {
       ),
     );
   }
+}
+
+BarChartGroupData makeGroupData(int x, double y1, double y2) {
+  return BarChartGroupData(
+    x: x,
+    barRods: [
+      BarChartRodData(toY: y1, color: Colors.blue, width: 15),
+      BarChartRodData(toY: y2, color: Colors.red, width: 15),
+    ],
+  );
 }

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
+import 'package:qarz_daftar/main.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
+import 'package:qarz_daftar/src/assets/constants/storage_keys.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/src/assets/themes/theme_changer.dart';
 
 class ThemeView extends StatefulWidget {
   const ThemeView({super.key});
@@ -15,7 +20,17 @@ class _ThemeViewState extends State<ThemeView> {
   @override
   void initState() {
     super.initState();
-    selectIndex = ValueNotifier(0);
+    switch (getTheme(StorageRepository.getString(StorageKeys.MODE))) {
+      case ThemeMode.dark:
+        selectIndex = ValueNotifier(0);
+        break;
+      case ThemeMode.light:
+        selectIndex = ValueNotifier(1);
+        break;
+      default:
+        selectIndex = ValueNotifier(2);
+        break;
+    }
   }
 
   @override
@@ -37,7 +52,12 @@ class _ThemeViewState extends State<ThemeView> {
                     color: value == 0 ? mainBlue : dark,
                   ),
                   title: 'Qorong’u',
-                  onTap: () {},
+                  onTap: () {
+                    AppScope.update(
+                      context,
+                      const AppScope(themeMode: ThemeMode.dark),
+                    );
+                  },
                 ),
                 const Divider(),
                 ThemeIteam(
@@ -48,7 +68,12 @@ class _ThemeViewState extends State<ThemeView> {
                     color: value == 1 ? mainBlue : dark,
                   ),
                   title: 'Yorug’',
-                  onTap: () {},
+                  onTap: () {
+                    AppScope.update(
+                      context,
+                      const AppScope(themeMode: ThemeMode.light),
+                    );
+                  },
                 ),
                 const Divider(),
                 ThemeIteam(
@@ -60,7 +85,12 @@ class _ThemeViewState extends State<ThemeView> {
                     color: value == 2 ? mainBlue : dark,
                   ),
                   title: 'Qurilma mavzusi',
-                  onTap: () {},
+                  onTap: () {
+                    AppScope.update(
+                      context,
+                      const AppScope(themeMode: ThemeMode.system),
+                    );
+                  },
                 ),
                 const Divider(),
               ],
@@ -113,7 +143,7 @@ class ThemeIteam extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: value == index ? mainBlue : dark,
+                  color: value == index ? mainBlue : context.color.white,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
@@ -45,9 +46,9 @@ class _OperationsViewState extends State<OperationsView> {
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-        decoration: const BoxDecoration(
-          color: white,
-          border: Border(top: BorderSide(color: borderColor)),
+        decoration: BoxDecoration(
+          color: context.color.contColor,
+          border: Border(top: BorderSide(color: context.color.borderColor)),
         ),
         child: Row(
           children: [
@@ -60,7 +61,7 @@ class _OperationsViewState extends State<OperationsView> {
                 },
                 height: 48,
                 borderRadius: 8,
-                color: white,
+                color: Colors.transparent,
                 border: Border.all(color: red),
                 textColor: red,
                 child: Row(
@@ -83,7 +84,7 @@ class _OperationsViewState extends State<OperationsView> {
                 },
                 height: 48,
                 borderRadius: 8,
-                color: white,
+                color: Colors.transparent,
                 border: Border.all(color: mainBlue),
                 textColor: mainBlue,
                 child: Row(
@@ -104,7 +105,7 @@ class _OperationsViewState extends State<OperationsView> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: white,
+            color: context.color.contColor,
           ),
           padding: const EdgeInsets.all(16),
           child: Column(

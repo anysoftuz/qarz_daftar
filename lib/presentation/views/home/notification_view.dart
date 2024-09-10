@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
@@ -38,15 +39,15 @@ class _NotificationViewState extends State<NotificationView> {
                   ),
                   const SizedBox(height: 4),
                   RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'Sizga',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: dark,
+                        color: context.color.white,
                       ),
                       children: [
-                        TextSpan(
+                        const TextSpan(
                           text: ' 2 430 000 uzs ',
                           style: TextStyle(
                             fontSize: 14,
@@ -59,7 +60,7 @@ class _NotificationViewState extends State<NotificationView> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: dark,
+                            color: context.color.white,
                           ),
                         )
                       ],
@@ -72,9 +73,10 @@ class _NotificationViewState extends State<NotificationView> {
                         child: WButton(
                           height: 36,
                           onTap: () {},
-                          border: Border.all(color: borderColor),
-                          textColor: dark,
-                          color: white,
+                          border: Border.all(
+                              color: context.color.white.withOpacity(.2)),
+                          textColor: context.color.white,
+                          color: Colors.transparent,
                           text: "Refuse",
                         ),
                       ),

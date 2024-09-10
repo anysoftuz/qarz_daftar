@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -251,9 +252,9 @@ class _HomeViewState extends State<HomeView> {
                     height: 160,
                     width: double.infinity,
                     padding: const EdgeInsets.only(top: 16),
-                    decoration: const BoxDecoration(
-                      color: whiteSmoke,
-                      borderRadius: BorderRadius.vertical(
+                    decoration: BoxDecoration(
+                      color: context.color.black,
+                      borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(32),
                       ),
                     ),
@@ -320,13 +321,13 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
           body: ColoredBox(
-            color: whiteSmoke,
+            color: context.color.black,
             child: ListView.builder(
               itemCount: 16,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),
               itemBuilder: (context, index) => DecoratedBox(
                 decoration: BoxDecoration(
-                  color: white,
+                  color: context.color.contColor,
                   borderRadius: index == 0
                       ? const BorderRadius.vertical(
                           top: Radius.circular(8),
@@ -377,7 +378,6 @@ class _HomeViewState extends State<HomeView> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: dark,
                         ),
                       ),
                       Text(

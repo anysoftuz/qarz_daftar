@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
@@ -23,28 +24,38 @@ class _SettingsViewState extends State<SettingsView> {
               onTap: () {
                 context.push(AppRouteName.notificationSettings);
               },
-              title: const Text(
+              title: Text(
                 "Notifications",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  color: context.color.white,
                 ),
               ),
-              leading: AppIcons.notification.svg(height: 24, width: 24),
+              leading: AppIcons.notification.svg(
+                height: 24,
+                width: 24,
+                color: context.color.white,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Divider(height: 1),
             ),
             ListTile(
-              title: const Text(
+              title: Text(
                 "Change phone number",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  color: context.color.white,
                 ),
               ),
-              leading: AppIcons.phone.svg(height: 24, width: 24),
+              leading: AppIcons.phone.svg(
+                height: 24,
+                width: 24,
+                color: context.color.white,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -54,14 +65,19 @@ class _SettingsViewState extends State<SettingsView> {
               onTap: () {
                 context.push(AppRouteName.lenguage);
               },
-              title: const Text(
+              title: Text(
                 "Language",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  color: context.color.white,
                 ),
               ),
-              leading: AppIcons.globe.svg(height: 24, width: 24),
+              leading: AppIcons.globe.svg(
+                height: 24,
+                width: 24,
+                color: context.color.white,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -71,14 +87,19 @@ class _SettingsViewState extends State<SettingsView> {
               onTap: () {
                 context.push(AppRouteName.theme);
               },
-              title: const Text(
+              title: Text(
                 "Themes",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  color: context.color.white,
                 ),
               ),
-              leading: AppIcons.moon.svg(height: 24, width: 24),
+              leading: AppIcons.moon.svg(
+                height: 24,
+                width: 24,
+                color: context.color.white,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

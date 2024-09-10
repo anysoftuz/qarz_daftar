@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
 class CommercialTab extends StatelessWidget {
@@ -18,7 +19,7 @@ class CommercialTab extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: const Color(0xFFEAEEF2),
+          color: context.color.borderColor,
         ),
         padding: const EdgeInsets.all(2),
         child: TabBar(
@@ -27,7 +28,7 @@ class CommercialTab extends StatelessWidget {
           controller: tabController,
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: white,
+            color: context.color.black,
             // Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
             boxShadow: [
               BoxShadow(
@@ -44,16 +45,19 @@ class CommercialTab extends StatelessWidget {
             ],
           ),
           labelPadding: EdgeInsets.zero,
-          unselectedLabelStyle: Theme.of(context)
-              .textTheme
-              .displayLarge!
-              .copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+          unselectedLabelStyle:
+              Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: context.color.white,
+                  ),
           labelStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
+                color: context.color.white,
               ),
           indicatorSize: TabBarIndicatorSize.tab,
-          unselectedLabelColor: const Color(0xFF24292F),
+          unselectedLabelColor: context.color.white,
           tabs: [
             for (int i = 0; i < tabLabels.length - 1; i++)
               Row(

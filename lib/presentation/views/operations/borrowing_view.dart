@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/info_tile_itam.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -24,9 +25,9 @@ class _BorrowingViewState extends State<BorrowingView> {
       appBar: AppBar(title: const Text("Borrowing")),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-        decoration: const BoxDecoration(
-          color: white,
-          border: Border(top: BorderSide(color: borderColor)),
+        decoration: BoxDecoration(
+          color: context.color.contColor,
+          border: Border(top: BorderSide(color: context.color.borderColor)),
         ),
         child: WButton(
           onTap: () {},
@@ -46,7 +47,7 @@ class _BorrowingViewState extends State<BorrowingView> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: white,
+            color: context.color.contColor,
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -110,10 +111,10 @@ class _BorrowingViewState extends State<BorrowingView> {
                         width: 48,
                         margin: const EdgeInsets.only(right: 16),
                         borderRadius: 80,
-                        color: white,
-                        border: Border.all(color: borderColor),
+                        color: context.color.contColor,
+                        border: Border.all(color: context.color.borderColor),
                         onTap: () {},
-                        child: AppIcons.upDown.svg(),
+                        child: AppIcons.upDown.svg(color: context.color.white),
                       ),
                     ),
                   ],
@@ -133,12 +134,12 @@ class _BorrowingViewState extends State<BorrowingView> {
                 icon: AppIcons.calendar,
               ),
               const SizedBox(height: 12),
-              const InfoTileItam(
+              InfoTileItam(
                 title: 'Deadline',
                 subtitle: '18.08.2024',
                 icon: AppIcons.secundomer,
                 treling: '3 days left',
-                colorTreling: black,
+                colorTreling: context.color.white,
               ),
               const SizedBox(height: 12),
               const Text(

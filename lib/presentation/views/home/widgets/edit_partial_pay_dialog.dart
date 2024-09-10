@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
-import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
 class EditPartialPayDialog extends StatelessWidget {
@@ -12,7 +12,7 @@ class EditPartialPayDialog extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: white,
+        color: context.color.contColor,
       ),
       padding: const EdgeInsets.only(bottom: 16, top: 8),
       width: double.infinity,
@@ -34,7 +34,7 @@ class EditPartialPayDialog extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: AppIcons.close.svg(),
+                  icon: AppIcons.close.svg(color: context.color.white),
                 ),
               ],
             ),
@@ -75,10 +75,10 @@ class EditPartialPayDialog extends StatelessWidget {
                   child: WButton(
                     onTap: () {},
                     border: Border.all(
-                      color: borderColor,
+                      color: context.color.borderColor,
                     ),
-                    color: white,
-                    textColor: black,
+                    color: Colors.transparent,
+                    textColor: context.color.white,
                     text: "Cancel",
                   ),
                 ),

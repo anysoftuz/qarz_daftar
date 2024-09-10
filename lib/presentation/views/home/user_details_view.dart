@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_deadline_dialog.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_partial_pay_dialog.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_pay_all_dialog.dart';
@@ -24,9 +25,9 @@ class _UserDetailsViewState extends State<UserDetailsView> {
       appBar: AppBar(title: const Text("Details")),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-        decoration: const BoxDecoration(
-          color: white,
-          border: Border(top: BorderSide(color: borderColor)),
+        decoration: BoxDecoration(
+          color: context.color.contColor,
+          border: Border(top: BorderSide(color: context.color.borderColor)),
         ),
         child: Row(
           children: [
@@ -34,12 +35,12 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               child: WButton(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  const BorrowingView(images: []),
+                    builder: (context) => const BorrowingView(images: []),
                   ));
                 },
                 height: 48,
                 borderRadius: 8,
-                color: white,
+                color: Colors.transparent,
                 border: Border.all(color: red),
                 textColor: red,
                 child: Row(
@@ -62,7 +63,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 },
                 height: 48,
                 borderRadius: 8,
-                color: white,
+                color: Colors.transparent,
                 border: Border.all(color: mainBlue),
                 textColor: mainBlue,
                 child: Row(
@@ -85,7 +86,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: white,
+              color: context.color.contColor,
             ),
             child: Row(
               children: [
@@ -141,7 +142,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: white,
+              color: context.color.contColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -180,13 +181,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                             ),
                           );
                         },
-                        color: white,
-                        border: Border.all(color: borderColor),
-                        textColor: dark,
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: context.color.white.withOpacity(.4),
+                        ),
+                        textColor: context.color.white,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AppIcons.edit.svg(),
+                            AppIcons.edit.svg(color: context.color.white),
                             const SizedBox(width: 8),
                             const Text("Edit deadline")
                           ],
@@ -205,13 +208,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                             ),
                           );
                         },
-                        color: white,
-                        border: Border.all(color: borderColor),
-                        textColor: dark,
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: context.color.white.withOpacity(.4),
+                        ),
+                        textColor: context.color.white,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            AppIcons.moneyClock.svg(),
+                            AppIcons.moneyClock.svg(color: context.color.white),
                             const SizedBox(width: 8),
                             const Text("Partial pay")
                           ],
@@ -259,7 +264,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => DecoratedBox(
               decoration: BoxDecoration(
-                color: white,
+                color: context.color.contColor,
                 borderRadius: index == 0
                     ? const BorderRadius.vertical(
                         top: Radius.circular(8),
@@ -307,7 +312,6 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: dark,
                       ),
                     ),
                     Text(

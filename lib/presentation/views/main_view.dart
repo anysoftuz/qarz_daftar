@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -36,9 +37,9 @@ class _MainViewState extends State<MainView> {
               width: 232,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: white,
+                color: context.color.black,
                 borderRadius: BorderRadius.circular(68),
-                border: Border.all(color: borderColor),
+                border: Border.all(color: context.color.borderColor),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +99,7 @@ class _MainViewState extends State<MainView> {
                   ],
                 ),
                 decoration: BoxDecoration(
-                  color: white,
+                  color: context.color.black,
                   borderRadius: BorderRadius.circular(68),
                 ),
                 child: const Icon(
@@ -157,7 +158,7 @@ class WBottomIteam extends StatelessWidget {
                   )
                 ],
               )
-            : icon.svg(color: dark),
+            : icon.svg(color: context.color.white),
       ),
     );
   }
