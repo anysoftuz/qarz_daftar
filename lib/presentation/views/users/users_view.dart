@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/users_filter_view.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
@@ -78,9 +80,7 @@ class _UsersViewState extends State<UsersView> {
                       ),
                       child: ListTile(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const UserProfileView(),
-                          ));
+                          context.push(AppRouteName.userdetails);
                         },
                         title: const Text(
                           "Jahongir Maqsudov",
@@ -149,15 +149,20 @@ class _UsersViewState extends State<UsersView> {
                                   )
                                 : null,
                       ),
-                      child: const ListTile(
-                        title: Text(
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const UserProfileView(),
+                          ));
+                        },
+                        title: const Text(
                           "Jahongir Maqsudov",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        subtitle: Text(
+                        subtitle: const Text(
                           "4 days left",
                           style: TextStyle(
                             fontSize: 12,
@@ -165,7 +170,7 @@ class _UsersViewState extends State<UsersView> {
                             color: red,
                           ),
                         ),
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           radius: 24,
                           backgroundColor: backGroundColor,
                           child: Text(
@@ -177,7 +182,7 @@ class _UsersViewState extends State<UsersView> {
                             ),
                           ),
                         ),
-                        trailing: Column(
+                        trailing: const Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

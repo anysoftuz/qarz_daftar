@@ -150,7 +150,9 @@ class _HomeViewState extends State<HomeView> {
                           radius: 20,
                           backgroundColor: white.withOpacity(.1),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(AppRouteName.users);
+                            },
                             icon: AppIcons.arrowRight.svg(
                               color: white,
                               height: 24,
