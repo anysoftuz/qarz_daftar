@@ -1,3 +1,4 @@
+import 'package:qarz_daftar/utils/log_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Caller {
@@ -8,6 +9,15 @@ class Caller {
       await launchUrl(phoneUri);
     } else {
       print("nimaga");
+    }
+  }
+
+  static Future<void> launchUrlWeb(String url) async {
+    final Uri url0 = Uri.parse(url);
+    try {
+      await launchUrl(url0);
+    } catch (e) {
+      Log.e(e);
     }
   }
 

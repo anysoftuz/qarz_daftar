@@ -4,6 +4,7 @@ import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/images.dart';
+import 'package:qarz_daftar/utils/caller.dart';
 
 class AuthTelegramView extends StatefulWidget {
   const AuthTelegramView({super.key});
@@ -46,6 +47,7 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
           WButton(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             onTap: () {
+              Caller.launchUrlWeb("https://t.me/qarzdaftar_admin_bot");
               context.go(AppRouteName.home);
             },
             color: white,

@@ -16,7 +16,6 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   void _onTap(BuildContext context, int index) {
-    debugPrint("NIma gap $index");
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == widget.navigationShell.currentIndex,
