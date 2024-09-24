@@ -16,4 +16,5 @@ abstract class AppRouteName {
   static const auth = '/auth';
   static const notification = '/notification';
   static const operation = "/operation";
+   static const confirmLogin = "/confirmLogin";
 }

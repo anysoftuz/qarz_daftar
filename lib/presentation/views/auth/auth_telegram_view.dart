@@ -47,8 +47,8 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
           WButton(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             onTap: () {
-              Caller.launchUrlWeb("https://t.me/qarzdaftar_admin_bot");
-              context.go(AppRouteName.home);
+              Caller.launchUrlWeb("https://t.me/qarz_daftar1_bot");
+              context.go(AppRouteName.confirmLogin);
             },
             color: white,
             textColor: black,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/auth/auth_telegram_view.dart';
+import 'package:qarz_daftar/presentation/views/auth/confirmation_login_view.dart';
 import 'package:qarz_daftar/presentation/views/error_view.dart';
 import 'package:qarz_daftar/presentation/views/home/home_view.dart';
 import 'package:qarz_daftar/presentation/views/home/notification_view.dart';
@@ -33,6 +35,14 @@ sealed class AppRouts {
       GoRoute(
         path: AppRouteName.splash,
         builder: (context, state) => const SplashView(),
+      ),
+      GoRoute(
+        path: AppRouteName.auth,
+        builder: (context, state) => const AuthTelegramView(),
+      ),
+      GoRoute(
+        path: AppRouteName.confirmLogin,
+        builder: (context, state) => const ConfirmationLoginView(),
       ),
       GoRoute(
         path: AppRouteName.notification,

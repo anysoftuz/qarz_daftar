@@ -42,6 +42,7 @@ class AppIcons {
   static const info = "assets/icons/info.svg";
   static const checkVerified = "assets/icons/check-verified.svg";
   static const warning = "assets/icons/warning.svg";
+  static const smsCode = "assets/icons/sms_code.svg";
 }
 
 extension SvgExt on String {
