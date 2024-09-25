@@ -52,7 +52,8 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
               isDisabled: controllerCode.text.isEmpty ||
                   controllerPhone.text.length != 19,
               isLoading: state.statusCode.isInProgress,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 16)
+                  .copyWith(bottom: 16),
               text: "Тасдиқлаш",
             );
           },

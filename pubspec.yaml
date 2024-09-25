@@ -37,6 +37,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   dio: ^5.7.0
   json_annotation: ^4.9.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -56,4 +57,3 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/images/
     - assets/icons/
-    - assets/anim/

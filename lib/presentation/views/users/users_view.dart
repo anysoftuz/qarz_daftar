@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/users/contacts_view.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/users_filter_view.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
@@ -259,69 +260,7 @@ class _UsersViewState extends State<UsersView> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16).copyWith(top: 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomTextField(
-                          hintText: "Search",
-                          fillColor: context.color.borderColor,
-                          prefixIcon: AppIcons.search.svg(),
-                          onChanged: (String value) {},
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.add, color: mainBlue),
-                                Text(
-                                  "Add new contact",
-                                  style: TextStyle(color: mainBlue),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            padding: const EdgeInsets.only(bottom: 100),
-                            itemBuilder: (context, index) => DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: context.color.borderColor,
-                              ),
-                              child: ListTile(
-                                leading: const CircleAvatar(radius: 24),
-                                title: const Text(
-                                  "Jahongir Maqsudov",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                subtitle: const Text("+998 91 230 00 23"),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppIcons.star.svg(),
-                                    const SizedBox(width: 4),
-                                    const Text("129")
-                                  ],
-                                ),
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8),
-                            itemCount: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const ContactsView(),
                 ],
               ),
             ),
