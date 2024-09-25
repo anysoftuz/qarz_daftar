@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/my_function.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -14,6 +18,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    context.read<UsersBloc>().add(GetOperationsEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -300,7 +310,9 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.go(AppRouteName.users);
+                                },
                                 child: Row(
                                   children: [
                                     const Text(
@@ -322,79 +334,83 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ],
-          body: ColoredBox(
-            color: context.color.whiteSmoke,
-            child: ListView.builder(
-              itemCount: 16,
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),
-              itemBuilder: (context, index) => DecoratedBox(
-                decoration: BoxDecoration(
-                  color: context.color.contColor,
-                  borderRadius: index == 0
-                      ? const BorderRadius.vertical(
-                          top: Radius.circular(8),
-                        )
-                      : index == 15
+          body: BlocBuilder<UsersBloc, UsersState>(
+            builder: (context, state) {
+              return ColoredBox(
+                color: context.color.whiteSmoke,
+                child: ListView.builder(
+                  itemCount: state.operations.length,
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),
+                  itemBuilder: (context, index) => DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: context.color.contColor,
+                      borderRadius: index == 0
                           ? const BorderRadius.vertical(
-                              bottom: Radius.circular(8),
+                              top: Radius.circular(8),
                             )
-                          : null,
-                ),
-                child: ListTile(
-                  onTap: () {
-                    context.push(AppRouteName.userdetails);
-                  },
-                  title: const Text(
-                    "Jahongir Maqsudov",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                          : index == (state.operations.length - 1)
+                              ? const BorderRadius.vertical(
+                                  bottom: Radius.circular(8),
+                                )
+                              : null,
                     ),
-                  ),
-                  subtitle: const Text(
-                    "4 days left",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: red,
-                    ),
-                  ),
-                  leading: const CircleAvatar(
-                    radius: 24,
-                    backgroundColor: backGroundColor,
-                    child: Text(
-                      "JB",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF6E7781),
-                      ),
-                    ),
-                  ),
-                  trailing: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "863 000 uzs",
-                        style: TextStyle(
+                    child: ListTile(
+                      onTap: () {
+                        context.push(AppRouteName.userdetails);
+                      },
+                      title: Text(
+                        state.operations[index].contractorFullName,
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        "Borrowed",
+                      subtitle: Text(
+                        "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: red,
+                          color: MyFunction.daysLeft(
+                                      state.operations[index].deadline) >
+                                  7
+                              ? null
+                              : red,
                         ),
                       ),
-                    ],
+                      leading: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: backGroundColor,
+                        backgroundImage: CachedNetworkImageProvider(
+                          state.operations[index].contractorAvatar,
+                        ),
+                      ),
+                      trailing: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${MyFunction.priceFormat(state.operations[index].amount)} ${state.operations[index].currency}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            state.operations[index].contractorType
+                                .toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
