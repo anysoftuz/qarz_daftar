@@ -17,6 +17,7 @@ class _SplashViewState extends State<SplashView> {
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: true,

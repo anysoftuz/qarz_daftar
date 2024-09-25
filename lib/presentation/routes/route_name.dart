@@ -13,8 +13,9 @@ abstract class AppRouteName {
   static const lending = '/lending';
   static const borrowing = '/borrowing';
   static const userdetails = "/userdetails";
+  static const contacts = "/contacts";
   static const auth = '/auth';
   static const notification = '/notification';
   static const operation = "/operation";
-   static const confirmLogin = "/confirmLogin";
+  static const confirmLogin = "/confirmLogin";
 }

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
@@ -115,6 +117,9 @@ class _OperationsViewState extends State<OperationsView> {
                 hintText: "+998",
                 prefixIcon: AppIcons.phone.svg(),
                 suffixIcon: AppIcons.contact.svg(),
+                onsuffixIconPressed: () {
+                  context.push(AppRouteName.contacts);
+                },
                 onChanged: (value) {},
               ),
               const SizedBox(height: 16),

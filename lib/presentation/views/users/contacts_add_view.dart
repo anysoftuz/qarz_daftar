@@ -7,14 +7,14 @@ import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
-class ContactsView extends StatefulWidget {
-  const ContactsView({super.key});
+class ContactsAddView extends StatefulWidget {
+  const ContactsAddView({super.key});
 
   @override
-  State<ContactsView> createState() => _ContactsViewState();
+  State<ContactsAddView> createState() => _ContactsAddViewState();
 }
 
-class _ContactsViewState extends State<ContactsView> {
+class _ContactsAddViewState extends State<ContactsAddView> {
   @override
   void initState() {
     context.read<UsersBloc>().add(GetContactsEvent());

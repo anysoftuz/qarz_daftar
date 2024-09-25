@@ -11,6 +11,7 @@ import 'package:qarz_daftar/presentation/views/home/notification_view.dart';
 import 'package:qarz_daftar/presentation/views/home/user_details_view.dart';
 import 'package:qarz_daftar/presentation/views/main_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
+import 'package:qarz_daftar/presentation/views/operations/contacts_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
@@ -53,6 +54,13 @@ sealed class AppRouts {
       GoRoute(
         path: AppRouteName.operation,
         builder: (context, state) => const OperationsView(),
+      ),
+      GoRoute(
+        path: AppRouteName.contacts,
+        builder: (context, state) => BlocProvider(
+          create: (context) => UsersBloc(),
+          child: const ContactsView(),
+        ),
       ),
       GoRoute(
         path: AppRouteName.lending,

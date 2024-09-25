@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
-import 'package:qarz_daftar/presentation/views/users/contacts_view.dart';
+import 'package:qarz_daftar/presentation/views/users/contacts_add_view.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/users_filter_view.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
@@ -260,7 +260,7 @@ class _UsersViewState extends State<UsersView> {
                       ],
                     ),
                   ),
-                  const ContactsView(),
+                  const ContactsAddView(),
                 ],
               ),
             ),
