@@ -1,33 +1,17 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:qarz_daftar/data/models/auth/user_get_model.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
 class EditProfileView extends StatefulWidget {
-  const EditProfileView({super.key});
-
+  const EditProfileView({super.key, required this.usergetModel});
+  final UserGetModel usergetModel;
   @override
   State<EditProfileView> createState() => _EditProfileViewState();
 }
 
 class _EditProfileViewState extends State<EditProfileView> {
-  File? images;
-
-  void imagesFile() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      images = File(image.path);
-      setState(() {});
-    } on PlatformException catch (e) {
-      debugPrint(e.toString());
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,137 +22,72 @@ class _EditProfileViewState extends State<EditProfileView> {
           children: [
             CircleAvatar(
               radius: 56,
-              backgroundImage: images != null ? FileImage(images!) : null,
+              backgroundImage: CachedNetworkImageProvider(
+                widget.usergetModel.avatar,
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    imagesFile();
-                  },
-                  child: const Text(
-                    "Yuklash",
-                    style: TextStyle(color: blue),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    images = null;
-                    setState(() {});
-                  },
-                  child: const Text(
-                    "O’chirish",
-                    style: TextStyle(color: red),
-                  ),
-                ),
-              ],
-            ),
+            const SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: borderColor),
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Passport serial number",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: greyText,
-                          ),
-                        ),
-                        Text(
-                          "AA 0020002",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  CupertinoListTile(
+                    title: const Text(
+                      "First Name",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: gray,
+                      ),
+                    ),
+                    subtitle: Text(
+                      widget.usergetModel.firstName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: dark,
+                      ),
                     ),
                   ),
-                  Divider(height: 1),
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Birth date",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: greyText,
-                          ),
-                        ),
-                        Text(
-                          "18.07.1999",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  const Divider(height: 1),
+                  CupertinoListTile(
+                    title: const Text(
+                      "Last Name",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: gray,
+                      ),
+                    ),
+                    subtitle: Text(
+                      widget.usergetModel.lastName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: dark,
+                      ),
                     ),
                   ),
-                  Divider(height: 1),
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "PINFL",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: greyText,
-                          ),
-                        ),
-                        Text(
-                          "31815154948494",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  const Divider(height: 1),
+                  const CupertinoListTile(
+                    title: Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: gray,
+                      ),
                     ),
-                  ),
-                  Divider(height: 1),
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Address",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: greyText,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "O’zbekiston Respublikasi, Andijon viloyati, Baliqchi tumani",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ],
+                    subtitle: Text(
+                      "Telegram",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: green,
+                      ),
                     ),
                   ),
                 ],

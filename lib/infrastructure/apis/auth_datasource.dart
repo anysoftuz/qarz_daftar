@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:qarz_daftar/data/common/error_handle.dart';
 import 'package:qarz_daftar/data/models/auth/send_code_model.dart';
 import 'package:qarz_daftar/data/models/auth/user_get_model.dart';
 import 'package:qarz_daftar/data/models/auth/user_model.dart';
 import 'package:qarz_daftar/infrastructure/core/dio_settings.dart';
 import 'package:qarz_daftar/infrastructure/core/service_locator.dart';
+import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
+import 'package:qarz_daftar/src/assets/constants/storage_keys.dart';
 
 abstract class AuthDatasourche {
   Future<UserGetModel> getMe();
@@ -17,7 +20,15 @@ class AuthDataSourcheImpl implements AuthDatasourche {
   @override
   Future<UserGetModel> getMe() {
     return _handle.apiCantrol(
-      request: () => dio.get('mobile/accounts/me'),
+      request: () => dio.get(
+        'mobile/accounts/me',
+        options: Options(
+          headers: <String, dynamic>{
+            'Authorization':
+                'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+          },
+        ),
+      ),
       body: (response) =>
           UserGetModel.fromJson(response as Map<String, dynamic>),
     );

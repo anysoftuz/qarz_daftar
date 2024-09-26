@@ -18,6 +18,16 @@ class SendCodeEvent extends AuthEvent {
 
 class GetMeEvent extends AuthEvent {}
 
+class GetMeTelegramEvent extends AuthEvent {
+  final TelegramModel userModel;
+  final VoidCallback onError;
+
+  GetMeTelegramEvent({
+    required this.userModel,
+    required this.onError,
+  });
+}
+
 class CheckUserEvent extends AuthEvent {}
 
 class LogOutEvent extends AuthEvent {}

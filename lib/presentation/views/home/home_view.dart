@@ -111,7 +111,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: '3 749 000',
+                                text: '0',
                                 style: const TextStyle(
                                   color: white,
                                   fontSize: 24,
@@ -132,7 +132,7 @@ class _HomeViewState extends State<HomeView> {
                             const SizedBox(height: 4),
                             RichText(
                               text: TextSpan(
-                                text: '3 000',
+                                text: '0',
                                 style: const TextStyle(
                                   color: white,
                                   fontSize: 24,
@@ -158,7 +158,7 @@ class _HomeViewState extends State<HomeView> {
                         backgroundColor: white.withOpacity(.1),
                         child: IconButton(
                           onPressed: () {
-                            context.push(AppRouteName.users);
+                            context.go(AppRouteName.users);
                           },
                           icon: AppIcons.arrowRight.svg(
                             color: white,
@@ -199,7 +199,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: '3 749 000',
+                                text: '0',
                                 style: const TextStyle(
                                   color: white,
                                   fontSize: 24,
@@ -220,7 +220,7 @@ class _HomeViewState extends State<HomeView> {
                             const SizedBox(height: 4),
                             RichText(
                               text: TextSpan(
-                                text: '3 000',
+                                text: '0',
                                 style: const TextStyle(
                                   color: white,
                                   fontSize: 24,

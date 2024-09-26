@@ -38,6 +38,8 @@ dependencies:
   dio: ^5.7.0
   json_annotation: ^4.9.0
   cached_network_image: ^3.4.1
+  flutter_inappwebview: ^6.1.0+1
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

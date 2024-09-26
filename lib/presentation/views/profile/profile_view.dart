@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/bar_chart.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -24,7 +26,29 @@ class _ProfileViewState extends State<ProfileView> {
         title: const Text("Profile"),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              showAdaptiveDialog(
+                context: context,
+                builder: (context) => AlertDialog.adaptive(
+                  title: const Text("Haqiqattan chiqmoqchimisiz"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Yoq'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(LogOutEvent());
+                      },
+                      child: const Text(
+                        'Ha',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
             child: Row(
               children: [
                 AppIcons.logout.svg(color: red),
@@ -53,7 +77,12 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   child: Row(
                     children: [
-                      const CircleAvatar(radius: 28),
+                      CircleAvatar(
+                        radius: 28,
+                        backgroundImage: CachedNetworkImageProvider(
+                          state.usergetModel.avatar,
+                        ),
+                      ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -84,7 +113,11 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       IconButton(
                         onPressed: () {
-                          context.push(AppRouteName.profileInfo);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EditProfileView(
+                              usergetModel: state.usergetModel,
+                            ),
+                          ));
                         },
                         icon: AppIcons.edit.svg(color: context.color.white),
                       ),
@@ -114,7 +147,7 @@ class _ProfileViewState extends State<ProfileView> {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: '3 749 000',
+                          text: '0',
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,
@@ -135,7 +168,7 @@ class _ProfileViewState extends State<ProfileView> {
                       const SizedBox(height: 4),
                       RichText(
                         text: TextSpan(
-                          text: '3 000',
+                          text: '0',
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,
@@ -179,7 +212,7 @@ class _ProfileViewState extends State<ProfileView> {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: '3 749 000',
+                          text: '0',
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,
@@ -200,7 +233,7 @@ class _ProfileViewState extends State<ProfileView> {
                       const SizedBox(height: 4),
                       RichText(
                         text: TextSpan(
-                          text: '3 000',
+                          text: '0',
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,

@@ -17,14 +17,14 @@ class DioSettings {
     validateStatus: (status) => status != null && status <= 500,
   );
 
-  void setBaseOptions({String? lang}) {
+  void setBaseOptions({String? lang, String? token}) {
     _dioBaseOptions = BaseOptions(
       baseUrl: "https://backend.qarzdaftar.com/v1/",
       connectTimeout: const Duration(milliseconds: 35000),
       receiveTimeout: const Duration(milliseconds: 35000),
       headers: <String, dynamic>{
         'Authorization':
-            'Bearer ${StorageRepository.getString(StorageKeys.TOKEN)}',
+            'Bearer ${token ?? StorageRepository.getString(StorageKeys.TOKEN)}',
       },
       followRedirects: false,
       validateStatus: (status) => status != null && status <= 500,

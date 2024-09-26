@@ -14,7 +14,7 @@ import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/contacts_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
-import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
+// import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/lenguage_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/notification_settings_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/profile_view.dart';
@@ -108,10 +108,10 @@ sealed class AppRouts {
             path: AppRouteName.profile,
             builder: (context, state) => const ProfileView(),
           ),
-          GoRoute(
-            path: AppRouteName.profileInfo,
-            builder: (context, state) => const EditProfileView(),
-          ),
+          // GoRoute(
+          //   path: AppRouteName.profileInfo,
+          //   builder: (context, state) => const EditProfileView(),
+          // ),
           GoRoute(
             path: AppRouteName.settings,
             builder: (context, state) => const SettingsView(),

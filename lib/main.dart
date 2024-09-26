@@ -15,10 +15,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await StorageRepository.getInstance();
-  await StorageRepository.putString(
-    StorageKeys.TOKEN,
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlzc3VlciI6ImZyb250LWFwcC11cmwiLCJ1c2VyIjp7ImlkIjoxLCJmdWxsX25hbWUiOiJCZXNobWF0RXNobWF0b3YiLCJyb2xlIjoic3VwZXJfYWRtaW4iLCJmaXJzdF9uYW1lIjoiQmVzaG1hdCIsImxhc3RfbmFtZSI6IkVzaG1hdG92IiwicGhvbmUiOiI5OTg5OTk5OTk5OTkiLCJhdmF0YXIiOiJodHRwczovL3BpY3N1bS5waG90b3MvNTAwLzMwMCJ9LCJpYXQiOjE3MjcyNTM0NjcsImV4cCI6MTcyNzI4OTQ2N30.ic3JCSBc6U0qjwBITJSmBpnRamd8T1i3cTVXAgp23YI",
-  );
   setupLocator();
   if (kDebugMode) {
     Bloc.observer = LogBlocObserver();

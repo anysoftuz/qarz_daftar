@@ -6,8 +6,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/data/models/auth/send_code_model.dart';
+import 'package:qarz_daftar/data/models/auth/telegram_model.dart';
 import 'package:qarz_daftar/data/models/auth/user_get_model.dart';
 import 'package:qarz_daftar/data/models/auth/user_model.dart';
+import 'package:qarz_daftar/infrastructure/core/dio_settings.dart';
+import 'package:qarz_daftar/infrastructure/core/service_locator.dart';
 import 'package:qarz_daftar/infrastructure/repo/auth_repo.dart';
 import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
 import 'package:qarz_daftar/src/assets/constants/storage_keys.dart';
@@ -60,6 +63,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
       }
+    });
+
+    on<GetMeTelegramEvent>((event, emit) async {
+      await StorageRepository.putString(
+        StorageKeys.TOKEN,
+        event.userModel.user.accessToken,
+      )?.then(
+        (value) {
+          serviceLocator<DioSettings>().setBaseOptions(
+            token: event.userModel.user.accessToken,
+          );
+
+          emit(state.copyWith(
+            statusCode: FormzSubmissionStatus.success,
+            userModel: UserModel(
+              accessToken: event.userModel.user.accessToken,
+              user: User(
+                id: event.userModel.user.user.id,
+                fullName: event.userModel.user.user.fullName,
+                role: event.userModel.user.user.role,
+                firstName: event.userModel.user.user.firstName,
+                lastName: event.userModel.user.user.lastName,
+                phone: event.userModel.user.user.phone,
+                avatar: event.userModel.user.user.avatar,
+              ),
+            ),
+          ));
+          add(GetMeEvent());
+        },
+      );
     });
 
     on<SendCodeEvent>((event, emit) async {
