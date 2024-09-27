@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/auth/auth_telegram_view.dart';
 import 'package:qarz_daftar/presentation/views/auth/confirmation_login_view.dart';
@@ -10,9 +11,7 @@ import 'package:qarz_daftar/presentation/views/home/home_view.dart';
 import 'package:qarz_daftar/presentation/views/home/notification_view.dart';
 import 'package:qarz_daftar/presentation/views/home/user_details_view.dart';
 import 'package:qarz_daftar/presentation/views/main_view.dart';
-import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/contacts_view.dart';
-import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 // import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/lenguage_view.dart';
@@ -48,10 +47,6 @@ sealed class AppRouts {
         builder: (context, state) => const ConfirmationLoginView(),
       ),
       GoRoute(
-        path: AppRouteName.notification,
-        builder: (context, state) => const NotificationView(),
-      ),
-      GoRoute(
         path: AppRouteName.operation,
         builder: (context, state) => const OperationsView(),
       ),
@@ -62,17 +57,18 @@ sealed class AppRouts {
           child: const ContactsView(),
         ),
       ),
-      GoRoute(
-        path: AppRouteName.lending,
-        builder: (context, state) => const LendingView(images: []),
-      ),
-      GoRoute(
-        path: AppRouteName.borrowing,
-        builder: (context, state) => const BorrowingView(images: []),
-      ),
+      // GoRoute(
+      //   path: AppRouteName.lending,
+      //   builder: (context, state) => const LendingView(images: []),
+      // ),
+      // GoRoute(
+      //   path: AppRouteName.borrowing,
+      //   builder: (context, state) => const BorrowingView(images: []),
+      // ),
       GoRoute(
         path: AppRouteName.userdetails,
-        builder: (context, state) => const UserDetailsView(),
+        builder: (context, state) =>
+            UserDetailsView(model: (state.extra as OperationModel)),
       ),
       mainView,
     ],
@@ -91,6 +87,10 @@ sealed class AppRouts {
           GoRoute(
             path: AppRouteName.home,
             builder: (context, state) => const HomeView(),
+          ),
+          GoRoute(
+            path: AppRouteName.notification,
+            builder: (context, state) => const NotificationView(),
           ),
         ],
       ),

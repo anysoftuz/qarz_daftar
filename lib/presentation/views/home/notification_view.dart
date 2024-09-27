@@ -1,4 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -15,86 +19,89 @@ class _NotificationViewState extends State<NotificationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Notifications")),
-      body: ListView.separated(
-        itemCount: 4,
-        padding: const EdgeInsets.all(16).copyWith(bottom: 108),
-        separatorBuilder: (context, index) => const Divider(height: 32),
-        itemBuilder: (context, index) => Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const CircleAvatar(radius: 24),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Ibragimov Jaloliddin",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+      body: BlocBuilder<UsersBloc, UsersState>(
+        builder: (context, state) {
+          if (state.notificationStatus.isInProgress) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+          return ListView.separated(
+            itemCount: state.notification.length,
+            padding: const EdgeInsets.all(16).copyWith(bottom: 108),
+            separatorBuilder: (context, index) => const Divider(height: 32),
+            itemBuilder: (context, index) => Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 24,
+                  backgroundImage: CachedNetworkImageProvider(
+                    state.notification[index].avatar,
                   ),
-                  const SizedBox(height: 4),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Sizga',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: context.color.white,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text: ' 2 430 000 uzs ',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: mainBlue,
-                          ),
-                        ),
-                        TextSpan(
-                          text: "ni qaytarib berdi.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: context.color.white,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: WButton(
-                          height: 36,
-                          onTap: () {},
-                          border: Border.all(
-                              color: context.color.white.withOpacity(.2)),
-                          textColor: context.color.white,
-                          color: Colors.transparent,
-                          text: "Refuse",
+                      Text(
+                        state.notification[index].senderFullName,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: WButton(
-                          height: 36,
-                          onTap: () {},
-                          text: "Confirm",
+                      const SizedBox(height: 4),
+                      Text(
+                        state.notification[index].description,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: context.color.white,
                         ),
-                      )
+                      ),
+                      const SizedBox(height: 8),
+                      if (state.notification[index].confirmStatus == "active")
+                        Row(
+                          children: [
+                            Expanded(
+                              child: WButton(
+                                height: 36,
+                                onTap: () {},
+                                border: Border.all(
+                                    color: context.color.white.withOpacity(.2)),
+                                textColor: context.color.white,
+                                color: Colors.transparent,
+                                text: "Refuse",
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: WButton(
+                                height: 36,
+                                onTap: () {},
+                                text: "Confirm",
+                              ),
+                            )
+                          ],
+                        )
+                      else
+                        WButton(
+                          onTap: () {},
+                          height: 36,
+                          disabledColor: grey,
+                          isDisabled: true,
+                          text: "Confirmed",
+                        )
                     ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }

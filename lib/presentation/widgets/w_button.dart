@@ -16,7 +16,7 @@ class WButton extends StatelessWidget {
   final BoxBorder? border;
   final double borderRadius;
   final Widget? child;
-  final Color disabledColor;
+  final Color? disabledColor;
   final bool isDisabled;
   final bool isLoading;
   final double? scaleValue;
@@ -30,7 +30,7 @@ class WButton extends StatelessWidget {
     this.color,
     this.textColor = white,
     this.borderRadius = 8,
-    this.disabledColor = grey,
+    this.disabledColor,
     this.isDisabled = false,
     this.isLoading = false,
     this.width,
@@ -63,7 +63,9 @@ class WButton extends StatelessWidget {
         padding: padding ?? EdgeInsets.zero,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isDisabled ? mainBlue.withOpacity(.3) : color ?? mainBlue,
+          color: isDisabled
+              ? disabledColor ?? mainBlue.withOpacity(.3)
+              : color ?? mainBlue,
           borderRadius: BorderRadius.circular(borderRadius),
           border: border,
           gradient: isDisabled ? null : gradient,

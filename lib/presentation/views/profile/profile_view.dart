@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/bar_chart.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/my_function.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -62,67 +64,71 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         ],
       ),
-      body: BlocBuilder<AuthBloc, AuthState>(
+      body: BlocBuilder<UsersBloc, UsersState>(
         builder: (context, state) {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16).copyWith(bottom: 120),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12).copyWith(right: 0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: context.color.contColor,
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 28,
-                        backgroundImage: CachedNetworkImageProvider(
-                          state.usergetModel.avatar,
-                        ),
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return Container(
+                      padding: const EdgeInsets.all(12).copyWith(right: 0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: context.color.contColor,
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${state.usergetModel.firstName} ${state.usergetModel.lastName}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 28,
+                            backgroundImage: CachedNetworkImageProvider(
+                              state.usergetModel.avatar,
                             ),
-                            Row(
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppIcons.star.svg(),
-                                const SizedBox(width: 4),
                                 Text(
-                                  state.usergetModel.score.toString(),
+                                  "${state.usergetModel.firstName} ${state.usergetModel.lastName}",
                                   style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
                                   ),
+                                ),
+                                Row(
+                                  children: [
+                                    AppIcons.star.svg(),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      state.usergetModel.score.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EditProfileView(
-                              usergetModel: state.usergetModel,
                             ),
-                          ));
-                        },
-                        icon: AppIcons.edit.svg(color: context.color.white),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EditProfileView(
+                                  usergetModel: state.usergetModel,
+                                ),
+                              ));
+                            },
+                            icon: AppIcons.edit.svg(color: context.color.white),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 16, bottom: 8),
@@ -144,19 +150,23 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
+                    children: List.generate(
+                      state.takenAmount.length,
+                      (index) => RichText(
                         text: TextSpan(
-                          text: '0',
+                          text: MyFunction.priceFormat(
+                              int.tryParse(state.takenAmount[index].amount) ??
+                                  0),
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
                           ),
-                          children: const [
+                          children: [
                             TextSpan(
-                              text: ' UZS',
-                              style: TextStyle(
+                              text:
+                                  ' ${state.takenAmount[index].currency.toUpperCase()}',
+                              style: const TextStyle(
                                 color: gray,
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
@@ -165,28 +175,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      RichText(
-                        text: TextSpan(
-                          text: '0',
-                          style: TextStyle(
-                            color: context.color.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: const [
-                            TextSpan(
-                              text: ' UZS',
-                              style: TextStyle(
-                                color: gray,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 const Padding(
@@ -209,19 +198,23 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
+                    children: List.generate(
+                      state.givenAmount.length,
+                      (index) => RichText(
                         text: TextSpan(
-                          text: '0',
+                          text: MyFunction.priceFormat(
+                              int.tryParse(state.givenAmount[index].amount) ??
+                                  0),
                           style: TextStyle(
                             color: context.color.white,
                             fontSize: 24,
                             fontWeight: FontWeight.w700,
                           ),
-                          children: const [
+                          children: [
                             TextSpan(
-                              text: ' UZS',
-                              style: TextStyle(
+                              text:
+                                  ' ${state.givenAmount[index].currency.toUpperCase()}',
+                              style: const TextStyle(
                                 color: gray,
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
@@ -230,28 +223,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      RichText(
-                        text: TextSpan(
-                          text: '0',
-                          style: TextStyle(
-                            color: context.color.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: const [
-                            TextSpan(
-                              text: ' UZS',
-                              style: TextStyle(
-                                color: gray,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),

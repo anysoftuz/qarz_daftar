@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
-import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/users/active_view.dart';
+import 'package:qarz_daftar/presentation/views/users/blacklist_view.dart';
 import 'package:qarz_daftar/presentation/views/users/contacts_add_view.dart';
-import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
+import 'package:qarz_daftar/presentation/views/users/history_view.dart';
 import 'package:qarz_daftar/presentation/views/users/users_filter_view.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
-import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
@@ -18,6 +19,13 @@ class UsersView extends StatefulWidget {
 }
 
 class _UsersViewState extends State<UsersView> {
+  @override
+  void initState() {
+    context.read<UsersBloc>().add(GetBannedEvent());
+    context.read<UsersBloc>().add(GetContactsEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,207 +68,13 @@ class _UsersViewState extends State<UsersView> {
                 onTabTap: (int value) {},
               ),
             ),
-            Expanded(
+            const Expanded(
               child: TabBarView(
                 children: [
-                  ListView.builder(
-                    itemCount: 5,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.color.borderColor,
-                        borderRadius: index == 0
-                            ? const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                              )
-                            : index == 4
-                                ? const BorderRadius.vertical(
-                                    bottom: Radius.circular(8),
-                                  )
-                                : null,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          context.push(AppRouteName.userdetails);
-                        },
-                        title: const Text(
-                          "Jahongir Maqsudov",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: const Text(
-                          "4 days left",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: red,
-                          ),
-                        ),
-                        leading: const CircleAvatar(
-                          radius: 24,
-                          backgroundColor: backGroundColor,
-                          child: Text(
-                            "JB",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF6E7781),
-                            ),
-                          ),
-                        ),
-                        trailing: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "863 000 uzs",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              "Borrowed",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  ListView.builder(
-                    itemCount: 16,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.color.borderColor,
-                        borderRadius: index == 0
-                            ? const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                              )
-                            : index == 4
-                                ? const BorderRadius.vertical(
-                                    bottom: Radius.circular(8),
-                                  )
-                                : null,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const UserProfileView(),
-                          ));
-                        },
-                        title: const Text(
-                          "Jahongir Maqsudov",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: const Text(
-                          "01.02.2023",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        leading: const CircleAvatar(
-                          radius: 24,
-                          backgroundColor: backGroundColor,
-                          child: Text(
-                            "JB",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF6E7781),
-                            ),
-                          ),
-                        ),
-                        trailing: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "863 000 uzs",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              "Borrowed",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16).copyWith(top: 0),
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          hintText: "Search",
-                          fillColor: context.color.borderColor,
-                          prefixIcon: AppIcons.search.svg(),
-                          onChanged: (String value) {},
-                        ),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: ListView.separated(
-                            padding: const EdgeInsets.only(bottom: 100),
-                            itemBuilder: (context, index) => DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: context.color.borderColor,
-                              ),
-                              child: ListTile(
-                                leading: const CircleAvatar(radius: 24),
-                                title: const Text(
-                                  "Jahongir Maqsudov",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                subtitle: const Text(
-                                  "Banned",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: red,
-                                  ),
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppIcons.star.svg(),
-                                    const SizedBox(width: 4),
-                                    const Text("0")
-                                  ],
-                                ),
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8),
-                            itemCount: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const ContactsAddView(),
+                  ActiveView(),
+                  HistoryView(),
+                  BlacklistView(),
+                  ContactsAddView(),
                 ],
               ),
             ),

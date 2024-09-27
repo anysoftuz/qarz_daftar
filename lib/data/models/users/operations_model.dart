@@ -32,6 +32,14 @@ class OperationModel {
   final String contractorAvatar;
   @JsonKey(name: "contractor_type")
   final String contractorType;
+  @JsonKey(name: "created_at")
+  final String createdAt;
+  @JsonKey(name: "medias_ids")
+  final dynamic mediasIds;
+  @JsonKey(name: "contractor_score")
+  final int contractorScore;
+  @JsonKey(name: "contractor_phone")
+  final String contractorPhone;
 
   OperationModel({
     this.id = 0,
@@ -43,6 +51,10 @@ class OperationModel {
     this.contractorFullName = "",
     this.contractorAvatar = "",
     this.contractorType = "",
+    this.createdAt = "",
+    this.mediasIds,
+    this.contractorScore = 0,
+    this.contractorPhone = "",
   });
 
   factory OperationModel.fromJson(Map<String, dynamic> json) =>

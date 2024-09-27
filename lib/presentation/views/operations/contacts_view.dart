@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -28,7 +30,12 @@ class _ContactsViewState extends State<ContactsView> {
         title: const Text("Contacts"),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              final block = context.read<UsersBloc>();
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AddContactView(bloc: block),
+              ));
+            },
             child: const Row(
               children: [
                 Icon(
@@ -65,35 +72,41 @@ class _ContactsViewState extends State<ContactsView> {
                 Expanded(
                   child: ListView.separated(
                     padding: const EdgeInsets.only(bottom: 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: context.color.borderColor,
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 24,
-                          backgroundImage: CachedNetworkImageProvider(
-                            state.contactsModel.data[index].avatar,
-                          ),
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        context.pop(state.contactsModel.data[index]);
+                      },
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: context.color.borderColor,
                         ),
-                        title: Text(
-                          state.contactsModel.data[index].fullName,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 24,
+                            backgroundImage: CachedNetworkImageProvider(
+                              state.contactsModel.data[index].avatar,
+                            ),
                           ),
-                        ),
-                        subtitle: Text(state.contactsModel.data[index].phone),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppIcons.star.svg(),
-                            const SizedBox(width: 4),
-                            Text(
-                              state.contactsModel.data[index].score.toString(),
-                            )
-                          ],
+                          title: Text(
+                            state.contactsModel.data[index].fullName,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(state.contactsModel.data[index].phone),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AppIcons.star.svg(),
+                              const SizedBox(width: 4),
+                              Text(
+                                state.contactsModel.data[index].score
+                                    .toString(),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

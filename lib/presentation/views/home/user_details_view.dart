@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_deadline_dialog.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_partial_pay_dialog.dart';
@@ -10,9 +13,12 @@ import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/caller.dart';
+import 'package:qarz_daftar/utils/extensions.dart';
+import 'package:qarz_daftar/utils/my_function.dart';
 
 class UserDetailsView extends StatefulWidget {
-  const UserDetailsView({super.key});
+  const UserDetailsView({super.key, required this.model});
+  final OperationModel model;
 
   @override
   State<UserDetailsView> createState() => _UserDetailsViewState();
@@ -35,7 +41,16 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               child: WButton(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const BorrowingView(images: []),
+                    builder: (context) => BorrowingView(
+                      images: const[],
+                      user: const Datum(),
+                      isLending: true,
+                      deadline: DateTime.now().toString(),
+                      description: "",
+                      amount: 0,
+                      isBanned: false,
+                      currency: "uzs",
+                    ),
                   ));
                 },
                 height: 48,
@@ -58,7 +73,16 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               child: WButton(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const LendingView(images: []),
+                    builder: (context) => LendingView(
+                      images: const [],
+                      user: const Datum(),
+                      isLending: true,
+                      deadline: DateTime.now().toString(),
+                      description: "",
+                      amount: 0,
+                      isBanned: false,
+                      currency: "uzs",
+                    ),
                   ));
                 },
                 height: 48,
@@ -90,15 +114,19 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             ),
             child: Row(
               children: [
-                const CircleAvatar(radius: 28),
+                CircleAvatar(
+                  radius: 28,
+                  backgroundImage:
+                      CachedNetworkImageProvider(widget.model.contractorAvatar),
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Jahongir Maqsudov",
-                        style: TextStyle(
+                      Text(
+                        widget.model.contractorFullName,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -107,9 +135,9 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                         children: [
                           AppIcons.star.svg(),
                           const SizedBox(width: 4),
-                          const Text(
-                            "1380",
-                            style: TextStyle(
+                          Text(
+                            widget.model.contractorScore.toString(),
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
@@ -122,17 +150,18 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 WButton(
                   height: 44,
                   width: 44,
-                  onTap: () => Caller.makePhoneCall("+998990999192"),
+                  onTap: () =>
+                      Caller.makePhoneCall(widget.model.contractorPhone),
                   child: AppIcons.phone.svg(color: white),
                 ),
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              "Active",
-              style: TextStyle(
+              widget.model.status.toCapitalized(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -148,24 +177,26 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const InfoTileItam(
+                InfoTileItam(
                   title: 'Lent',
-                  subtitle: '1 034 000 UZS',
+                  subtitle:
+                      '${MyFunction.priceFormat(widget.model.amount)} ${widget.model.currency}',
                   icon: AppIcons.banknote,
                   color: mainBlue,
                 ),
                 const SizedBox(height: 12),
-                const InfoTileItam(
+                InfoTileItam(
                   title: 'Given at',
-                  subtitle: '18.07.2024 16:43',
+                  subtitle: MyFunction.dateFormat(widget.model.createdAt),
                   icon: AppIcons.calendar,
                 ),
                 const SizedBox(height: 12),
-                const InfoTileItam(
+                InfoTileItam(
                   title: 'Deadline',
-                  subtitle: '18.08.2024',
+                  subtitle: MyFunction.dateFormat(widget.model.deadline),
                   icon: AppIcons.secundomer,
-                  treling: '3 days left',
+                  treling:
+                      '${MyFunction.daysLeft(widget.model.deadline)} days left',
                 ),
                 const SizedBox(height: 12),
                 Row(

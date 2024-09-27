@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
+import 'package:qarz_daftar/utils/log_service.dart';
+
 class MyFunction {
   static String priceFormat(num data) {
     int price = data.toInt();
@@ -20,7 +24,51 @@ class MyFunction {
     }
   }
 
+  static String dateFormat(String date) {
+    try {
+      if (date.length == 10) {
+        DateFormat dateFormat = DateFormat("dd.MM.yyyy");
+        DateTime dateTime = dateFormat.parse(date);
+        return DateFormat('dd.MM.yyyy HH:mm').format(dateTime);
+      }
+
+      DateTime dateTime = DateTime.parse(date).toLocal();
+
+      String formattedDateTime =
+          DateFormat('dd.MM.yyyy HH:mm').format(dateTime);
+
+      return formattedDateTime;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  static String dateFormatLed(String date) {
+    DateFormat dateFormat = DateFormat("dd.MM.yyyy");
+    DateTime dateTime = dateFormat.parse(date);
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  static String dateFormatDate(String date) {
+    DateTime dateTime = DateTime.parse(date).toLocal();
+
+    String formattedDateTime = DateFormat('dd.MM.yyyy').format(dateTime);
+
+    return formattedDateTime;
+  }
+
   static int daysLeft(String date) {
+    if (date.length == 10) {
+      // Current date
+      DateTime now = DateTime.now();
+      // Target date: 2024-11-10T19:00:00.000Z
+      DateFormat dateFormat = DateFormat("dd.MM.yyyy");
+      DateTime dateTime = dateFormat.parse(date);
+      // Calculate the difference in days
+      Duration difference = dateTime.difference(now);
+      int daysLeft = difference.inDays;
+      return daysLeft;
+    }
     // Current date
     DateTime now = DateTime.now();
     // Target date: 2024-11-10T19:00:00.000Z
@@ -29,5 +77,14 @@ class MyFunction {
     Duration difference = targetDate.difference(now);
     int daysLeft = difference.inDays;
     return daysLeft;
+  }
+
+  static String allPrice(List<GivenAmountModel> takenAmount) {
+    int peice = 0;
+    for (var element in takenAmount) {
+      peice = peice + (int.tryParse(element.amount) ?? 0);
+    }
+    Log.e(peice);
+    return priceFormat(peice);
   }
 }

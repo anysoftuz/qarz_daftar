@@ -18,7 +18,7 @@ class Formatters {
   );
 
   static final dateFormatter = MaskTextInputFormatter(
-    mask: "##/##/####",
+    mask: "##.##.####",
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy,
   );

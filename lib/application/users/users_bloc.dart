@@ -1,6 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
+import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
+import 'package:qarz_daftar/data/models/home/notification_model.dart';
+import 'package:qarz_daftar/data/models/home/popular_model.dart';
+import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
+import 'package:qarz_daftar/data/models/users/banned_model.dart';
+import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
@@ -13,6 +21,110 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final UsersRepo _repo = UsersRepo(dataSourcheImpl: UsersDatasourceImpl());
 
   UsersBloc() : super(const UsersState()) {
+    on<PostContactEvent>((event, emit) async {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postContact(ContactAddModel(
+        phone: event.phone,
+        fullName: event.name,
+      ));
+      if (response.isRight) {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+        event.onSucces();
+        add(GetContactsEvent());
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PosOperationsEvent>((event, emit) async {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postOperation(event.model);
+      if (response.isRight) {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+        event.onSucces();
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    });
+    on<GetNotificationEvent>((event, emit) async {
+      emit(
+          state.copyWith(notificationStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getNotification();
+      if (response.isRight) {
+        emit(state.copyWith(
+          notificationStatus: FormzSubmissionStatus.success,
+          notification: response.right.data,
+        ));
+      } else {
+        emit(state.copyWith(notificationStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetGivenAmountEvent>((event, emit) async {
+      emit(state.copyWith(givenStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getGivenAmount();
+      if (response.isRight) {
+        emit(state.copyWith(
+          givenStatus: FormzSubmissionStatus.success,
+          givenAmount: response.right,
+        ));
+      } else {
+        emit(state.copyWith(givenStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetBannedEvent>((event, emit) async {
+      emit(state.copyWith(bannedStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getBannedUsers();
+      if (response.isRight) {
+        emit(state.copyWith(
+          bannedStatus: FormzSubmissionStatus.success,
+          banneds: response.right,
+        ));
+      } else {
+        emit(state.copyWith(bannedStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetPopularEvent>((event, emit) async {
+      emit(state.copyWith(popularStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getpopular();
+      if (response.isRight) {
+        emit(state.copyWith(
+          popularStatus: FormzSubmissionStatus.success,
+          popular: response.right.data,
+        ));
+      } else {
+        emit(state.copyWith(popularStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetTakenAmountEvent>((event, emit) async {
+      emit(state.copyWith(takenStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getTakenAmount();
+      if (response.isRight) {
+        emit(state.copyWith(
+          takenStatus: FormzSubmissionStatus.success,
+          takenAmount: response.right,
+        ));
+      } else {
+        emit(state.copyWith(takenStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<GetGraphicStatisticsEvent>((event, emit) async {
+      emit(state.copyWith(graphicStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getGraphicStatistics();
+      if (response.isRight) {
+        emit(state.copyWith(
+          graphicStatus: FormzSubmissionStatus.success,
+          graphicStatistics: response.right,
+        ));
+      } else {
+        emit(state.copyWith(graphicStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<GetOperationsEvent>((event, emit) async {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       final response = await _repo.getOperations();
