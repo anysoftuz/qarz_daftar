@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
@@ -32,9 +34,18 @@ class HistoryView extends StatelessWidget {
             ),
             child: ListTile(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const UserProfileView(),
-                ));
+                if (state.operations[index].contractorType == "borrowing") {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UserProfileView(
+                      model: state.operations[index],
+                    ),
+                  ));
+                } else {
+                  context.push(
+                    AppRouteName.userdetails,
+                    extra: state.operations[index],
+                  );
+                }
               },
               title: Text(
                 state.operations[index].contractorFullName,

@@ -10,6 +10,7 @@ import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/dio_settings.dart';
 import 'package:qarz_daftar/infrastructure/core/service_locator.dart';
 
@@ -28,7 +29,10 @@ abstract class UsersDatasource {
   Future<bool> postOperation(PostOperationModel model);
   Future<bool> postConfirm(int id);
   Future<bool> postRefusal(int id);
+  Future<bool> postTransactions(int id, TransactionModel model);
   Future<bool> postDeadline(int id, DeadlineModel model);
+  Future<bool> patchTransactionConfirm(int id);
+  Future<bool> patchTransactionRefus(int id);
 }
 
 class UsersDatasourceImpl implements UsersDatasource {
@@ -184,6 +188,37 @@ class UsersDatasourceImpl implements UsersDatasource {
         response,
         (p0) => OperationModel.fromJson(p0 as Map<String, dynamic>),
       ),
+    );
+  }
+
+  @override
+  Future<bool> postTransactions(int id, TransactionModel model) async {
+    return await _handle.apiCantrol(
+      request: () => dio.post(
+        'mobile/operations/$id/transactions',
+        data: model.toJson(),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<bool> patchTransactionConfirm(int id) async {
+    return await _handle.apiCantrol(
+      request: () => dio.patch(
+        'mobile/operations/transactions/$id/confirm',
+      ),
+      body: (response) => true,
+    );
+  }
+  
+  @override
+  Future<bool> patchTransactionRefus(int id) async {
+    return await _handle.apiCantrol(
+      request: () => dio.patch(
+        'mobile/operations/transactions/$id/refusal',
+      ),
+      body: (response) => true,
     );
   }
 }

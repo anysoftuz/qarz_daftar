@@ -11,6 +11,7 @@ import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
 import 'package:qarz_daftar/infrastructure/core/exceptions/exceptions.dart';
 import 'package:qarz_daftar/infrastructure/core/exceptions/failures.dart';
@@ -268,6 +269,60 @@ class UsersRepo implements IUsersRepo {
   ) async {
     try {
       final result = await dataSourcheImpl.getOperationTr(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> postTransactions(
+    int id,
+    TransactionModel model,
+  ) async {
+    try {
+      final result = await dataSourcheImpl.postTransactions(id, model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> patchTransactionConfirm(int id) async {
+    try {
+      final result = await dataSourcheImpl.patchTransactionConfirm(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> patchTransactionRefus(int id) async {
+    try {
+      final result = await dataSourcheImpl.patchTransactionRefus(id);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

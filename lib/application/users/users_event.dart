@@ -40,6 +40,18 @@ class PostConfirmEvent extends UsersEvent {
   PostConfirmEvent({required this.id});
 }
 
+class PostTransactionsEvent extends UsersEvent {
+  final int id;
+  final TransactionModel model;
+  final VoidCallback onSucces;
+
+  PostTransactionsEvent({
+    required this.id,
+    required this.model,
+    required this.onSucces,
+  });
+}
+
 class PostRefusalEvent extends UsersEvent {
   final int id;
 
@@ -65,4 +77,16 @@ class PostContactEvent extends UsersEvent {
     required this.name,
     required this.onSucces,
   });
+}
+
+class PatchTransactionConfirmEvent extends UsersEvent {
+  final int id;
+
+  PatchTransactionConfirmEvent({required this.id});
+}
+
+class PatchTransactionRefEvent extends UsersEvent {
+  final int id;
+
+  PatchTransactionRefEvent({required this.id});
 }

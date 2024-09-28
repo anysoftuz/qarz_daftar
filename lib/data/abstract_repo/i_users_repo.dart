@@ -9,6 +9,7 @@ import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/exceptions/failures.dart';
 import 'package:qarz_daftar/utils/either.dart';
 
@@ -32,5 +33,13 @@ abstract class IUsersRepo {
 
   Future<Either<Failure, bool>> postConfirm(int id);
   Future<Either<Failure, bool>> postRefusal(int id);
+
+  Future<Either<Failure, bool>> postTransactions(
+    int id,
+    TransactionModel model,
+  );
   Future<Either<Failure, bool>> postDeadline(int id, DeadlineModel model);
+
+  Future<Either<Failure, bool>> patchTransactionConfirm(int id);
+  Future<Either<Failure, bool>> patchTransactionRefus(int id);
 }

@@ -12,8 +12,11 @@ import 'package:qarz_daftar/utils/formatters.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
 
 class EditDeadlineDialog extends StatefulWidget {
-  const EditDeadlineDialog(
-      {super.key, required this.bloc, required this.model});
+  const EditDeadlineDialog({
+    super.key,
+    required this.bloc,
+    required this.model,
+  });
   final UsersBloc bloc;
   final OperationModel model;
 

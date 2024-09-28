@@ -35,6 +35,26 @@ class _OperationsViewState extends State<OperationsView> {
   Datum? user;
   List<File> images = [];
   List<int> indexs = [];
+  DateTime dateTime = DateTime.now();
+
+  List<Map<String, dynamic>> dateList = [
+    {
+      "day": 7,
+      "name": "1 hafta",
+    },
+    {
+      "day": 10,
+      "name": "10 Kun",
+    },
+    {
+      "day": 14,
+      "name": "2 hafta",
+    },
+    {
+      "day": 30,
+      "name": "1 oy",
+    }
+  ];
 
   void imagesFile() async {
     try {
@@ -229,6 +249,7 @@ class _OperationsViewState extends State<OperationsView> {
                   ).then(
                     (value) {
                       if (value != null) {
+                        dateTime = value;
                         controllerDate.text =
                             MyFunction.dateFormatDate(value.toString());
                       }
@@ -243,6 +264,7 @@ class _OperationsViewState extends State<OperationsView> {
                   ).then(
                     (value) {
                       if (value != null) {
+                        dateTime = value;
                         controllerDate.text =
                             MyFunction.dateFormatDate(value.toString());
                       }
@@ -257,6 +279,44 @@ class _OperationsViewState extends State<OperationsView> {
               //   suffixIcon: AppIcons.arrowDown.svg(),
               //   onChanged: (value) {},
               // ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<Map<String, dynamic>>(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.color.borderColor,
+                      width: 1,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.color.borderColor,
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: context.color.borderColor,
+                    ),
+                  ),
+                  hintText: "1 week / 1 month",
+                ),
+                items: dateList.map((Map<String, dynamic> value) {
+                  return DropdownMenuItem<Map<String, dynamic>>(
+                    value: value,
+                    child: Text(value['name']),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  DateTime futureTime =
+                      DateTime.now().add(Duration(days: value?["day"] ?? 0));
+                  controllerDate.text =
+                      MyFunction.dateFormatDate(futureTime.toString());
+                },
+              ),
               const SizedBox(height: 16),
               Row(
                 children: [

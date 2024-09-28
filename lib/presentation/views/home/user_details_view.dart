@@ -247,11 +247,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                     Expanded(
                       child: WButton(
                         onTap: () {
+                          final bloc = context.read<UsersBloc>();
                           showDialog(
                             context: context,
-                            builder: (context) => const Dialog(
-                              insetPadding: EdgeInsets.all(16),
-                              child: EditPartialPayDialog(),
+                            builder: (context) => Dialog(
+                              insetPadding: const EdgeInsets.all(16),
+                              child: EditPartialPayDialog(
+                                bloc: bloc,
+                                model: widget.model,
+                              ),
                             ),
                           );
                         },
@@ -275,11 +279,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 const SizedBox(height: 12),
                 WButton(
                   onTap: () {
+                    final bloc = context.read<UsersBloc>();
                     showDialog(
                       context: context,
-                      builder: (context) => const Dialog(
-                        insetPadding: EdgeInsets.all(16),
-                        child: EditPayAllDialog(),
+                      builder: (context) => Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        child: EditPayAllDialog(
+                          bloc: bloc,
+                          model: widget.model,
+                        ),
                       ),
                     );
                   },

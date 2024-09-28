@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
@@ -8,7 +10,8 @@ import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/caller.dart';
 
 class UserProfileView extends StatefulWidget {
-  const UserProfileView({super.key});
+  const UserProfileView({super.key, required this.model});
+  final OperationModel model;
 
   @override
   State<UserProfileView> createState() => _UserProfileViewState();
@@ -33,15 +36,19 @@ class _UserProfileViewState extends State<UserProfileView> {
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(radius: 28),
+                  CircleAvatar(
+                    radius: 28,
+                    backgroundImage: CachedNetworkImageProvider(
+                        widget.model.contractorAvatar),
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Jahongir Maqsudov",
-                          style: TextStyle(
+                        Text(
+                          widget.model.contractorFullName,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -50,9 +57,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                           children: [
                             AppIcons.star.svg(),
                             const SizedBox(width: 4),
-                            const Text(
-                              "1380",
-                              style: TextStyle(
+                            Text(
+                              widget.model.contractorScore.toString(),
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -65,7 +72,8 @@ class _UserProfileViewState extends State<UserProfileView> {
                   WButton(
                     height: 44,
                     width: 44,
-                    onTap: () => Caller.makePhoneCall("+998990999192"),
+                    onTap: () =>
+                        Caller.makePhoneCall(widget.model.contractorPhone),
                     child: AppIcons.phone.svg(color: white),
                   ),
                 ],

@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
-class EditPartialPayDialog extends StatelessWidget {
-  const EditPartialPayDialog({super.key});
+class EditPartialPayDialog extends StatefulWidget {
+  const EditPartialPayDialog({
+    super.key,
+    required this.bloc,
+    required this.model,
+  });
+  final UsersBloc bloc;
+  final OperationModel model;
 
+  @override
+  State<EditPartialPayDialog> createState() => _EditPartialPayDialogState();
+}
+
+class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
+  TextEditingController controllerAmout = TextEditingController();
+  TextEditingController controllerDescript = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +67,9 @@ class EditPartialPayDialog extends StatelessWidget {
                 CustomTextField(
                   title: "Amount",
                   hintText: "0.0",
-                  suffixIcon: const Text("UZS"),
+                  controller: controllerAmout,
+                  keyboardType: TextInputType.number,
+                  suffixIcon: Text(widget.model.currency.toUpperCase()),
                   onChanged: (value) {},
                 ),
                 const SizedBox(height: 16),
@@ -58,6 +78,7 @@ class EditPartialPayDialog extends StatelessWidget {
                   hintText: "",
                   maxLines: 5,
                   minLines: 4,
+                  controller: controllerDescript,
                   noHeight: true,
                   onChanged: (value) {},
                 ),
@@ -73,7 +94,9 @@ class EditPartialPayDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: WButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     border: Border.all(
                       color: context.color.borderColor,
                     ),
@@ -84,9 +107,29 @@ class EditPartialPayDialog extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: WButton(
-                    onTap: () {},
-                    text: "Pay",
+                  child: BlocBuilder<UsersBloc, UsersState>(
+                    bloc: widget.bloc,
+                    builder: (context, state) {
+                      return WButton(
+                        onTap: () {
+                          widget.bloc.add(PostTransactionsEvent(
+                            id: widget.model.id,
+                            model: TransactionModel(
+                              amount: int.tryParse(controllerAmout.text) ?? 0,
+                              note: controllerDescript.text,
+                              type: "partial-pay",
+                            ),
+                            onSucces: () {
+                              Navigator.of(context)
+                                ..pop()
+                                ..pop();
+                            },
+                          ));
+                        },
+                        text: "Pay",
+                        isLoading: state.status.isInProgress,
+                      );
+                    },
                   ),
                 )
               ],

@@ -12,6 +12,7 @@ import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
 import 'package:qarz_daftar/infrastructure/repo/users_repo.dart';
 
@@ -22,6 +23,39 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final UsersRepo _repo = UsersRepo(dataSourcheImpl: UsersDatasourceImpl());
 
   UsersBloc() : super(const UsersState()) {
+    on<PatchTransactionConfirmEvent>((event, emit) async {
+      emit(state.copyWith(notifRefus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.patchTransactionConfirm(event.id);
+      if (response.isRight) {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
+        add(GetNotificationEvent());
+      } else {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PatchTransactionRefEvent>((event, emit) async {
+      emit(state.copyWith(notifRefus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.patchTransactionRefus(event.id);
+      if (response.isRight) {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
+        add(GetNotificationEvent());
+      } else {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PostTransactionsEvent>((event, emit) async {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postTransactions(event.id, event.model);
+      if (response.isRight) {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+        event.onSucces();
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<GetOperationsTREvent>((event, emit) async {
       emit(state.copyWith(statusTr: FormzSubmissionStatus.inProgress));
       final response = await _repo.getOperationTr(event.id);

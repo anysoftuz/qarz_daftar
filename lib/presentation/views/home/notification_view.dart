@@ -81,10 +81,19 @@ class _NotificationViewState extends State<NotificationView> {
                                       onTap: () {
                                         valueNotifier.value =
                                             state.notification[index].id;
-                                        context.read<UsersBloc>().add(
-                                            PostRefusalEvent(
-                                                id: state.notification[index]
-                                                    .itemId));
+                                        if (state
+                                                .notification[index].itemType ==
+                                            "operations") {
+                                          context.read<UsersBloc>().add(
+                                              PostRefusalEvent(
+                                                  id: state.notification[index]
+                                                      .itemId));
+                                        } else {
+                                          context.read<UsersBloc>().add(
+                                              PatchTransactionRefEvent(
+                                                  id: state.notification[index]
+                                                      .itemId));
+                                        }
                                       },
                                       border: Border.all(
                                           color: context.color.white
@@ -107,10 +116,19 @@ class _NotificationViewState extends State<NotificationView> {
                                       onTap: () {
                                         valueNotifier.value =
                                             state.notification[index].id;
-                                        context.read<UsersBloc>().add(
-                                            PostConfirmEvent(
-                                                id: state.notification[index]
-                                                    .itemId));
+                                        if (state
+                                                .notification[index].itemType ==
+                                            "operations") {
+                                          context.read<UsersBloc>().add(
+                                              PostConfirmEvent(
+                                                  id: state.notification[index]
+                                                      .itemId));
+                                        } else {
+                                          context.read<UsersBloc>().add(
+                                              PatchTransactionConfirmEvent(
+                                                  id: state.notification[index]
+                                                      .itemId));
+                                        }
                                       },
                                       text: "Confirm",
                                     ),
