@@ -1,4 +1,5 @@
 import 'package:qarz_daftar/data/common/error_handle.dart';
+import 'package:qarz_daftar/data/models/deadline_model.dart';
 import 'package:qarz_daftar/data/models/generic_pagination.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
@@ -16,6 +17,7 @@ abstract class UsersDatasource {
   Future<ContactsModel> getContacts();
   Future<GenericPagination<OperationModel>> getOperations();
   Future<OperationModel> getOperation(int id);
+  Future<GenericPagination<OperationModel>> getOperationTr(int id);
   Future<GenericPagination<PopularModel>> getpopular();
   Future<List<GivenAmountModel>> getGivenAmount();
   Future<List<GivenAmountModel>> getTakenAmount();
@@ -24,6 +26,9 @@ abstract class UsersDatasource {
   Future<GenericPagination<NotificationModel>> getNotification();
   Future<bool> postContact(ContactAddModel model);
   Future<bool> postOperation(PostOperationModel model);
+  Future<bool> postConfirm(int id);
+  Future<bool> postRefusal(int id);
+  Future<bool> postDeadline(int id, DeadlineModel model);
 }
 
 class UsersDatasourceImpl implements UsersDatasource {
@@ -141,6 +146,44 @@ class UsersDatasourceImpl implements UsersDatasource {
       request: () => dio.get('mobile/operations/$id'),
       body: (response) =>
           OperationModel.fromJson(response as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<bool> postConfirm(int id) async {
+    return await _handle.apiCantrol(
+      request: () => dio.patch('mobile/operations/$id/confirm'),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<bool> postRefusal(int id) async {
+    return await _handle.apiCantrol(
+      request: () => dio.patch('mobile/operations/$id/refusal'),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<bool> postDeadline(int id, DeadlineModel model) async {
+    return await _handle.apiCantrol(
+      request: () => dio.patch(
+        'mobile/operations/$id/deadline',
+        data: model.toJson(),
+      ),
+      body: (response) => true,
+    );
+  }
+
+  @override
+  Future<GenericPagination<OperationModel>> getOperationTr(int id) async {
+    return await _handle.apiCantrol(
+      request: () => dio.get('mobile/operations/$id/transactions'),
+      body: (response) => GenericPagination.fromJson(
+        response,
+        (p0) => OperationModel.fromJson(p0 as Map<String, dynamic>),
+      ),
     );
   }
 }

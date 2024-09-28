@@ -1,3 +1,4 @@
+import 'package:qarz_daftar/data/models/deadline_model.dart';
 import 'package:qarz_daftar/data/models/generic_pagination.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
@@ -14,6 +15,9 @@ import 'package:qarz_daftar/utils/either.dart';
 abstract class IUsersRepo {
   Future<Either<Failure, ContactsModel>> getContacts();
   Future<Either<Failure, GenericPagination<OperationModel>>> getOperations();
+  Future<Either<Failure, GenericPagination<OperationModel>>> getOperationTr(
+    int id,
+  );
   Future<Either<Failure, OperationModel>> getOperation(int id);
   Future<Either<Failure, GenericPagination<PopularModel>>> getpopular();
   Future<Either<Failure, GenericPagination<NotificationModel>>>
@@ -25,4 +29,8 @@ abstract class IUsersRepo {
 
   Future<Either<Failure, bool>> postContact(ContactAddModel model);
   Future<Either<Failure, bool>> postOperation(PostOperationModel model);
+
+  Future<Either<Failure, bool>> postConfirm(int id);
+  Future<Either<Failure, bool>> postRefusal(int id);
+  Future<Either<Failure, bool>> postDeadline(int id, DeadlineModel model);
 }

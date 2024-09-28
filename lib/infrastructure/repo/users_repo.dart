@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:qarz_daftar/data/abstract_repo/i_users_repo.dart';
+import 'package:qarz_daftar/data/models/deadline_model.dart';
 import 'package:qarz_daftar/data/models/generic_pagination.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
@@ -196,6 +197,77 @@ class UsersRepo implements IUsersRepo {
   Future<Either<Failure, bool>> postOperation(PostOperationModel model) async {
     try {
       final result = await dataSourcheImpl.postOperation(model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> postConfirm(int id) async {
+    try {
+      final result = await dataSourcheImpl.postConfirm(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> postDeadline(
+      int id, DeadlineModel model) async {
+    try {
+      final result = await dataSourcheImpl.postDeadline(id, model);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> postRefusal(int id) async {
+    try {
+      final result = await dataSourcheImpl.postRefusal(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GenericPagination<OperationModel>>> getOperationTr(
+    int id,
+  ) async {
+    try {
+      final result = await dataSourcheImpl.getOperationTr(id);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

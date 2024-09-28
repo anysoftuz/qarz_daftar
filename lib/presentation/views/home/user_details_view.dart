@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
@@ -26,6 +28,12 @@ class UserDetailsView extends StatefulWidget {
 
 class _UserDetailsViewState extends State<UserDetailsView> {
   @override
+  void initState() {
+    context.read<UsersBloc>().add(GetOperationsTREvent(id: widget.model.id));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Details")),
@@ -40,16 +48,18 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             Expanded(
               child: WButton(
                 onTap: () {
+                  final bloc = context.read<UsersBloc>();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => BorrowingView(
-                      images: const[],
+                      images: const [],
                       user: const Datum(),
-                      isLending: true,
+                      isLending: false,
                       deadline: DateTime.now().toString(),
                       description: "",
                       amount: 0,
                       isBanned: false,
                       currency: "uzs",
+                      bloc: bloc,
                     ),
                   ));
                 },
@@ -72,6 +82,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
             Expanded(
               child: WButton(
                 onTap: () {
+                  final bloc = context.read<UsersBloc>();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => LendingView(
                       images: const [],
@@ -82,6 +93,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       amount: 0,
                       isBanned: false,
                       currency: "uzs",
+                      bloc: bloc,
                     ),
                   ));
                 },
@@ -204,11 +216,15 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                     Expanded(
                       child: WButton(
                         onTap: () {
+                          final bloc = context.read<UsersBloc>();
                           showDialog(
                             context: context,
-                            builder: (context) => const Dialog(
-                              insetPadding: EdgeInsets.all(16),
-                              child: EditDeadlineDialog(),
+                            builder: (context) => Dialog(
+                              insetPadding: const EdgeInsets.all(16),
+                              child: EditDeadlineDialog(
+                                bloc: bloc,
+                                model: widget.model,
+                              ),
                             ),
                           );
                         },
@@ -289,74 +305,80 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               ),
             ),
           ),
-          ListView.builder(
-            itemCount: 5,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => DecoratedBox(
-              decoration: BoxDecoration(
-                color: context.color.contColor,
-                borderRadius: index == 0
-                    ? const BorderRadius.vertical(
-                        top: Radius.circular(8),
-                      )
-                    : index == 4
+          BlocBuilder<UsersBloc, UsersState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.operationsTr.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: context.color.contColor,
+                    borderRadius: index == 0
                         ? const BorderRadius.vertical(
-                            bottom: Radius.circular(8),
+                            top: Radius.circular(8),
                           )
-                        : null,
-              ),
-              child: const ListTile(
-                title: Text(
-                  "Jahongir Maqsudov",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                        : index == 4
+                            ? const BorderRadius.vertical(
+                                bottom: Radius.circular(8),
+                              )
+                            : null,
                   ),
-                ),
-                subtitle: Text(
-                  "4 days left",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: red,
-                  ),
-                ),
-                leading: CircleAvatar(
-                  radius: 24,
-                  backgroundColor: backGroundColor,
-                  child: Text(
-                    "JB",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF6E7781),
-                    ),
-                  ),
-                ),
-                trailing: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "863 000 uzs",
-                      style: TextStyle(
+                  child: ListTile(
+                    title: Text(
+                      state.operations[index].contractorFullName,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      "Borrowed",
+                    subtitle: Text(
+                      "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: red,
+                        color: MyFunction.daysLeft(
+                                    state.operations[index].deadline) >
+                                7
+                            ? null
+                            : red,
                       ),
                     ),
-                  ],
+                    leading: CircleAvatar(
+                      radius: 24,
+                      backgroundColor: backGroundColor,
+                      backgroundImage: CachedNetworkImageProvider(
+                        state.operations[index].contractorAvatar,
+                      ),
+                    ),
+                    trailing: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${MyFunction.priceFormat(state.operations[index].amount)} ${state.operations[index].currency}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          state.operations[index].contractorType.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: state.operations[index].contractorType ==
+                                    "borrowing"
+                                ? red
+                                : mainBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),

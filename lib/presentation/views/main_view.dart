@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
@@ -75,7 +77,8 @@ class _MainViewState extends State<MainView> {
             ),
             WScaleAnimation(
               onTap: () {
-                context.push(AppRouteName.operation);
+                final bloc = context.read<UsersBloc>();
+                context.push(AppRouteName.operation, extra: bloc);
               },
               child: Container(
                 height: 64,

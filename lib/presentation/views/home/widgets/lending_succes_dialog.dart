@@ -7,7 +7,11 @@ import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
 class LendingSuccesDialog extends StatelessWidget {
-  const LendingSuccesDialog({super.key});
+  const LendingSuccesDialog({
+    super.key,
+    required this.description,
+  });
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +57,11 @@ class LendingSuccesDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              "Jahongir Maqsudovga 2 000 000 uzs muvaffaqiyatli o’tkazib berildi. Muddat 29.03.2024.",
-              style: TextStyle(
+              description,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),

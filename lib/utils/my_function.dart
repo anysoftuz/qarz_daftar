@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
+import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
 
 class MyFunction {
@@ -41,6 +42,16 @@ class MyFunction {
     } catch (e) {
       return "";
     }
+  }
+
+  static int notificationLeng(List<NotificationModel> notification) {
+    int count = 0;
+    for (var element in notification) {
+      if (element.confirmStatus != "active") {
+        count += 1;
+      }
+    }
+    return count;
   }
 
   static String dateFormatLed(String date) {

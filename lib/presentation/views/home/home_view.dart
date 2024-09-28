@@ -73,9 +73,10 @@ class _HomeViewState extends State<HomeView> {
                     radius: 24,
                     backgroundColor: dark.withOpacity(.2),
                     child: badges.Badge(
-                      showBadge: state.notification.isNotEmpty,
+                      showBadge:
+                          MyFunction.notificationLeng(state.notification) > 0,
                       badgeContent: Text(
-                        "${state.notification.length}",
+                        "${MyFunction.notificationLeng(state.notification)}",
                         style: const TextStyle(color: white),
                       ),
                       child: IconButton(

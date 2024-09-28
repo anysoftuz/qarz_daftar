@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
@@ -21,6 +22,12 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  @override
+  void initState() {
+    context.read<UsersBloc>().add(GetGraphicStatisticsEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,7 +234,18 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const BarChartSample2(),
+                BlocBuilder<UsersBloc, UsersState>(
+                  builder: (context, state) {
+                    if (state.graphicStatus.isInProgress) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    return BarChartSample2(
+                      graphicStatistics: state.graphicStatistics,
+                    );
+                  },
+                ),
                 const SizedBox(height: 16),
                 DecoratedBox(
                   decoration: BoxDecoration(

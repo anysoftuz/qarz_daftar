@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:qarz_daftar/data/models/deadline_model.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
@@ -21,6 +22,51 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final UsersRepo _repo = UsersRepo(dataSourcheImpl: UsersDatasourceImpl());
 
   UsersBloc() : super(const UsersState()) {
+    on<GetOperationsTREvent>((event, emit) async {
+      emit(state.copyWith(statusTr: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getOperationTr(event.id);
+      if (response.isRight) {
+        emit(state.copyWith(
+          statusTr: FormzSubmissionStatus.success,
+          operationsTr: response.right.data,
+        ));
+      } else {
+        emit(state.copyWith(statusTr: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PostDeadlineEvent>((event, emit) async {
+      emit(state.copyWith(notifRefus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postDeadline(event.id, event.model);
+      if (response.isRight) {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
+      } else {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PostRefusalEvent>((event, emit) async {
+      emit(state.copyWith(notifRefus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postRefusal(event.id);
+      if (response.isRight) {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
+        add(GetNotificationEvent());
+      } else {
+        emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
+      }
+    });
+
+    on<PostConfirmEvent>((event, emit) async {
+      emit(state.copyWith(notifConfirm: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postConfirm(event.id);
+      if (response.isRight) {
+        emit(state.copyWith(notifConfirm: FormzSubmissionStatus.success));
+        add(GetNotificationEvent());
+      } else {
+        emit(state.copyWith(notifConfirm: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<PostContactEvent>((event, emit) async {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       final response = await _repo.postContact(ContactAddModel(
@@ -53,7 +99,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       if (response.isRight) {
         emit(state.copyWith(
           notificationStatus: FormzSubmissionStatus.success,
-          notification: response.right.data,
+          notification: response.right.data.reversed.toList(),
         ));
       } else {
         emit(state.copyWith(notificationStatus: FormzSubmissionStatus.failure));

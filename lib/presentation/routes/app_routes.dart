@@ -48,7 +48,10 @@ sealed class AppRouts {
       ),
       GoRoute(
         path: AppRouteName.operation,
-        builder: (context, state) => const OperationsView(),
+        builder: (context, state) => BlocProvider.value(
+          value: (state.extra as UsersBloc),
+          child: const OperationsView(),
+        ),
       ),
       GoRoute(
         path: AppRouteName.contacts,
@@ -67,8 +70,10 @@ sealed class AppRouts {
       // ),
       GoRoute(
         path: AppRouteName.userdetails,
-        builder: (context, state) =>
-            UserDetailsView(model: (state.extra as OperationModel)),
+        builder: (context, state) => BlocProvider(
+          create: (context) => UsersBloc(),
+          child: UserDetailsView(model: (state.extra as OperationModel)),
+        ),
       ),
       mainView,
     ],

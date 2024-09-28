@@ -27,6 +27,7 @@ class BorrowingView extends StatefulWidget {
     required this.amount,
     required this.isBanned,
     required this.currency,
+    required this.bloc,
   });
   final List<File> images;
   final Datum user;
@@ -36,6 +37,7 @@ class BorrowingView extends StatefulWidget {
   final int amount;
   final bool isBanned;
   final String currency;
+  final UsersBloc bloc;
 
   @override
   State<BorrowingView> createState() => _BorrowingViewState();
@@ -53,38 +55,41 @@ class _BorrowingViewState extends State<BorrowingView> {
           border: Border(top: BorderSide(color: context.color.borderColor)),
         ),
         child: BlocBuilder<UsersBloc, UsersState>(
+          bloc: widget.bloc,
           builder: (context, state) {
             return WButton(
               onTap: () {
-                context.read<UsersBloc>().add(PosOperationsEvent(
-                      model: PostOperationModel(
-                        contractorId: widget.user.id,
-                        contractorType:
-                            widget.isLending ? "lending" : "borrowing",
-                        amount: widget.amount,
-                        deadline: MyFunction.dateFormatLed(widget.deadline),
-                        isBlacklist: widget.isBanned,
-                        description: widget.description,
-                        currency: widget.currency,
+                widget.bloc.add(PosOperationsEvent(
+                  model: PostOperationModel(
+                    contractorId: widget.user.id,
+                    contractorType: widget.isLending ? "lending" : "borrowing",
+                    amount: widget.amount,
+                    deadline: MyFunction.dateFormatLed(widget.deadline),
+                    isBlacklist: widget.isBanned,
+                    description: widget.description,
+                    currency: widget.currency,
+                  ),
+                  onSucces: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        insetPadding: const EdgeInsets.all(16),
+                        child: LendingSuccesDialog(
+                          description:
+                              '${widget.user.fullName} ${widget.amount} ${widget.currency} muvaffaqiyatli o’tkazib berildi. Muddat: ${widget.deadline}',
+                        ),
                       ),
-                      onSucces: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const Dialog(
-                            insetPadding: EdgeInsets.all(16),
-                            child: LendingSuccesDialog(),
-                          ),
-                        ).then(
-                          (value) {
-                            if (context.mounted) {
-                              Navigator.of(context)
-                                ..pop()
-                                ..pop();
-                            }
-                          },
-                        );
+                    ).then(
+                      (value) {
+                        if (context.mounted) {
+                          Navigator.of(context)
+                            ..pop()
+                            ..pop();
+                        }
                       },
-                    ));
+                    );
+                  },
+                ));
               },
               isLoading: state.status.isInProgress,
               color: red,

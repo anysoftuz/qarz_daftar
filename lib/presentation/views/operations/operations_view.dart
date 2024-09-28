@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
@@ -67,16 +69,18 @@ class _OperationsViewState extends State<OperationsView> {
             Expanded(
               child: WButton(
                 onTap: () {
+                  final bloc = context.read<UsersBloc>();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => BorrowingView(
                       images: images,
                       user: user ?? const Datum(),
-                      isLending: true,
+                      isLending: false,
                       deadline: controllerDate.text,
                       description: controllerDescript.text,
                       amount: int.tryParse(controllerAmout.text) ?? 0,
                       isBanned: isBanned.value,
                       currency: isUZS.value ? "uzs" : "usd",
+                      bloc: bloc,
                     ),
                   ));
                 },
@@ -104,6 +108,7 @@ class _OperationsViewState extends State<OperationsView> {
             Expanded(
               child: WButton(
                 onTap: () {
+                  final bloc = context.read<UsersBloc>();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => LendingView(
                       images: images,
@@ -114,6 +119,7 @@ class _OperationsViewState extends State<OperationsView> {
                       amount: int.tryParse(controllerAmout.text) ?? 0,
                       isBanned: isBanned.value,
                       currency: isUZS.value ? "uzs" : "usd",
+                      bloc: bloc,
                     ),
                   ));
                 },
@@ -159,6 +165,18 @@ class _OperationsViewState extends State<OperationsView> {
                 controller: controllerPhone,
                 formatter: [Formatters.phoneFormatter],
                 onsuffixIconPressed: () {
+                  context.push(AppRouteName.contacts).then(
+                    (value) {
+                      if (value != null) {
+                        final model = (value as Datum);
+                        user = model;
+                        controllerPhone.text = model.phone;
+                        setState(() {});
+                      }
+                    },
+                  );
+                },
+                onPressed: () {
                   context.push(AppRouteName.contacts).then(
                     (value) {
                       if (value != null) {
@@ -233,12 +251,12 @@ class _OperationsViewState extends State<OperationsView> {
                 },
                 onChanged: (value) {},
               ),
-              const SizedBox(height: 16),
-              CustomTextField(
-                hintText: "1 week / 1 month",
-                suffixIcon: AppIcons.arrowDown.svg(),
-                onChanged: (value) {},
-              ),
+              // const SizedBox(height: 16),
+              // CustomTextField(
+              //   hintText: "1 week / 1 month",
+              //   suffixIcon: AppIcons.arrowDown.svg(),
+              //   onChanged: (value) {},
+              // ),
               const SizedBox(height: 16),
               Row(
                 children: [

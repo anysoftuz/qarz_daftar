@@ -3,14 +3,18 @@ part of 'users_bloc.dart';
 
 class UsersState extends Equatable {
   final FormzSubmissionStatus status;
+  final FormzSubmissionStatus statusTr;
   final FormzSubmissionStatus graphicStatus;
   final FormzSubmissionStatus givenStatus;
   final FormzSubmissionStatus takenStatus;
   final FormzSubmissionStatus popularStatus;
   final FormzSubmissionStatus notificationStatus;
+  final FormzSubmissionStatus notifConfirm;
+  final FormzSubmissionStatus notifRefus;
   final FormzSubmissionStatus bannedStatus;
   final ContactsModel contactsModel;
   final List<OperationModel> operations;
+  final List<OperationModel> operationsTr;
   final List<PopularModel> popular;
   final List<NotificationModel> notification;
   final List<GivenAmountModel> givenAmount;
@@ -19,14 +23,18 @@ class UsersState extends Equatable {
   final List<BannedModel> banneds;
   const UsersState({
     this.status = FormzSubmissionStatus.initial,
+    this.statusTr = FormzSubmissionStatus.initial,
     this.graphicStatus = FormzSubmissionStatus.initial,
     this.givenStatus = FormzSubmissionStatus.initial,
     this.takenStatus = FormzSubmissionStatus.initial,
     this.popularStatus = FormzSubmissionStatus.initial,
     this.notificationStatus = FormzSubmissionStatus.initial,
     this.bannedStatus = FormzSubmissionStatus.initial,
+    this.notifConfirm = FormzSubmissionStatus.initial,
+    this.notifRefus = FormzSubmissionStatus.initial,
     this.contactsModel = const ContactsModel(),
     this.operations = const [],
+    this.operationsTr = const [],
     this.popular = const [],
     this.givenAmount = const [],
     this.notification = const [],
@@ -56,14 +64,18 @@ class UsersState extends Equatable {
 
   UsersState copyWith({
     FormzSubmissionStatus? status,
+    FormzSubmissionStatus? statusTr,
     FormzSubmissionStatus? graphicStatus,
     FormzSubmissionStatus? givenStatus,
     FormzSubmissionStatus? takenStatus,
     FormzSubmissionStatus? popularStatus,
     FormzSubmissionStatus? notificationStatus,
+    FormzSubmissionStatus? notifConfirm,
+    FormzSubmissionStatus? notifRefus,
     FormzSubmissionStatus? bannedStatus,
     ContactsModel? contactsModel,
     List<OperationModel>? operations,
+    List<OperationModel>? operationsTr,
     List<PopularModel>? popular,
     List<NotificationModel>? notification,
     List<GivenAmountModel>? givenAmount,
@@ -73,14 +85,18 @@ class UsersState extends Equatable {
   }) {
     return UsersState(
       status: status ?? this.status,
+      statusTr: statusTr ?? this.statusTr,
       graphicStatus: graphicStatus ?? this.graphicStatus,
       givenStatus: givenStatus ?? this.givenStatus,
       takenStatus: takenStatus ?? this.takenStatus,
       popularStatus: popularStatus ?? this.popularStatus,
       notificationStatus: notificationStatus ?? this.notificationStatus,
+      notifConfirm: notifConfirm ?? this.notifConfirm,
+      notifRefus: notifRefus ?? this.notifRefus,
       bannedStatus: bannedStatus ?? this.bannedStatus,
       contactsModel: contactsModel ?? this.contactsModel,
       operations: operations ?? this.operations,
+      operationsTr: operationsTr ?? this.operationsTr,
       popular: popular ?? this.popular,
       notification: notification ?? this.notification,
       givenAmount: givenAmount ?? this.givenAmount,
