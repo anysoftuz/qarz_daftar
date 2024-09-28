@@ -51,7 +51,7 @@ class UsersDatasourceImpl implements UsersDatasource {
   @override
   Future<List<GivenAmountModel>> getGivenAmount() async {
     return await _handle.apiCantrol(
-      request: () => dio.get('mobile/operations/me/given-amount/statistics'),
+      request: () => dio.post('mobile/operations/me/given-amount/statistics'),
       body: (response) => (response as List)
           .map((e) => GivenAmountModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -61,7 +61,7 @@ class UsersDatasourceImpl implements UsersDatasource {
   @override
   Future<List<GraphicStatisticsModel>> getGraphicStatistics() async {
     return await _handle.apiCantrol(
-      request: () => dio.get('mobile/operations/me/taken-amount/statistics'),
+      request: () => dio.get('mobile/operations/me/graphic/statistics'),
       body: (response) => (response as List)
           .map(
               (e) => GraphicStatisticsModel.fromJson(e as Map<String, dynamic>))
@@ -72,7 +72,7 @@ class UsersDatasourceImpl implements UsersDatasource {
   @override
   Future<List<GivenAmountModel>> getTakenAmount() async {
     return await _handle.apiCantrol(
-      request: () => dio.get('mobile/operations/me/taken-amount/statistics'),
+      request: () => dio.post('mobile/operations/me/taken-amount/statistics'),
       body: (response) => (response as List)
           .map((e) => GivenAmountModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -211,7 +211,7 @@ class UsersDatasourceImpl implements UsersDatasource {
       body: (response) => true,
     );
   }
-  
+
   @override
   Future<bool> patchTransactionRefus(int id) async {
     return await _handle.apiCantrol(

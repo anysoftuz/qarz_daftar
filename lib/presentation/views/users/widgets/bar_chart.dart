@@ -27,15 +27,15 @@ class BarChartSample2State extends State<BarChartSample2> {
     super.initState();
     final List<BarChartGroupData> items = [];
     for (var i = 0; i < 7; i++) {
-      if (i < widget.graphicStatistics.length) {
-        final index1 = widget.graphicStatistics[i].statistics.isNotEmpty
-            ? widget.graphicStatistics[i].statistics.first.amount
-            : 0;
-        final index2 = widget.graphicStatistics[i].statistics.length == 2
-            ? widget.graphicStatistics[i].statistics[1].amount
-            : 0;
-        items.add(makeGroupData(i, index1.toDouble(), index2.toDouble()));
-      }
+      // if (i < widget.graphicStatistics.length) {
+      //   final index1 = widget.graphicStatistics[i].statistics.isNotEmpty
+      //       ? widget.graphicStatistics[i].statistics.first.amount
+      //       : 0;
+      //   final index2 = widget.graphicStatistics[i].statistics.length == 2
+      //       ? widget.graphicStatistics[i].statistics[1].amount
+      //       : 0;
+      //   items.add(makeGroupData(i, index1.toDouble(), index2.toDouble()));
+      // }
       items.add(makeGroupData(i, 0, 0));
     }
     Log.e(items);
