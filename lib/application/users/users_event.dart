@@ -32,7 +32,11 @@ class GetBannedEvent extends UsersEvent {}
 
 class GetPopularEvent extends UsersEvent {}
 
-class GetNotificationEvent extends UsersEvent {}
+class GetNotificationEvent extends UsersEvent {
+  final Function(List<NotificationModel> notification) onSucces;
+
+  GetNotificationEvent({required this.onSucces});
+}
 
 class PostConfirmEvent extends UsersEvent {
   final int id;

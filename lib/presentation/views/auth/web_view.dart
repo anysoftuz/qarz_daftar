@@ -17,7 +17,7 @@ class TelegramLoginPage extends StatefulWidget {
 
 class _TelegramLoginPageState extends State<TelegramLoginPage> {
   InAppWebViewController? webViewController;
-  String loginUrl = "https://backend.qarzdaftar.com/v1/auth/telegram";
+  String loginUrl = "https://qarzdaftar.com/v1/auth/telegram";
   String? consoleMessage;
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -29,7 +30,9 @@ class _NotificationViewState extends State<NotificationView> {
           }
           return RefreshIndicator.adaptive(
             onRefresh: () async {
-              context.read<UsersBloc>().add(GetNotificationEvent());
+              context.read<UsersBloc>().add(GetNotificationEvent(
+                    onSucces: (List<NotificationModel> notification) {},
+                  ));
               await Future.delayed(const Duration(seconds: 1));
             },
             child: ListView.separated(

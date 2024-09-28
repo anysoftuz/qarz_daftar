@@ -28,7 +28,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final response = await _repo.patchTransactionConfirm(event.id);
       if (response.isRight) {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
-        add(GetNotificationEvent());
+        add(GetNotificationEvent(
+          onSucces: (List<NotificationModel> notification) {},
+        ));
       } else {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
       }
@@ -39,7 +41,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final response = await _repo.patchTransactionRefus(event.id);
       if (response.isRight) {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
-        add(GetNotificationEvent());
+        add(GetNotificationEvent(
+          onSucces: (List<NotificationModel> notification) {},
+        ));
       } else {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
       }
@@ -84,7 +88,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final response = await _repo.postRefusal(event.id);
       if (response.isRight) {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.success));
-        add(GetNotificationEvent());
+        add(GetNotificationEvent(
+          onSucces: (List<NotificationModel> notification) {},
+        ));
       } else {
         emit(state.copyWith(notifRefus: FormzSubmissionStatus.failure));
       }
@@ -95,7 +101,9 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final response = await _repo.postConfirm(event.id);
       if (response.isRight) {
         emit(state.copyWith(notifConfirm: FormzSubmissionStatus.success));
-        add(GetNotificationEvent());
+        add(GetNotificationEvent(
+          onSucces: (List<NotificationModel> notification) {},
+        ));
       } else {
         emit(state.copyWith(notifConfirm: FormzSubmissionStatus.failure));
       }
@@ -135,6 +143,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           notificationStatus: FormzSubmissionStatus.success,
           notification: response.right.data.reversed.toList(),
         ));
+        event.onSucces(response.right.data.reversed.toList());
       } else {
         emit(state.copyWith(notificationStatus: FormzSubmissionStatus.failure));
       }

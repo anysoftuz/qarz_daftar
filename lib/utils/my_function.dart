@@ -54,6 +54,18 @@ class MyFunction {
     return count;
   }
 
+  static List<NotificationModel> notificationList(
+    List<NotificationModel> notifications,
+  ) {
+    List<NotificationModel> notification = [];
+    for (var element in notifications) {
+      if (element.confirmStatus != "active") {
+        notification.add(element);
+      }
+    }
+    return notification;
+  }
+
   static String dateFormatLed(String date) {
     DateFormat dateFormat = DateFormat("dd.MM.yyyy");
     DateTime dateTime = dateFormat.parse(date);

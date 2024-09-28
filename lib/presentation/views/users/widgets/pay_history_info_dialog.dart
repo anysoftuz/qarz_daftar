@@ -1,10 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/my_function.dart';
 
 class PayHistoryInfoDialog extends StatelessWidget {
-  const PayHistoryInfoDialog({super.key});
+  const PayHistoryInfoDialog({
+    super.key,
+    this.model = const NotificationModel(),
+  });
+  final NotificationModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +30,29 @@ class PayHistoryInfoDialog extends StatelessWidget {
             width: double.infinity,
             child: Stack(
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
                       radius: 24,
                       backgroundColor: mainBlue,
+                      backgroundImage: CachedNetworkImageProvider(model.avatar),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Eldor Shomurodov",
-                          style: TextStyle(
+                          model.senderFullName,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 4),
-                        Text(
-                          "+998 91 008 43 48",
+                        const SizedBox(height: 4),
+                        const Text(
+                          "__",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -77,7 +85,7 @@ class PayHistoryInfoDialog extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: '01.02.2023',
+                  text: MyFunction.dateFormat(model.createdAt),
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -97,7 +105,7 @@ class PayHistoryInfoDialog extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: '25.02.2023',
+                  text: "--",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -117,7 +125,7 @@ class PayHistoryInfoDialog extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: '863 000 uzs',
+                  text: '0 uzs',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -134,9 +142,9 @@ class PayHistoryInfoDialog extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: context.color.borderColor,
             ),
-            child: const Text(
-              "Qarz berilishidan maqsad do’konimizdan iPhone 15 pro telefon modelini xarid qilishda yetmagan summani qoplash. O’zim rozi bo’lib beryapman, hech kim majburlamadi.",
-              style: TextStyle(
+            child: Text(
+              model.description,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: greyText,

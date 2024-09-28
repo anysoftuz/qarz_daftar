@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
+import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -27,7 +29,23 @@ class _HomeViewState extends State<HomeView> {
     context.read<UsersBloc>().add(GetGivenAmountEvent());
     context.read<UsersBloc>().add(GetTakenAmountEvent());
     context.read<UsersBloc>().add(GetPopularEvent());
-    context.read<UsersBloc>().add(GetNotificationEvent());
+    context.read<UsersBloc>().add(GetNotificationEvent(
+      onSucces: (List<NotificationModel> notification) {
+        if (MyFunction.notificationLeng(notification) > 0) {
+          showDialog(
+            context: context,
+            builder: (context) => Dialog(
+              insetPadding: const EdgeInsets.all(16),
+              child: PayHistoryInfoDialog(
+                model: MyFunction.notificationList(notification).isNotEmpty
+                    ? MyFunction.notificationList(notification).first
+                    : const NotificationModel(),
+              ),
+            ),
+          );
+        }
+      },
+    ));
     super.initState();
   }
 
