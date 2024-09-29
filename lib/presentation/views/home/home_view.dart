@@ -12,8 +12,10 @@ import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_di
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/log_service.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -23,6 +25,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final channel = WebSocketChannel.connect(
+    Uri.parse("ws://138.68.80.51:3000/ws"),
+  );
   @override
   void initState() {
     context.read<UsersBloc>().add(GetOperationsEvent());
@@ -47,6 +52,18 @@ class _HomeViewState extends State<HomeView> {
       },
     ));
     super.initState();
+
+    channel.stream.listen(
+      (event) {
+        Log.i("Bu datada: $event");
+      },
+      onError: (error) {
+        Log.e(error);
+      },
+      onDone: () {
+        Log.e("Web soket closed");
+      },
+    );
   }
 
   @override
@@ -440,5 +457,11 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
   }
 }
