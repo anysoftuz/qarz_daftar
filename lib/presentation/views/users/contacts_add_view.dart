@@ -59,43 +59,49 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                 ),
               ),
               Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.only(bottom: 100),
-                  itemBuilder: (context, index) => DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: context.color.borderColor,
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 24,
-                        backgroundImage: CachedNetworkImageProvider(
-                          state.contactsModel.data[index].avatar,
+                child: RefreshIndicator.adaptive(
+                  onRefresh: () async {
+                    context.read<UsersBloc>().add(GetContactsEvent());
+                    await Future.delayed(const Duration(seconds: 1));
+                  },
+                  child: ListView.separated(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    itemBuilder: (context, index) => DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: context.color.borderColor,
+                      ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 24,
+                          backgroundImage: CachedNetworkImageProvider(
+                            state.contactsModel.data[index].avatar,
+                          ),
+                        ),
+                        title: Text(
+                          state.contactsModel.data[index].fullName,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(state.contactsModel.data[index].phone),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppIcons.star.svg(),
+                            const SizedBox(width: 4),
+                            Text(
+                              state.contactsModel.data[index].score.toString(),
+                            )
+                          ],
                         ),
                       ),
-                      title: Text(
-                        state.contactsModel.data[index].fullName,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      subtitle: Text(state.contactsModel.data[index].phone),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AppIcons.star.svg(),
-                          const SizedBox(width: 4),
-                          Text(
-                            state.contactsModel.data[index].score.toString(),
-                          )
-                        ],
-                      ),
                     ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemCount: state.contactsModel.data.length,
                   ),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemCount: state.contactsModel.data.length,
                 ),
               ),
             ],
