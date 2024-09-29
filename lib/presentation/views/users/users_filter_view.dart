@@ -25,6 +25,9 @@ class _UsersFilterViewState extends State<UsersFilterView> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
+              Row(
+                children: [],
+              ),
               const SizedBox(height: 12),
               CustomTextField(
                 title: "Date",

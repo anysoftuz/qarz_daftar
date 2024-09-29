@@ -89,31 +89,35 @@ class _OperationsViewState extends State<OperationsView> {
             Expanded(
               child: WButton(
                 onTap: () {
-                  final bloc = context.read<UsersBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BorrowingView(
-                      images: images,
-                      user: user ?? const Datum(),
-                      isLending: false,
-                      deadline: controllerDate.text,
-                      description: controllerDescript.text,
-                      amount: int.tryParse(controllerAmout.text) ?? 0,
-                      isBanned: isBanned.value,
-                      currency: isUZS.value ? "uzs" : "usd",
-                      bloc: bloc,
-                    ),
-                  ));
+                  if (controllerAmout.text.isEmpty ||
+                      controllerDescript.text.isEmpty ||
+                      controllerDate.text.isEmpty ||
+                      controllerPhone.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Malumotni to'liq kirgazing"),
+                    ));
+                  } else {
+                    final bloc = context.read<UsersBloc>();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => BorrowingView(
+                        images: images,
+                        user: user ?? const Datum(),
+                        isLending: false,
+                        deadline: controllerDate.text,
+                        description: controllerDescript.text,
+                        amount: int.tryParse(controllerAmout.text) ?? 0,
+                        isBanned: isBanned.value,
+                        currency: isUZS.value ? "uzs" : "usd",
+                        bloc: bloc,
+                      ),
+                    ));
+                  }
                 },
                 height: 48,
                 borderRadius: 8,
                 color: Colors.transparent,
                 border: Border.all(color: red),
                 textColor: red,
-                disabledColor: grey,
-                isDisabled: controllerAmout.text.isEmpty ||
-                    controllerDescript.text.isEmpty ||
-                    controllerDate.text.isEmpty ||
-                    controllerPhone.text.isEmpty,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -128,31 +132,35 @@ class _OperationsViewState extends State<OperationsView> {
             Expanded(
               child: WButton(
                 onTap: () {
-                  final bloc = context.read<UsersBloc>();
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LendingView(
-                      images: images,
-                      user: user ?? const Datum(),
-                      isLending: true,
-                      deadline: controllerDate.text,
-                      description: controllerDescript.text,
-                      amount: int.tryParse(controllerAmout.text) ?? 0,
-                      isBanned: isBanned.value,
-                      currency: isUZS.value ? "uzs" : "usd",
-                      bloc: bloc,
-                    ),
-                  ));
+                  if (controllerAmout.text.isEmpty ||
+                      controllerDescript.text.isEmpty ||
+                      controllerDate.text.isEmpty ||
+                      controllerPhone.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Malumotni to'liq kirgazing"),
+                    ));
+                  } else {
+                    final bloc = context.read<UsersBloc>();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LendingView(
+                        images: images,
+                        user: user ?? const Datum(),
+                        isLending: true,
+                        deadline: controllerDate.text,
+                        description: controllerDescript.text,
+                        amount: int.tryParse(controllerAmout.text) ?? 0,
+                        isBanned: isBanned.value,
+                        currency: isUZS.value ? "uzs" : "usd",
+                        bloc: bloc,
+                      ),
+                    ));
+                  }
                 },
                 height: 48,
                 borderRadius: 8,
                 color: Colors.transparent,
                 border: Border.all(color: mainBlue),
                 textColor: mainBlue,
-                disabledColor: grey,
-                isDisabled: controllerAmout.text.isEmpty ||
-                    controllerDescript.text.isEmpty ||
-                    controllerDate.text.isEmpty ||
-                    controllerPhone.text.isEmpty,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
