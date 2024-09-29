@@ -155,35 +155,56 @@ class _ProfileViewState extends State<ProfileView> {
                     borderRadius: BorderRadius.circular(8),
                     color: context.color.contColor,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(
-                      state.takenAmount.length,
-                      (index) => RichText(
-                        text: TextSpan(
-                          text: MyFunction.priceFormat(
-                              int.tryParse(state.takenAmount[index].amount) ??
-                                  0),
-                          style: TextStyle(
-                            color: context.color.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
+                  child: state.takenAmount.isEmpty
+                      ? RichText(
+                          text: TextSpan(
+                            text: "0",
+                            style: TextStyle(
+                              color: context.color.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: const [
+                              TextSpan(
+                                text: ' UZS',
+                                style: TextStyle(
+                                  color: gray,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
                           ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  ' ${state.takenAmount[index].currency.toUpperCase()}',
-                              style: const TextStyle(
-                                color: gray,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            state.takenAmount.length,
+                            (index) => RichText(
+                              text: TextSpan(
+                                text: MyFunction.priceFormat(int.tryParse(
+                                        state.takenAmount[index].amount) ??
+                                    0),
+                                style: TextStyle(
+                                  color: context.color.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        ' ${state.takenAmount[index].currency.toUpperCase()}',
+                                    style: const TextStyle(
+                                      color: gray,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 16, bottom: 8),
@@ -203,35 +224,56 @@ class _ProfileViewState extends State<ProfileView> {
                     borderRadius: BorderRadius.circular(8),
                     color: context.color.contColor,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(
-                      state.givenAmount.length,
-                      (index) => RichText(
-                        text: TextSpan(
-                          text: MyFunction.priceFormat(
-                              int.tryParse(state.givenAmount[index].amount) ??
-                                  0),
-                          style: TextStyle(
-                            color: context.color.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
+                  child: state.givenAmount.isEmpty
+                      ? RichText(
+                          text: TextSpan(
+                            text: "0",
+                            style: TextStyle(
+                              color: context.color.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: const [
+                              TextSpan(
+                                text: ' UZS',
+                                style: TextStyle(
+                                  color: gray,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            ],
                           ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  ' ${state.givenAmount[index].currency.toUpperCase()}',
-                              style: const TextStyle(
-                                color: gray,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            state.givenAmount.length,
+                            (index) => RichText(
+                              text: TextSpan(
+                                text: MyFunction.priceFormat(int.tryParse(
+                                        state.givenAmount[index].amount) ??
+                                    0),
+                                style: TextStyle(
+                                  color: context.color.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        ' ${state.givenAmount[index].currency.toUpperCase()}',
+                                    style: const TextStyle(
+                                      color: gray,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: 16),
                 BlocBuilder<UsersBloc, UsersState>(

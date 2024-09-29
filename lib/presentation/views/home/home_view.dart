@@ -25,9 +25,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final channel = WebSocketChannel.connect(
-    Uri.parse("ws://138.68.80.51:3000/ws"),
-  );
+  late WebSocketChannel channel;
   @override
   void initState() {
     context.read<UsersBloc>().add(GetOperationsEvent());
@@ -52,7 +50,9 @@ class _HomeViewState extends State<HomeView> {
       },
     ));
     super.initState();
-
+    channel = WebSocketChannel.connect(
+      Uri.parse("ws://138.68.80.51:3000/ws"),
+    );
     channel.stream.listen(
       (event) {
         Log.i("Bu datada: $event");
@@ -160,14 +160,10 @@ class _HomeViewState extends State<HomeView> {
                                     ],
                                   ),
                                 ),
-                                ...List.generate(
-                                  state.takenAmount.length,
-                                  (index) => RichText(
+                                if (state.takenAmount.isEmpty)
+                                  RichText(
                                     text: TextSpan(
-                                      text: MyFunction.priceFormat(int.tryParse(
-                                              state
-                                                  .takenAmount[index].amount) ??
-                                          0),
+                                      text: "0",
                                       style: const TextStyle(
                                         color: white,
                                         fontSize: 24,
@@ -175,8 +171,7 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text:
-                                              ' ${state.takenAmount[index].currency.toUpperCase()}',
+                                          text: ' UZS',
                                           style: TextStyle(
                                             color: white.withOpacity(.4),
                                             fontSize: 24,
@@ -185,8 +180,36 @@ class _HomeViewState extends State<HomeView> {
                                         )
                                       ],
                                     ),
+                                  )
+                                else
+                                  ...List.generate(
+                                    state.takenAmount.length,
+                                    (index) => RichText(
+                                      text: TextSpan(
+                                        text: MyFunction.priceFormat(
+                                            int.tryParse(state
+                                                    .takenAmount[index]
+                                                    .amount) ??
+                                                0),
+                                        style: const TextStyle(
+                                          color: white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                ' ${state.takenAmount[index].currency.toUpperCase()}',
+                                            style: TextStyle(
+                                              color: white.withOpacity(.4),
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
@@ -235,14 +258,10 @@ class _HomeViewState extends State<HomeView> {
                                     ],
                                   ),
                                 ),
-                                ...List.generate(
-                                  state.givenAmount.length,
-                                  (index) => RichText(
+                                if (state.givenAmount.isEmpty)
+                                  RichText(
                                     text: TextSpan(
-                                      text: MyFunction.priceFormat(int.tryParse(
-                                              state
-                                                  .givenAmount[index].amount) ??
-                                          0),
+                                      text: "0",
                                       style: const TextStyle(
                                         color: white,
                                         fontSize: 24,
@@ -250,8 +269,7 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text:
-                                              ' ${state.givenAmount[index].currency.toUpperCase()}',
+                                          text: ' UZS',
                                           style: TextStyle(
                                             color: white.withOpacity(.4),
                                             fontSize: 24,
@@ -260,8 +278,36 @@ class _HomeViewState extends State<HomeView> {
                                         )
                                       ],
                                     ),
+                                  )
+                                else
+                                  ...List.generate(
+                                    state.givenAmount.length,
+                                    (index) => RichText(
+                                      text: TextSpan(
+                                        text: MyFunction.priceFormat(
+                                            int.tryParse(state
+                                                    .givenAmount[index]
+                                                    .amount) ??
+                                                0),
+                                        style: const TextStyle(
+                                          color: white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                ' ${state.givenAmount[index].currency.toUpperCase()}',
+                                            style: TextStyle(
+                                              color: white.withOpacity(.4),
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
