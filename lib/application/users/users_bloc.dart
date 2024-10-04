@@ -11,7 +11,9 @@ import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/history_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
 import 'package:qarz_daftar/infrastructure/repo/users_repo.dart';
@@ -23,6 +25,29 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   final UsersRepo _repo = UsersRepo(dataSourcheImpl: UsersDatasourceImpl());
 
   UsersBloc() : super(const UsersState()) {
+    on<PostContactsEvent>((event, emit) async {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      final response = await _repo.postContacts(event.model);
+      if (response.isRight) {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
+        add(GetContactsEvent());
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      }
+    });
+    on<GetHistoryEvent>((event, emit) async {
+      emit(state.copyWith(historyStatus: FormzSubmissionStatus.inProgress));
+      final response = await _repo.getHistory();
+      if (response.isRight) {
+        emit(state.copyWith(
+          historyStatus: FormzSubmissionStatus.success,
+          history: response.right,
+        ));
+      } else {
+        emit(state.copyWith(historyStatus: FormzSubmissionStatus.failure));
+      }
+    });
+
     on<PatchTransactionConfirmEvent>((event, emit) async {
       emit(state.copyWith(notifRefus: FormzSubmissionStatus.inProgress));
       final response = await _repo.patchTransactionConfirm(event.id);

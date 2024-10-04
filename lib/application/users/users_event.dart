@@ -4,6 +4,14 @@ sealed class UsersEvent {}
 
 class GetContactsEvent extends UsersEvent {}
 
+class GetHistoryEvent extends UsersEvent {}
+
+class PostContactsEvent extends UsersEvent {
+  final List<PhonsModel> model;
+
+  PostContactsEvent({required this.model});
+}
+
 class GetOperationsEvent extends UsersEvent {}
 
 class GetOperationsTREvent extends UsersEvent {

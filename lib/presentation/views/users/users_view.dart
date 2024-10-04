@@ -23,6 +23,7 @@ class _UsersViewState extends State<UsersView> {
   void initState() {
     context.read<UsersBloc>().add(GetBannedEvent());
     context.read<UsersBloc>().add(GetContactsEvent());
+    context.read<UsersBloc>().add(GetHistoryEvent());
     super.initState();
   }
 

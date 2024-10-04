@@ -12,6 +12,7 @@ class UsersState extends Equatable {
   final FormzSubmissionStatus notifConfirm;
   final FormzSubmissionStatus notifRefus;
   final FormzSubmissionStatus bannedStatus;
+  final FormzSubmissionStatus historyStatus;
   final ContactsModel contactsModel;
   final List<OperationModel> operations;
   final List<OperationModel> operationsTr;
@@ -21,6 +22,7 @@ class UsersState extends Equatable {
   final List<GivenAmountModel> takenAmount;
   final List<GraphicStatisticsModel> graphicStatistics;
   final List<BannedModel> banneds;
+  final List<HistoryModel> history;
   const UsersState({
     this.status = FormzSubmissionStatus.initial,
     this.statusTr = FormzSubmissionStatus.initial,
@@ -32,6 +34,7 @@ class UsersState extends Equatable {
     this.bannedStatus = FormzSubmissionStatus.initial,
     this.notifConfirm = FormzSubmissionStatus.initial,
     this.notifRefus = FormzSubmissionStatus.initial,
+    this.historyStatus = FormzSubmissionStatus.initial,
     this.contactsModel = const ContactsModel(),
     this.operations = const [],
     this.operationsTr = const [],
@@ -41,6 +44,7 @@ class UsersState extends Equatable {
     this.takenAmount = const [],
     this.graphicStatistics = const [],
     this.banneds = const [],
+    this.history = const [],
   });
 
   @override
@@ -73,6 +77,7 @@ class UsersState extends Equatable {
     FormzSubmissionStatus? notifConfirm,
     FormzSubmissionStatus? notifRefus,
     FormzSubmissionStatus? bannedStatus,
+    FormzSubmissionStatus? historyStatus,
     ContactsModel? contactsModel,
     List<OperationModel>? operations,
     List<OperationModel>? operationsTr,
@@ -82,6 +87,7 @@ class UsersState extends Equatable {
     List<GivenAmountModel>? takenAmount,
     List<GraphicStatisticsModel>? graphicStatistics,
     List<BannedModel>? banneds,
+    List<HistoryModel>? history,
   }) {
     return UsersState(
       status: status ?? this.status,
@@ -94,6 +100,7 @@ class UsersState extends Equatable {
       notifConfirm: notifConfirm ?? this.notifConfirm,
       notifRefus: notifRefus ?? this.notifRefus,
       bannedStatus: bannedStatus ?? this.bannedStatus,
+      historyStatus: historyStatus ?? this.historyStatus,
       contactsModel: contactsModel ?? this.contactsModel,
       operations: operations ?? this.operations,
       operationsTr: operationsTr ?? this.operationsTr,
@@ -103,6 +110,7 @@ class UsersState extends Equatable {
       takenAmount: takenAmount ?? this.takenAmount,
       graphicStatistics: graphicStatistics ?? this.graphicStatistics,
       banneds: banneds ?? this.banneds,
+      history: history ?? this.history,
     );
   }
 }

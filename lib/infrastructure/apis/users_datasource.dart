@@ -9,19 +9,23 @@ import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/history_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/dio_settings.dart';
 import 'package:qarz_daftar/infrastructure/core/service_locator.dart';
 
 abstract class UsersDatasource {
   Future<ContactsModel> getContacts();
+  Future<bool> postContacts(List<PhonsModel> model);
   Future<GenericPagination<OperationModel>> getOperations();
   Future<OperationModel> getOperation(int id);
   Future<GenericPagination<OperationModel>> getOperationTr(int id);
   Future<GenericPagination<PopularModel>> getpopular();
   Future<List<GivenAmountModel>> getGivenAmount();
   Future<List<GivenAmountModel>> getTakenAmount();
+  Future<List<HistoryModel>> getHistory();
   Future<List<GraphicStatisticsModel>> getGraphicStatistics();
   Future<List<BannedModel>> getBannedUsers();
   Future<GenericPagination<NotificationModel>> getNotification();
@@ -219,6 +223,29 @@ class UsersDatasourceImpl implements UsersDatasource {
         'mobile/operations/transactions/$id/refusal',
       ),
       body: (response) => true,
+    );
+  }
+
+  @override
+  Future<List<HistoryModel>> getHistory() async {
+    return await _handle.apiCantrol(
+      request: () => dio.post(
+        'mobile/operations/mobile/operations/history',
+      ),
+      body: (response) => (response as List)
+          .map((e) => HistoryModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  @override
+  Future<bool> postContacts(List<PhonsModel> model) async {
+    return await _handle.apiCantrol(
+      request: () => dio.post(
+        'mobile/accounts/contacts/synchronization',
+        data: phonsModelToJson(model),
+      ),
+      body: (response) =>true,
     );
   }
 }

@@ -8,13 +8,16 @@ import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/history_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/exceptions/failures.dart';
 import 'package:qarz_daftar/utils/either.dart';
 
 abstract class IUsersRepo {
   Future<Either<Failure, ContactsModel>> getContacts();
+  Future<Either<Failure, bool>> postContacts(List<PhonsModel> model);
   Future<Either<Failure, GenericPagination<OperationModel>>> getOperations();
   Future<Either<Failure, GenericPagination<OperationModel>>> getOperationTr(
     int id,
@@ -25,6 +28,7 @@ abstract class IUsersRepo {
       getNotification();
   Future<Either<Failure, List<GivenAmountModel>>> getGivenAmount();
   Future<Either<Failure, List<GivenAmountModel>>> getTakenAmount();
+  Future<Either<Failure, List<HistoryModel>>> getHistory();
   Future<Either<Failure, List<GraphicStatisticsModel>>> getGraphicStatistics();
   Future<Either<Failure, List<BannedModel>>> getBannedUsers();
 

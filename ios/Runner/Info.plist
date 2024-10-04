@@ -76,5 +76,7 @@
 		<string>Need to upload image Qarz Daftar</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Need to upload image Qarz Daftar</string>
+		<key>NSContactsUsageDescription</key>
+		<string>Reason we need access to the contact list</string>
 	</dict>
 </plist>

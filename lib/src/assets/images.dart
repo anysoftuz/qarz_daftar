@@ -12,6 +12,7 @@ class AppImages {
   static const banner = "assets/images/debt-removebg-preview.png";
   static const splesh = "assets/images/splesh.png";
   static const telegram = "assets/images/telegram.png";
+  static const emptyBox = "assets/images/empty-box.png";
 }
 
 extension ImgExt on String {

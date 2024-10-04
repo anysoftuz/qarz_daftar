@@ -6,6 +6,7 @@ import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/src/assets/images.dart';
 
 class BlacklistView extends StatelessWidget {
   const BlacklistView({super.key});
@@ -26,48 +27,64 @@ class BlacklistView extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.only(bottom: 100),
-                  itemBuilder: (context, index) => DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: context.color.borderColor,
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 24,
-                        backgroundImage: CachedNetworkImageProvider(
-                          state.banneds[index].avatar,
-                        ),
-                      ),
-                      title: Text(
-                        state.banneds[index].fullName,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      subtitle: const Text(
-                        "Banned",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: red,
-                        ),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
+                child: Builder(
+                  builder: (context) {
+                    if (state.banneds.isEmpty) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AppIcons.star.svg(),
-                          const SizedBox(width: 4),
-                          Text(state.banneds[index].score.toString())
+                          Image.asset(
+                            AppImages.emptyBox,
+                            width: MediaQuery.sizeOf(context).width / 2,
+                          ),
+                          const SizedBox(height: 120),
                         ],
+                      );
+                    }
+                    return ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 100),
+                      itemBuilder: (context, index) => DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: context.color.borderColor,
+                        ),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 24,
+                            backgroundImage: CachedNetworkImageProvider(
+                              state.banneds[index].avatar,
+                            ),
+                          ),
+                          title: Text(
+                            state.banneds[index].fullName,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: const Text(
+                            "Banned",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: red,
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AppIcons.star.svg(),
+                              const SizedBox(width: 4),
+                              Text(state.banneds[index].score.toString())
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemCount: state.banneds.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
+                      itemCount: state.banneds.length,
+                    );
+                  },
                 ),
               ),
             ],

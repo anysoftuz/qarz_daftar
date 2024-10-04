@@ -10,7 +10,9 @@ import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/history_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
+import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
 import 'package:qarz_daftar/infrastructure/core/exceptions/exceptions.dart';
@@ -323,6 +325,42 @@ class UsersRepo implements IUsersRepo {
   Future<Either<Failure, bool>> patchTransactionRefus(int id) async {
     try {
       final result = await dataSourcheImpl.patchTransactionRefus(id);
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<HistoryModel>>> getHistory() async {
+    try {
+      final result = await dataSourcheImpl.getHistory();
+      return Right(result);
+    } on DioException {
+      return Left(DioFailure());
+    } on ParsingException catch (e) {
+      return Left(ParsingFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        errorMessage: e.errorMessage,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> postContacts(
+    List<PhonsModel> model,
+  ) async {
+    try {
+      final result = await dataSourcheImpl.postContacts(model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());
