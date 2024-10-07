@@ -1,24 +1,27 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
+import 'package:qarz_daftar/src/assets/constants/storage_keys.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/caller.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -28,7 +31,49 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late WebSocketChannel channel;
+  void connectionSoket() {
+    String authToken = StorageRepository.getString(StorageKeys.TOKEN);
+    Log.e(authToken);
+    // Initialize the socket connection with query parameters
+    IO.Socket socket = IO.io(
+      'ws://138.68.80.51:3000/ws',
+      IO.OptionBuilder().setTransports(['websocket']).setExtraHeaders(
+          {'authorization': authToken}).build(),
+    );
+
+    // Handle connection events
+    socket.onConnect((_) {
+      print('Connected');
+    });
+
+    socket.onConnectError((data) {
+      print('Connection Error: $data');
+    });
+
+    socket.onError((data) {
+      print('Error: $data');
+    });
+
+    socket.onDisconnect((_) {
+      print('Disconnected');
+    });
+
+    // Listen for events
+    socket.on('notifications', (data) {
+      final bloc = context.read<UsersBloc>();
+      showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          insetPadding: const EdgeInsets.all(16),
+          child: PayHistoryInfoDialog(
+            model: NotificationModel.fromJson(data),
+            bloc: bloc,
+          ),
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     context.read<UsersBloc>().add(GetOperationsEvent());
@@ -36,37 +81,10 @@ class _HomeViewState extends State<HomeView> {
     context.read<UsersBloc>().add(GetTakenAmountEvent());
     context.read<UsersBloc>().add(GetPopularEvent());
     context.read<UsersBloc>().add(GetNotificationEvent(
-      onSucces: (List<NotificationModel> notification) {
-        if (MyFunction.notificationLeng(notification) > 0) {
-          showDialog(
-            context: context,
-            builder: (context) => Dialog(
-              insetPadding: const EdgeInsets.all(16),
-              child: PayHistoryInfoDialog(
-                model: MyFunction.notificationList(notification).isNotEmpty
-                    ? MyFunction.notificationList(notification).first
-                    : const NotificationModel(),
-              ),
-            ),
-          );
-        }
-      },
-    ));
+          onSucces: (List<NotificationModel> notification) {},
+        ));
     super.initState();
-    channel = WebSocketChannel.connect(
-      Uri.parse("ws://138.68.80.51:3000/ws"),
-    );
-    channel.stream.listen(
-      (event) {
-        Log.i("Bu datada: $event");
-      },
-      onError: (error) {
-        Log.e(error);
-      },
-      onDone: () {
-        Log.e("Web soket closed");
-      },
-    );
+    connectionSoket();
   }
 
   @override
@@ -463,26 +481,8 @@ class _HomeViewState extends State<HomeView> {
                       context.read<UsersBloc>().add(GetTakenAmountEvent());
                       context.read<UsersBloc>().add(GetPopularEvent());
                       context.read<UsersBloc>().add(GetNotificationEvent(
-                        onSucces: (List<NotificationModel> notification) {
-                          if (MyFunction.notificationLeng(notification) > 0) {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Dialog(
-                                insetPadding: const EdgeInsets.all(16),
-                                child: PayHistoryInfoDialog(
-                                  model:
-                                      MyFunction.notificationList(notification)
-                                              .isNotEmpty
-                                          ? MyFunction.notificationList(
-                                                  notification)
-                                              .first
-                                          : const NotificationModel(),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ));
+                            onSucces: (List<NotificationModel> notification) {},
+                          ));
                       await Future.delayed(Duration.zero);
                     },
                     child: ListView.builder(
@@ -580,11 +580,5 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    channel.sink.close();
-    super.dispose();
   }
 }
