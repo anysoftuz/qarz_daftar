@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/caller.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, required this.navigationShell});
@@ -77,8 +79,18 @@ class _MainViewState extends State<MainView> {
             ),
             WScaleAnimation(
               onTap: () {
-                final bloc = context.read<UsersBloc>();
-                context.push(AppRouteName.operation, extra: bloc);
+                if (context.read<AuthBloc>().state.usergetModel.phone.isEmpty) {
+                  Caller.launchUrlWeb("https://t.me/qarz_daftar1_bot").then(
+                    (value) {
+                      if (mounted) {
+                        context.read<AuthBloc>().add(GetMeEvent());
+                      }
+                    },
+                  );
+                } else {
+                  final bloc = context.read<UsersBloc>();
+                  context.push(AppRouteName.operation, extra: bloc);
+                }
               },
               child: Container(
                 height: 64,
