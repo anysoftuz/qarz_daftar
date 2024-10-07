@@ -12,7 +12,6 @@ import 'package:qarz_daftar/presentation/views/home/notification_view.dart';
 import 'package:qarz_daftar/presentation/views/home/user_details_view.dart';
 import 'package:qarz_daftar/presentation/views/main_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/contacts_view.dart';
-import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 // import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/lenguage_view.dart';
 import 'package:qarz_daftar/presentation/views/profile/notification_settings_view.dart';
@@ -46,13 +45,13 @@ sealed class AppRouts {
         path: AppRouteName.confirmLogin,
         builder: (context, state) => const ConfirmationLoginView(),
       ),
-      GoRoute(
-        path: AppRouteName.operation,
-        builder: (context, state) => BlocProvider.value(
-          value: (state.extra as UsersBloc),
-          child: const OperationsView(),
-        ),
-      ),
+      // GoRoute(
+      //   path: AppRouteName.operation,
+      //   builder: (context, state) => BlocProvider.value(
+      //     value: (state.extra as UsersBloc),
+      //     child: const OperationsView(),
+      //   ),
+      // ),
       GoRoute(
         path: AppRouteName.contacts,
         builder: (context, state) => BlocProvider(

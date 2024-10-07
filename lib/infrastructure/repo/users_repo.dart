@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:qarz_daftar/data/abstract_repo/i_users_repo.dart';
 import 'package:qarz_daftar/data/models/deadline_model.dart';
+import 'package:qarz_daftar/data/models/filter_model.dart';
 import 'package:qarz_daftar/data/models/generic_pagination.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
-import 'package:qarz_daftar/data/models/home/popular_model.dart';
 import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
@@ -24,9 +24,9 @@ class UsersRepo implements IUsersRepo {
   UsersRepo({required this.dataSourcheImpl});
 
   @override
-  Future<Either<Failure, ContactsModel>> getContacts() async {
+  Future<Either<Failure, ContactsModel>> getContacts(FilterModel model) async {
     try {
-      final result = await dataSourcheImpl.getContacts();
+      final result = await dataSourcheImpl.getContacts(model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());
@@ -111,7 +111,7 @@ class UsersRepo implements IUsersRepo {
   }
 
   @override
-  Future<Either<Failure, GenericPagination<PopularModel>>> getpopular() async {
+  Future<Either<Failure, ContactsModel>> getpopular() async {
     try {
       final result = await dataSourcheImpl.getpopular();
       return Right(result);

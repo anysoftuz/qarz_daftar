@@ -1,10 +1,10 @@
 import 'package:qarz_daftar/data/common/error_handle.dart';
 import 'package:qarz_daftar/data/models/deadline_model.dart';
+import 'package:qarz_daftar/data/models/filter_model.dart';
 import 'package:qarz_daftar/data/models/generic_pagination.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
-import 'package:qarz_daftar/data/models/home/popular_model.dart';
 import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
@@ -17,12 +17,12 @@ import 'package:qarz_daftar/infrastructure/core/dio_settings.dart';
 import 'package:qarz_daftar/infrastructure/core/service_locator.dart';
 
 abstract class UsersDatasource {
-  Future<ContactsModel> getContacts();
+  Future<ContactsModel> getContacts(FilterModel model);
   Future<bool> postContacts(List<PhonsModel> model);
   Future<GenericPagination<OperationModel>> getOperations();
   Future<OperationModel> getOperation(int id);
   Future<GenericPagination<OperationModel>> getOperationTr(int id);
-  Future<GenericPagination<PopularModel>> getpopular();
+  Future<ContactsModel> getpopular();
   Future<List<GivenAmountModel>> getGivenAmount();
   Future<List<GivenAmountModel>> getTakenAmount();
   Future<List<HistoryModel>> getHistory();
@@ -44,9 +44,12 @@ class UsersDatasourceImpl implements UsersDatasource {
   final ErrorHandle _handle = ErrorHandle();
 
   @override
-  Future<ContactsModel> getContacts() async {
+  Future<ContactsModel> getContacts(FilterModel model) async {
     return await _handle.apiCantrol(
-      request: () => dio.get('mobile/accounts/contacts'),
+      request: () => dio.get(
+        'mobile/accounts/contacts',
+        queryParameters: model.toJson(),
+      ),
       body: (response) =>
           ContactsModel.fromJson(response as Map<String, dynamic>),
     );
@@ -106,13 +109,11 @@ class UsersDatasourceImpl implements UsersDatasource {
   }
 
   @override
-  Future<GenericPagination<PopularModel>> getpopular() async {
+  Future<ContactsModel> getpopular() async {
     return await _handle.apiCantrol(
       request: () => dio.get('mobile/customers/popular'),
-      body: (response) => GenericPagination.fromJson(
-        response,
-        (p0) => PopularModel.fromJson(p0 as Map<String, dynamic>),
-      ),
+      body: (response) =>
+          ContactsModel.fromJson(response as Map<String, dynamic>),
     );
   }
 
@@ -245,7 +246,7 @@ class UsersDatasourceImpl implements UsersDatasource {
         'mobile/accounts/contacts/synchronization',
         data: phonsModelToJson(model),
       ),
-      body: (response) =>true,
+      body: (response) => true,
     );
   }
 }

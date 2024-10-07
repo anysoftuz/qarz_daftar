@@ -2,7 +2,15 @@ part of 'users_bloc.dart';
 
 sealed class UsersEvent {}
 
-class GetContactsEvent extends UsersEvent {}
+class GetContactsEvent extends UsersEvent {
+  final bool isMore;
+  final String search;
+
+  GetContactsEvent({
+    this.isMore = false,
+    this.search = '',
+  });
+}
 
 class GetHistoryEvent extends UsersEvent {}
 

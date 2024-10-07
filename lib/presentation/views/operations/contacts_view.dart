@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/common/presentation/paginator_list.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/debounce.dart';
 
 class ContactsView extends StatefulWidget {
   const ContactsView({super.key});
@@ -67,7 +69,13 @@ class _ContactsViewState extends State<ContactsView> {
                   hintText: "Search",
                   fillColor: context.color.borderColor,
                   prefixIcon: AppIcons.search.svg(),
-                  onChanged: (String value) {},
+                  onChanged: (value) {
+                    onDebounce(() {
+                      context
+                          .read<UsersBloc>()
+                          .add(GetContactsEvent(search: value));
+                    });
+                  },
                 ),
                 const SizedBox(height: 16),
                 Expanded(
@@ -80,11 +88,19 @@ class _ContactsViewState extends State<ContactsView> {
                             context.read<UsersBloc>().add(GetContactsEvent());
                             await Future.delayed(const Duration(seconds: 1));
                           },
-                          child: ListView.separated(
+                          child: PaginatorList(
+                            fetchMoreFunction: () {
+                              context
+                                  .read<UsersBloc>()
+                                  .add(GetContactsEvent(isMore: true));
+                            },
+                            hasMoreToFetch: state.contacts.length <
+                                state.contactsModel.totalCount,
+                            paginatorStatus: state.status,
                             padding: const EdgeInsets.only(bottom: 100),
                             itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
-                                context.pop(state.contactsModel.data[index]);
+                                context.pop(state.contacts[index]);
                               },
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
@@ -95,26 +111,24 @@ class _ContactsViewState extends State<ContactsView> {
                                   leading: CircleAvatar(
                                     radius: 24,
                                     backgroundImage: CachedNetworkImageProvider(
-                                      state.contactsModel.data[index].avatar,
+                                      state.contacts[index].avatar,
                                     ),
                                   ),
                                   title: Text(
-                                    state.contactsModel.data[index].fullName,
+                                    state.contacts[index].fullName,
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  subtitle: Text(
-                                      state.contactsModel.data[index].phone),
+                                  subtitle: Text(state.contacts[index].phone),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       AppIcons.star.svg(),
                                       const SizedBox(width: 4),
                                       Text(
-                                        state.contactsModel.data[index].score
-                                            .toString(),
+                                        state.contacts[index].score.toString(),
                                       )
                                     ],
                                   ),
@@ -123,7 +137,7 @@ class _ContactsViewState extends State<ContactsView> {
                             ),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 8),
-                            itemCount: state.contactsModel.data.length,
+                            itemCount: state.contacts.length,
                           ),
                         ),
                 ),

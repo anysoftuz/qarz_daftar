@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
+import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/src/assets/images.dart';
@@ -36,6 +37,17 @@ class BlacklistView extends StatelessWidget {
                           Image.asset(
                             AppImages.emptyBox,
                             width: MediaQuery.sizeOf(context).width / 2,
+                          ),
+                          const SizedBox(height: 16),
+                          WButton(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 32,
+                            ),
+                            onTap: () {
+                              context.read<UsersBloc>().add(GetBannedEvent());
+                            },
+                            text: "Refresh",
                           ),
                           const SizedBox(height: 120),
                         ],

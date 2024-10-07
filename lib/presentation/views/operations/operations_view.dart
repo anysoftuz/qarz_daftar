@@ -19,7 +19,8 @@ import 'package:qarz_daftar/utils/formatters.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
 
 class OperationsView extends StatefulWidget {
-  const OperationsView({super.key});
+  const OperationsView({super.key, this.user});
+  final Datum? user;
 
   @override
   State<OperationsView> createState() => _OperationsViewState();
@@ -55,6 +56,16 @@ class _OperationsViewState extends State<OperationsView> {
       "name": "1 oy",
     }
   ];
+
+  @override
+  void initState() {
+    if (widget.user != null) {
+      final model = (widget.user as Datum);
+      user = model;
+      controllerPhone.text = model.phone;
+    }
+    super.initState();
+  }
 
   void imagesFile() async {
     try {

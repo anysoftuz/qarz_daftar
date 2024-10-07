@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/data/models/deadline_model.dart';
+import 'package:qarz_daftar/data/models/filter_model.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
-import 'package:qarz_daftar/data/models/home/popular_model.dart';
 import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/banned_model.dart';
 import 'package:qarz_daftar/data/models/users/contact_add_model.dart';
@@ -35,6 +35,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));
       }
     });
+
     on<GetHistoryEvent>((event, emit) async {
       emit(state.copyWith(historyStatus: FormzSubmissionStatus.inProgress));
       final response = await _repo.getHistory();
@@ -206,7 +207,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       if (response.isRight) {
         emit(state.copyWith(
           popularStatus: FormzSubmissionStatus.success,
-          popular: response.right.data,
+          popular: response.right,
         ));
       } else {
         emit(state.copyWith(popularStatus: FormzSubmissionStatus.failure));
@@ -253,12 +254,31 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     });
 
     on<GetContactsEvent>((event, emit) async {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-      final response = await _repo.getContacts();
+      if (!event.isMore) {
+        emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      }
+      final model = FilterModel(
+        cursor: event.isMore ? state.contactsModel.data.length : 0,
+        search: event.search,
+        take: 100,
+      );
+      final response = await _repo.getContacts(model);
+
       if (response.isRight) {
+        final data = event.isMore
+            ? ContactsModel(
+                data: [...state.contactsModel.data, ...response.right.data],
+                endCursor: response.right.endCursor,
+                startCursor: response.right.startCursor,
+                totalCount: response.right.totalCount,
+              )
+            : response.right;
         emit(state.copyWith(
           status: FormzSubmissionStatus.success,
-          contactsModel: response.right,
+          contactsModel: data,
+          contacts: event.isMore
+              ? [...state.contacts, ...response.right.data]
+              : response.right.data,
         ));
       } else {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));

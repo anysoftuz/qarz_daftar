@@ -62,7 +62,8 @@ class MyFunction {
     int count = 0;
     for (var element in notification) {
       if (element.confirmStatus != "active" &&
-          element.confirmStatus != "confirm") {
+          element.confirmStatus != "confirm" &&
+          element.confirmStatus != "closed") {
         count += 1;
       }
     }
@@ -75,7 +76,8 @@ class MyFunction {
     List<NotificationModel> notification = [];
     for (var element in notifications) {
       if (element.confirmStatus != "active" &&
-          element.confirmStatus != "confirm") {
+          element.confirmStatus != "confirm" &&
+          element.confirmStatus != "closed") {
         notification.add(element);
       }
     }

@@ -2,12 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
-import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
+import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/images.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
@@ -32,6 +31,17 @@ class HistoryView extends StatelessWidget {
                 AppImages.emptyBox,
                 width: MediaQuery.sizeOf(context).width / 2,
               ),
+              const SizedBox(height: 16),
+              WButton(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 32,
+                ),
+                onTap: () {
+                  context.read<UsersBloc>().add(GetHistoryEvent());
+                },
+                text: "Refresh",
+              ),
               const SizedBox(height: 120),
             ],
           );
@@ -54,25 +64,9 @@ class HistoryView extends StatelessWidget {
             ),
             child: ListTile(
               onTap: () {
-                if (state.history[index].contractorType == "borrowing") {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UserProfileView(
-                      model: OperationModel(
-                        amount: int.tryParse(state.history[index].amount) ?? 0,
-                        contractorFullName: state.history[index].concat,
-                        contractorAvatar: state.history[index].avatar,
-                        contractorPhone: "",
-                        contractorType: state.history[index].contractorType,
-                        deadline: state.history[index].deadline,
-                        debt: int.tryParse(state.history[index].debt) ?? 0,
-                        currency: state.history[index].currency,
-                      ),
-                    ),
-                  ));
-                } else {
-                  context.push(
-                    AppRouteName.userdetails,
-                    extra: OperationModel(
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => UserProfileView(
+                    model: OperationModel(
                       amount: int.tryParse(state.history[index].amount) ?? 0,
                       contractorFullName: state.history[index].concat,
                       contractorAvatar: state.history[index].avatar,
@@ -82,8 +76,8 @@ class HistoryView extends StatelessWidget {
                       debt: int.tryParse(state.history[index].debt) ?? 0,
                       currency: state.history[index].currency,
                     ),
-                  );
-                }
+                  ),
+                ));
               },
               title: Text(
                 state.history[index].concat,
@@ -93,7 +87,7 @@ class HistoryView extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                "${MyFunction.daysLeft(state.history[index].deadline)} days left",
+                MyFunction.dateFormatDate(state.history[index].deadline),
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,

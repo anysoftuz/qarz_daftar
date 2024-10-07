@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/caller.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
 import 'package:qarz_daftar/utils/my_function.dart';
 import 'package:badges/badges.dart' as badges;
@@ -327,7 +330,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Container(
-                      height: 160,
+                      height: state.popular.data.isNotEmpty ? 160 : 68,
                       width: double.infinity,
                       padding: const EdgeInsets.only(top: 16),
                       decoration: BoxDecoration(
@@ -339,7 +342,7 @@ class _HomeViewState extends State<HomeView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (state.popular.isNotEmpty) ...[
+                          if (state.popular.data.isNotEmpty) ...[
                             const Padding(
                               padding: EdgeInsets.only(left: 16, bottom: 8),
                               child: Text(
@@ -356,16 +359,59 @@ class _HomeViewState extends State<HomeView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => CircleAvatar(
-                                  radius: 28,
-                                  backgroundColor: blue,
-                                  backgroundImage: CachedNetworkImageProvider(
-                                    state.popular[index].avatar,
+                                itemBuilder: (context, index) =>
+                                    GestureDetector(
+                                  onTap: () {
+                                    if (context
+                                        .read<AuthBloc>()
+                                        .state
+                                        .usergetModel
+                                        .phone
+                                        .isEmpty) {
+                                      Caller.launchUrlWeb(
+                                        "https://t.me/qarz_daftar1_bot",
+                                      ).whenComplete(
+                                        () {
+                                          if (mounted) {
+                                            context
+                                                .read<AuthBloc>()
+                                                .add(GetMeEvent());
+                                          }
+                                        },
+                                      );
+                                    } else if (context
+                                            .read<AuthBloc>()
+                                            .state
+                                            .usergetModel
+                                            .phone ==
+                                        state.popular.data[index].phone) {
+                                      context.go(AppRouteName.profile);
+                                    } else {
+                                      final bloc = context.read<UsersBloc>();
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            BlocProvider.value(
+                                          value: bloc,
+                                          child: OperationsView(
+                                            user: state.popular.data[index],
+                                          ),
+                                        ),
+                                      ));
+                                      // context.push(AppRouteName.operation, extra: bloc);
+                                    }
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 28,
+                                    backgroundColor: blue,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                      state.popular.data[index].avatar,
+                                    ),
                                   ),
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(width: 8),
-                                itemCount: state.popular.length,
+                                itemCount: state.popular.data.length,
                               ),
                             ),
                           ],
@@ -410,88 +456,119 @@ class _HomeViewState extends State<HomeView> {
               builder: (context, state) {
                 return ColoredBox(
                   color: context.color.whiteSmoke,
-                  child: ListView.builder(
-                    itemCount: state.operations.length,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.color.contColor,
-                        borderRadius: index == 0
-                            ? const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                              )
-                            : index == (state.operations.length - 1)
-                                ? const BorderRadius.vertical(
-                                    bottom: Radius.circular(8),
-                                  )
-                                : null,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          if (state.operations[index].contractorType ==
-                              "borrowing") {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => UserProfileView(
-                                model: state.operations[index],
+                  child: RefreshIndicator.adaptive(
+                    onRefresh: () async {
+                      context.read<UsersBloc>().add(GetOperationsEvent());
+                      context.read<UsersBloc>().add(GetGivenAmountEvent());
+                      context.read<UsersBloc>().add(GetTakenAmountEvent());
+                      context.read<UsersBloc>().add(GetPopularEvent());
+                      context.read<UsersBloc>().add(GetNotificationEvent(
+                        onSucces: (List<NotificationModel> notification) {
+                          if (MyFunction.notificationLeng(notification) > 0) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                insetPadding: const EdgeInsets.all(16),
+                                child: PayHistoryInfoDialog(
+                                  model:
+                                      MyFunction.notificationList(notification)
+                                              .isNotEmpty
+                                          ? MyFunction.notificationList(
+                                                  notification)
+                                              .first
+                                          : const NotificationModel(),
+                                ),
                               ),
-                            ));
-                          } else {
-                            context.push(
-                              AppRouteName.userdetails,
-                              extra: state.operations[index],
                             );
                           }
                         },
-                        title: Text(
-                          state.operations[index].contractorFullName,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      ));
+                      await Future.delayed(Duration.zero);
+                    },
+                    child: ListView.builder(
+                      itemCount: state.operations.length,
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 108),
+                      itemBuilder: (context, index) => DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: context.color.contColor,
+                          borderRadius: index == 0
+                              ? const BorderRadius.vertical(
+                                  top: Radius.circular(8),
+                                )
+                              : index == (state.operations.length - 1)
+                                  ? const BorderRadius.vertical(
+                                      bottom: Radius.circular(8),
+                                    )
+                                  : null,
                         ),
-                        subtitle: Text(
-                          "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: MyFunction.daysLeft(
-                                        state.operations[index].deadline) >
-                                    7
-                                ? null
-                                : red,
-                          ),
-                        ),
-                        leading: CircleAvatar(
-                          radius: 24,
-                          backgroundColor: backGroundColor,
-                          backgroundImage: CachedNetworkImageProvider(
-                            state.operations[index].contractorAvatar,
-                          ),
-                        ),
-                        trailing: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${MyFunction.priceFormat(state.operations[index].amount)} ${state.operations[index].currency}",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                        child: ListTile(
+                          onTap: () {
+                            if (state.operations[index].contractorType ==
+                                "borrowing") {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => UserProfileView(
+                                  model: state.operations[index],
+                                ),
+                              ));
+                            } else {
+                              context.push(
+                                AppRouteName.userdetails,
+                                extra: state.operations[index],
+                              );
+                            }
+                          },
+                          title: Text(
+                            state.operations[index].contractorFullName,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
-                            Text(
-                              state.operations[index].contractorType
-                                  .toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: state.operations[index].contractorType ==
-                                        "borrowing"
-                                    ? red
-                                    : mainBlue,
-                              ),
+                          ),
+                          subtitle: Text(
+                            "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: MyFunction.daysLeft(
+                                          state.operations[index].deadline) >
+                                      7
+                                  ? null
+                                  : red,
                             ),
-                          ],
+                          ),
+                          leading: CircleAvatar(
+                            radius: 24,
+                            backgroundColor: backGroundColor,
+                            backgroundImage: CachedNetworkImageProvider(
+                              state.operations[index].contractorAvatar,
+                            ),
+                          ),
+                          trailing: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${MyFunction.priceFormat(state.operations[index].amount)} ${state.operations[index].currency}",
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                state.operations[index].contractorType
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color:
+                                      state.operations[index].contractorType ==
+                                              "borrowing"
+                                          ? red
+                                          : mainBlue,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

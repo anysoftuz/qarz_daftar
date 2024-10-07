@@ -61,10 +61,14 @@ class ActiveView extends StatelessWidget {
                 ),
                 subtitle: Text(
                   "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: red,
+                    color:
+                        MyFunction.daysLeft(state.operations[index].deadline) >
+                                7
+                            ? null
+                            : red,
                   ),
                 ),
                 leading: CircleAvatar(

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
-import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -89,7 +89,13 @@ class _MainViewState extends State<MainView> {
                   );
                 } else {
                   final bloc = context.read<UsersBloc>();
-                  context.push(AppRouteName.operation, extra: bloc);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: const OperationsView(),
+                    ),
+                  ));
+                  // context.push(AppRouteName.operation, extra: bloc);
                 }
               },
               child: Container(
