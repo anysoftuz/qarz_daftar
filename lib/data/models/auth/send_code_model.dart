@@ -16,7 +16,7 @@ String sendCodeModelToJson(SendCodeModel data) => json.encode(data.toJson());
 class SendCodeModel {
   @JsonKey(name: "phone")
   final String phone;
-  @JsonKey(name: "id")
+  @JsonKey(name: "telegram_id")
   final int id;
 
   const SendCodeModel({

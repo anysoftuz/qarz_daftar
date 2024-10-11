@@ -112,6 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           statusCode: FormzSubmissionStatus.success,
           userModel: response.right,
           usergetModel: response.right.user,
+          status: AuthenticationStatus.authenticated,
         ));
       } else {
         emit(state.copyWith(statusCode: FormzSubmissionStatus.failure));
