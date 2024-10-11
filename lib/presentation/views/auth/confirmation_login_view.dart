@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
+import 'package:qarz_daftar/data/models/auth/send_code_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/auth/telegram_auth.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
@@ -64,11 +65,17 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
                   if (data) {
                     Log.e(telegramLogin.userData);
                     context.read<AuthBloc>().add(SendCodeEvent(
-                          phone: phoneNumber,
-                          code: int.tryParse(
-                                telegramLogin.userData["id"].toString(),
-                              ) ??
-                              0,
+                          body: SendCodeModel(
+                            phone: phoneNumber,
+                            id: int.tryParse(
+                                  telegramLogin.userData["id"].toString(),
+                                ) ??
+                                0,
+                            firstName: telegramLogin.userData["first_name"] ?? "",
+                            lastName: telegramLogin.userData["last_name"] ?? "",
+                            fullName: "${telegramLogin.userData["first_name"]} ${telegramLogin.userData["last_name"]}",
+                            avatar: telegramLogin.userData["photo_url"] ?? "",
+                          ),
                           onError: () {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

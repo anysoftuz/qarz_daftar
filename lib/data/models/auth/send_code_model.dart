@@ -18,9 +18,21 @@ class SendCodeModel {
   final String phone;
   @JsonKey(name: "telegram_id")
   final int id;
+  @JsonKey(name: "first_name")
+  final String firstName;
+  @JsonKey(name: "last_name")
+  final String lastName;
+  @JsonKey(name: "avatar")
+  final String avatar;
+  @JsonKey(name: "full_name")
+  final String fullName;
 
   const SendCodeModel({
     this.phone = "",
+    this.firstName = "",
+    this.avatar = "",
+    this.fullName = "",
+    this.lastName = "",
     this.id = 0,
   });
 

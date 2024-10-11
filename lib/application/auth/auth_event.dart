@@ -3,14 +3,12 @@ part of 'auth_bloc.dart';
 sealed class AuthEvent {}
 
 class SendCodeEvent extends AuthEvent {
-  final String phone;
-  final int code;
+final SendCodeModel body;
   final VoidCallback onError;
   final Function(UserModel model) onSucces;
 
   SendCodeEvent({
-    required this.phone,
-    required this.code,
+    required this.body,
     required this.onError,
     required this.onSucces,
   });

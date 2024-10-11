@@ -96,11 +96,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<SendCodeEvent>((event, emit) async {
       emit(state.copyWith(statusCode: FormzSubmissionStatus.inProgress));
-      final body = SendCodeModel(
-        phone: event.phone,
-        id: event.code,
-      );
-      final response = await _repository.verifyPost(body);
+     
+      final response = await _repository.verifyPost(event.body);
       Log.e(response);
       if (response.isRight) {
         await StorageRepository.putString(

@@ -64,11 +64,13 @@ class TelegramLogin {
       String id = ans.split('"id":')[1].split(',')[0];
       String firstName = ans.split('"first_name":"')[1].split('",')[0];
       String lastName = ans.split('"last_name":"')[1].split('",')[0];
+      String photoUrl = ans.split('"photo_url":"')[1].split('",')[0];
       String username = ans.split('"username":"')[1].split('",')[0];
       String hash = ans.split('"hash":"')[1].split('"')[0];
       userData["id"] = id;
       userData["first_name"] = firstName;
       userData["last_name"] = lastName;
+      userData["photo_url"] = photoUrl;
       userData["username"] = username;
       userData["hash"] = hash;
     } catch (e) {
