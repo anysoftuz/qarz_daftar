@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
@@ -111,11 +113,12 @@ class _UserProfileViewState extends State<UserProfileView> {
                       ),
                       child: ListTile(
                         onTap: () {
+                          final bloc = context.read<UsersBloc>();
                           showDialog(
                             context: context,
-                            builder: (context) => const Dialog(
-                              insetPadding: EdgeInsets.all(16),
-                              child: PayHistoryInfoDialog(),
+                            builder: (context) => Dialog(
+                              insetPadding: const EdgeInsets.all(16),
+                              child: PayHistoryInfoDialog(bloc: bloc),
                             ),
                           );
                         },

@@ -72,7 +72,18 @@ class _NotificationViewState extends State<NotificationView> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        if (state.notification[index].confirmStatus != "active")
+                        if (state.notification[index].confirmStatus == "closed")
+                          WButton(
+                            onTap: () {},
+                            height: 36,
+                            disabledColor: grey,
+                            isDisabled: true,
+                            text: "Closed",
+                          )
+                        else if (state.notification[index].confirmStatus !=
+                                "active" &&
+                            state.notification[index].confirmStatus !=
+                                "confirm")
                           ValueListenableBuilder(
                             valueListenable: valueNotifier,
                             builder: (context, value, __) {

@@ -72,6 +72,27 @@ class _EditProfileViewState extends State<EditProfileView> {
                     ),
                   ),
                   const Divider(height: 1),
+                  CupertinoListTile(
+                    title: const Text(
+                      "Phone",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: gray,
+                      ),
+                    ),
+                    subtitle: Text(
+                      widget.usergetModel.phone.isEmpty
+                          ? "Tasdiqlanmagan"
+                          : widget.usergetModel.phone,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: widget.usergetModel.phone.isEmpty ? red : dark,
+                      ),
+                    ),
+                  ),
+                  const Divider(height: 1),
                   const CupertinoListTile(
                     title: Text(
                       "Login",

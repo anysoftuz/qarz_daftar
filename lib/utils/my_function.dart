@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:qarz_daftar/data/models/home/given_amount_model.dart';
+import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
 
@@ -25,6 +26,19 @@ class MyFunction {
     }
   }
 
+  static double kattason(List<GraphicStatisticsModel> graphicStatistics) {
+    int kattasi = 0;
+    for (var bir in graphicStatistics) {
+      for (var element in bir.statistics) {
+        if (kattasi < element.amount) {
+          kattasi = element.amount;
+        }
+      }
+    }
+
+    return kattasi / 1000;
+  }
+
   static String dateFormat(String date) {
     try {
       if (date.length == 10) {
@@ -47,7 +61,9 @@ class MyFunction {
   static int notificationLeng(List<NotificationModel> notification) {
     int count = 0;
     for (var element in notification) {
-      if (element.confirmStatus != "active") {
+      if (element.confirmStatus != "active" &&
+          element.confirmStatus != "confirm" &&
+          element.confirmStatus != "closed") {
         count += 1;
       }
     }
@@ -59,7 +75,9 @@ class MyFunction {
   ) {
     List<NotificationModel> notification = [];
     for (var element in notifications) {
-      if (element.confirmStatus != "active") {
+      if (element.confirmStatus != "active" &&
+          element.confirmStatus != "confirm" &&
+          element.confirmStatus != "closed") {
         notification.add(element);
       }
     }

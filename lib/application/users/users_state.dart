@@ -12,15 +12,18 @@ class UsersState extends Equatable {
   final FormzSubmissionStatus notifConfirm;
   final FormzSubmissionStatus notifRefus;
   final FormzSubmissionStatus bannedStatus;
+  final FormzSubmissionStatus historyStatus;
   final ContactsModel contactsModel;
+  final List<Datum> contacts;
   final List<OperationModel> operations;
   final List<OperationModel> operationsTr;
-  final List<PopularModel> popular;
+  final ContactsModel popular;
   final List<NotificationModel> notification;
   final List<GivenAmountModel> givenAmount;
   final List<GivenAmountModel> takenAmount;
   final List<GraphicStatisticsModel> graphicStatistics;
   final List<BannedModel> banneds;
+  final List<HistoryModel> history;
   const UsersState({
     this.status = FormzSubmissionStatus.initial,
     this.statusTr = FormzSubmissionStatus.initial,
@@ -32,34 +35,44 @@ class UsersState extends Equatable {
     this.bannedStatus = FormzSubmissionStatus.initial,
     this.notifConfirm = FormzSubmissionStatus.initial,
     this.notifRefus = FormzSubmissionStatus.initial,
+    this.historyStatus = FormzSubmissionStatus.initial,
     this.contactsModel = const ContactsModel(),
     this.operations = const [],
+    this.contacts = const [],
     this.operationsTr = const [],
-    this.popular = const [],
+    this.popular = const ContactsModel(),
     this.givenAmount = const [],
     this.notification = const [],
     this.takenAmount = const [],
     this.graphicStatistics = const [],
     this.banneds = const [],
+    this.history = const [],
   });
 
   @override
   List<Object> get props => [
         status,
-        takenStatus,
-        givenStatus,
+        statusTr,
         graphicStatus,
+        givenStatus,
+        takenStatus,
         popularStatus,
+        notificationStatus,
+        bannedStatus,
+        notifConfirm,
+        notifRefus,
+        historyStatus,
         contactsModel,
         operations,
+        operationsTr,
         popular,
         givenAmount,
+        notification,
         takenAmount,
         graphicStatistics,
-        notification,
-        notificationStatus,
         banneds,
-        bannedStatus,
+        history,
+        contacts,
       ];
 
   UsersState copyWith({
@@ -73,15 +86,18 @@ class UsersState extends Equatable {
     FormzSubmissionStatus? notifConfirm,
     FormzSubmissionStatus? notifRefus,
     FormzSubmissionStatus? bannedStatus,
+    FormzSubmissionStatus? historyStatus,
     ContactsModel? contactsModel,
     List<OperationModel>? operations,
     List<OperationModel>? operationsTr,
-    List<PopularModel>? popular,
+    ContactsModel? popular,
     List<NotificationModel>? notification,
     List<GivenAmountModel>? givenAmount,
     List<GivenAmountModel>? takenAmount,
     List<GraphicStatisticsModel>? graphicStatistics,
     List<BannedModel>? banneds,
+    List<HistoryModel>? history,
+    List<Datum>? contacts,
   }) {
     return UsersState(
       status: status ?? this.status,
@@ -94,6 +110,7 @@ class UsersState extends Equatable {
       notifConfirm: notifConfirm ?? this.notifConfirm,
       notifRefus: notifRefus ?? this.notifRefus,
       bannedStatus: bannedStatus ?? this.bannedStatus,
+      historyStatus: historyStatus ?? this.historyStatus,
       contactsModel: contactsModel ?? this.contactsModel,
       operations: operations ?? this.operations,
       operationsTr: operationsTr ?? this.operationsTr,
@@ -103,6 +120,8 @@ class UsersState extends Equatable {
       takenAmount: takenAmount ?? this.takenAmount,
       graphicStatistics: graphicStatistics ?? this.graphicStatistics,
       banneds: banneds ?? this.banneds,
+      history: history ?? this.history,
+      contacts: contacts ?? this.contacts,
     );
   }
 }

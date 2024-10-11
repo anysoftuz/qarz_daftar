@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
+import 'package:qarz_daftar/data/models/users/contacts_model.dart';
+import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/log_service.dart';
 
 class ContactsAddView extends StatefulWidget {
   const ContactsAddView({super.key});
@@ -16,10 +20,60 @@ class ContactsAddView extends StatefulWidget {
 }
 
 class _ContactsAddViewState extends State<ContactsAddView> {
+  List<Contact>? _contacts;
+
+  List<Contact> filteredPeople = [];
+  bool _permissionDenied = false;
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     context.read<UsersBloc>().add(GetContactsEvent());
     super.initState();
+    _fetchContacts();
+    searchController.addListener(() {
+      filterPeople();
+    });
+  }
+
+  Future _fetchContacts() async {
+    List<PhonsModel> phones = [];
+    if (!await FlutterContacts.requestPermission(readonly: true)) {
+      setState(() => _permissionDenied = true);
+    } else {
+      final contacts = await FlutterContacts.getContacts();
+      for (var i = 0; i < contacts.length; i++) {
+        final fullContact = await FlutterContacts.getContact(contacts[i].id);
+        contacts[i] = fullContact ?? contacts[i];
+        String phoneNumber = contacts[i].phones.isEmpty
+            ? '998999999999'
+            : contacts[i].phones.first.number;
+        phoneNumber = phoneNumber.replaceAll(RegExp(r'[^0-9]'), '');
+
+        if (!phoneNumber.startsWith("998")) {
+          phoneNumber = "998$phoneNumber";
+        }
+        phones.add(PhonsModel(
+          phone: phoneNumber,
+          fullName: contacts[i].displayName,
+        ));
+      }
+
+      setState(() => _contacts = contacts);
+    }
+    if (mounted) {
+      context.read<UsersBloc>().add(PostContactsEvent(model: phones));
+    }
+  }
+
+  void filterPeople() {
+    String searchText = searchController.text.toLowerCase();
+    setState(() {
+      filteredPeople = _contacts!.where((person) {
+        return person.displayName.toLowerCase().contains(searchText) ||
+            person.phones.first.number.contains(searchText);
+      }).toList();
+    });
   }
 
   @override
@@ -35,6 +89,7 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                 hintText: "Search",
                 fillColor: context.color.borderColor,
                 prefixIcon: AppIcons.search.svg(),
+                controller: searchController,
                 onChanged: (String value) {},
               ),
               Padding(
@@ -108,6 +163,37 @@ class _ContactsAddViewState extends State<ContactsAddView> {
           ),
         );
       },
+    );
+  }
+
+  Widget _body(List<Datum> data) {
+    if (_permissionDenied) {
+      return const Center(child: Text('Permission denied'));
+    }
+    if (_contacts == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final contacts =
+        searchController.text.isNotEmpty ? filteredPeople : _contacts;
+    return ListView.builder(
+      itemCount: contacts?.length ?? 0,
+      itemBuilder: (context, i) => ListTile(
+        onTap: () {
+          Log.e(contacts[i]);
+        },
+        leading: CircleAvatar(
+          backgroundImage: contacts![i].photo != null
+              ? MemoryImage(contacts[i].photo!)
+              : null,
+        ),
+        title: Text(contacts[i].displayName),
+        subtitle: Text(
+          contacts[i].phones.isNotEmpty
+              ? contacts[i].phones.first.number
+              : '(none)',
+        ),
+      ),
     );
   }
 }

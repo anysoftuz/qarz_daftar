@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
@@ -29,13 +30,17 @@ class _AddContactViewState extends State<AddContactView> {
           builder: (context, state) {
             return WButton(
               margin: const EdgeInsets.all(16).copyWith(top: 8),
-              onTap: () {
+              onTap: () async {
                 String phoneNumber = controllerPhone.text;
                 phoneNumber = phoneNumber.replaceAll(RegExp(r'[^0-9]'), '');
 
                 if (!phoneNumber.startsWith("998")) {
                   phoneNumber = "998$phoneNumber";
                 }
+                // final newContact = Contact()
+                //   ..displayName = controllerName.text
+                //   ..phones = [Phone(phoneNumber)];
+                // await newContact.insert();
                 widget.bloc.add(PostContactEvent(
                   phone: phoneNumber,
                   name: controllerName.text,
