@@ -38,7 +38,7 @@ class AuthDataSourcheImpl implements AuthDatasourche {
   Future<UserModel> verifyPost(SendCodeModel body) {
     return _handle.apiCantrol(
       request: () => dio.post(
-        'auth/login-mobile-every-time',
+        'auth/generate-token',
         data: body.toJson(),
       ),
       body: (response) => UserModel.fromJson(response as Map<String, dynamic>),

@@ -5,6 +5,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
+import 'package:qarz_daftar/data/models/auth/user_get_model.dart';
+
 part 'user_model.g.dart';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -14,17 +16,17 @@ String userModelToJson(UserModel data) => json.encode(data.toJson());
 @JsonSerializable()
 class UserModel {
   @JsonKey(name: "user")
-  final User user;
+  final UserGetModel user;
   @JsonKey(name: "access_token")
   final String accessToken;
 
   const UserModel({
-    this.user = const User(),
+    this.user = const UserGetModel(),
     this.accessToken = "",
   });
 
   UserModel copyWith({
-    User? user,
+    UserGetModel? user,
     String? accessToken,
   }) =>
       UserModel(

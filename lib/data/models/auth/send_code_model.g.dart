@@ -9,11 +9,11 @@ part of 'send_code_model.dart';
 SendCodeModel _$SendCodeModelFromJson(Map<String, dynamic> json) =>
     SendCodeModel(
       phone: json['phone'] as String? ?? "",
-      code: (json['code'] as num?)?.toInt() ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$SendCodeModelToJson(SendCodeModel instance) =>
     <String, dynamic>{
       'phone': instance.phone,
-      'code': instance.code,
+      'id': instance.id,
     };

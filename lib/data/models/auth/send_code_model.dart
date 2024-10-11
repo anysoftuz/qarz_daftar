@@ -16,21 +16,21 @@ String sendCodeModelToJson(SendCodeModel data) => json.encode(data.toJson());
 class SendCodeModel {
   @JsonKey(name: "phone")
   final String phone;
-  @JsonKey(name: "code")
-  final int code;
+  @JsonKey(name: "id")
+  final int id;
 
   const SendCodeModel({
     this.phone = "",
-    this.code = 0,
+    this.id = 0,
   });
 
   SendCodeModel copyWith({
     String? phone,
-    int? code,
+    int? id,
   }) =>
       SendCodeModel(
         phone: phone ?? this.phone,
-        code: code ?? this.code,
+        id: id ?? this.id,
       );
 
   factory SendCodeModel.fromJson(Map<String, dynamic> json) =>

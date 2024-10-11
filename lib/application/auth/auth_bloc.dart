@@ -79,9 +79,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             statusCode: FormzSubmissionStatus.success,
             userModel: UserModel(
               accessToken: event.userModel.user.accessToken,
-              user: User(
+              user: UserGetModel(
                 id: event.userModel.user.user.id,
-                fullName: event.userModel.user.user.fullName,
                 role: event.userModel.user.user.role,
                 firstName: event.userModel.user.user.firstName,
                 lastName: event.userModel.user.user.lastName,
@@ -99,7 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(statusCode: FormzSubmissionStatus.inProgress));
       final body = SendCodeModel(
         phone: event.phone,
-        code: event.code,
+        id: event.code,
       );
       final response = await _repository.verifyPost(body);
       Log.e(response);
@@ -112,8 +111,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(
           statusCode: FormzSubmissionStatus.success,
           userModel: response.right,
+          usergetModel: response.right.user,
         ));
-        add(GetMeEvent());
       } else {
         emit(state.copyWith(statusCode: FormzSubmissionStatus.failure));
         event.onError();
