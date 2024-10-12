@@ -71,10 +71,14 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
                                   telegramLogin.userData["id"].toString(),
                                 ) ??
                                 0,
-                            firstName: telegramLogin.userData["first_name"] ?? "",
+                            firstName:
+                                telegramLogin.userData["first_name"] ?? "",
                             lastName: telegramLogin.userData["last_name"] ?? "",
-                            fullName: "${telegramLogin.userData["first_name"]} ${telegramLogin.userData["last_name"]}",
-                            avatar: telegramLogin.userData["photo_url"] ?? "",
+                            fullName:
+                                "${telegramLogin.userData["first_name"]} ${telegramLogin.userData["last_name"]}",
+                            avatar: telegramLogin.userData["photo_url"]
+                                    ?.replaceAll("/", "") ??
+                                "",
                           ),
                           onError: () {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -85,7 +89,9 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
                               ),
                             );
                           },
-                          onSucces: (model) {},
+                          onSucces: (model) {
+                            telegramLogin.clearCookies();
+                          },
                         ));
                   } else {
                     context.showSnackBar(
@@ -139,7 +145,7 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
           child: Column(
             children: [
               CustomTextField(
-                title: "Phone",
+                title: "Введите номер телефона",
                 hintText: "+998 (00) 000-00-00",
                 keyboardType: TextInputType.phone,
                 controller: controllerPhone,
@@ -152,7 +158,7 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
               ),
               const SizedBox(height: 12),
               const Text(
-                "Kirish uchun telegramda kirishga ruxsat berishingiz kerak aks holda kira olmaysiz",
+                "Мы отправили запрос на авторизацию Вашего аккаунта в Telegram",
               )
             ],
           ),

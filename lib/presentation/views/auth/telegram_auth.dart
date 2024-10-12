@@ -78,6 +78,10 @@ class TelegramLogin {
     }
     return true;
   }
+
+  void clearCookies() {
+    _session.clearCookies();
+  }
 }
 
 class Session {
@@ -121,5 +125,10 @@ class Session {
       cookies = addCookiesFromCookiesInfo(cookies, cookiesInfo);
     }
     return response.body;
+  }
+
+    // Method to clear cookies
+  void clearCookies() {
+    cookies = "";
   }
 }

@@ -13,13 +13,13 @@ SendCodeModel _$SendCodeModelFromJson(Map<String, dynamic> json) =>
       avatar: json['avatar'] as String? ?? "",
       fullName: json['full_name'] as String? ?? "",
       lastName: json['last_name'] as String? ?? "",
-      id: (json['telegram_id'] as num?)?.toInt() ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$SendCodeModelToJson(SendCodeModel instance) =>
     <String, dynamic>{
       'phone': instance.phone,
-      'telegram_id': instance.id,
+      'id': instance.id,
       'first_name': instance.firstName,
       'last_name': instance.lastName,
       'avatar': instance.avatar,

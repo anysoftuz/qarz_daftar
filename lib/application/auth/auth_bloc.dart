@@ -65,52 +65,56 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<GetMeTelegramEvent>((event, emit) async {
-      await StorageRepository.putString(
-        StorageKeys.TOKEN,
-        event.userModel.user.accessToken,
-      )?.then(
-        (value) {
-          serviceLocator<DioSettings>().setBaseOptions(
-            token: event.userModel.user.accessToken,
-          );
+    // on<GetMeTelegramEvent>((event, emit) async {
+    //   await StorageRepository.putString(
+    //     StorageKeys.TOKEN,
+    //     event.userModel.user.accessToken,
+    //   )?.then(
+    //     (value) {
+    //       serviceLocator<DioSettings>().setBaseOptions(
+    //         token: event.userModel.user.accessToken,
+    //       );
 
-          emit(state.copyWith(
-            statusCode: FormzSubmissionStatus.success,
-            userModel: UserModel(
-              accessToken: event.userModel.user.accessToken,
-              user: UserGetModel(
-                id: event.userModel.user.user.id,
-                role: event.userModel.user.user.role,
-                firstName: event.userModel.user.user.firstName,
-                lastName: event.userModel.user.user.lastName,
-                phone: event.userModel.user.user.phone,
-                avatar: event.userModel.user.user.avatar,
-              ),
-            ),
-          ));
-          add(GetMeEvent());
-        },
-      );
-    });
+    //       emit(state.copyWith(
+    //         statusCode: FormzSubmissionStatus.success,
+    //         userModel: UserModel(
+    //           accessToken: event.userModel.user.accessToken,
+    //           user: UserGetModel(
+    //             id: event.userModel.user.user.id,
+    //             role: event.userModel.user.user.role,
+    //             firstName: event.userModel.user.user.firstName,
+    //             lastName: event.userModel.user.user.lastName,
+    //             phone: event.userModel.user.user.phone,
+    //             avatar: event.userModel.user.user.avatar,
+    //           ),
+    //         ),
+    //       ));
+    //       add(GetMeEvent());
+    //     },
+    //   );
+    // });
 
     on<SendCodeEvent>((event, emit) async {
       emit(state.copyWith(statusCode: FormzSubmissionStatus.inProgress));
-     
+
       final response = await _repository.verifyPost(event.body);
       Log.e(response);
       if (response.isRight) {
+        Log.e("ACCES TOKEN: ${response.right.user.accessToken}");
         await StorageRepository.putString(
           StorageKeys.TOKEN,
-          response.right.accessToken,
+          response.right.user.accessToken,
         );
-        event.onSucces(response.right);
+        serviceLocator<DioSettings>().setBaseOptions(
+          token: response.right.user.accessToken,
+        );
+
         emit(state.copyWith(
           statusCode: FormzSubmissionStatus.success,
-          userModel: response.right,
-          usergetModel: response.right.user,
+          usergetModel: response.right.user.user,
           status: AuthenticationStatus.authenticated,
         ));
+        event.onSucces(response.right);
       } else {
         emit(state.copyWith(statusCode: FormzSubmissionStatus.failure));
         event.onError();

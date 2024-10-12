@@ -16,7 +16,7 @@ String sendCodeModelToJson(SendCodeModel data) => json.encode(data.toJson());
 class SendCodeModel {
   @JsonKey(name: "phone")
   final String phone;
-  @JsonKey(name: "telegram_id")
+  @JsonKey(name: "id")
   final int id;
   @JsonKey(name: "first_name")
   final String firstName;

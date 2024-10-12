@@ -1,11 +1,24 @@
 {
-  "id": 32,
-  "title": "Yangi operatsiya",
-  "description": " Sizga 1000 uzs li operatsiya yaratdi",
-  "avatar": "https://t.me/i/userpic/320/ou-TdRKj4jY8Rm63ScB4ZpBxRSrWhyb3nQRyjyXIXRw.jpg",
-  "item_type": "operations",
-  "item_id": 12,
-  "created_at": "2024-10-07T12:59:10.345Z",
-  "sender_full_name": "ABDULAZIZ MALIKOV",
-  "confirm_status": "not_confirm"
+  "success": true,
+  "user": {
+    "user": {
+      "id": 1,
+      "full_name": "ABDULAZIZMALIKOV",
+      "role": "customer",
+      "first_name": "ABDULAZIZ",
+      "last_name": "MALIKOV",
+      "phone": null,
+      "avatar": "https:\\\\t.me\\i\\userpic\\320\\ou-TdRKj4jY8Rm63ScB4ZpBxRSrWhyb3nQRyjyXIXRw.jpg",
+      "telegram_id": "622855006",
+      "gender": null,
+      "status": "active",
+      "score": 0,
+      "is_banned": false,
+      "is_tg_login": false,
+      "created_at": "2024-10-12T07:59:35.359Z",
+      "meta": { "theme": "light", "language": "en", "notifications": {} }
+    },
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlzc3VlciI6ImZyb250LWFwcC11cmwiLCJ1c2VyIjp7ImlkIjoxLCJmdWxsX25hbWUiOiJBQkRVTEFaSVpNQUxJS09WIiwicm9sZSI6ImN1c3RvbWVyIiwiZmlyc3RfbmFtZSI6IkFCRFVMQVpJWiIsImxhc3RfbmFtZSI6Ik1BTElLT1YiLCJwaG9uZSI6bnVsbCwiYXZhdGFyIjoiaHR0cHM6XFxcXHQubWVcXGlcXHVzZXJwaWNcXDMyMFxcb3UtVGRSS2o0alk4Um02M1NjQjRacEJ4UlNyV2h5YjNuUVJ5anlYSVhSdy5qcGciLCJ0ZWxlZ3JhbV9pZCI6IjYyMjg1NTAwNiJ9LCJpYXQiOjE3Mjg3MjA1NDgsImV4cCI6MTcyODc1NjU0OH0.mQU-1Gem0gAYlpU-PqVZCWeV6JWsmQriXg5t1x4sEMw",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi"
+  }
 }
