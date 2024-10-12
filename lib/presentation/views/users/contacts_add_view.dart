@@ -2,14 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/presentation/routes/route_name.dart';
+import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
+import 'package:qarz_daftar/utils/caller.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
 
 class ContactsAddView extends StatefulWidget {
@@ -127,6 +132,41 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                         color: context.color.borderColor,
                       ),
                       child: ListTile(
+                        onTap: () {
+                          if (context
+                              .read<AuthBloc>()
+                              .state
+                              .usergetModel
+                              .phone
+                              .isEmpty) {
+                            Caller.launchUrlWeb(
+                              "https://t.me/qarz_daftar1_bot",
+                            ).whenComplete(
+                              () {
+                                context.read<AuthBloc>().add(GetMeEvent());
+                              },
+                            );
+                          } else if (context
+                                  .read<AuthBloc>()
+                                  .state
+                                  .usergetModel
+                                  .phone ==
+                              state.contactsModel.data[index].phone) {
+                            context.go(AppRouteName.profile);
+                          } else {
+                            final bloc = context.read<UsersBloc>();
+                            Navigator.of(context, rootNavigator: true)
+                                .push(MaterialPageRoute(
+                              builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: OperationsView(
+                                  user: state.contactsModel.data[index],
+                                ),
+                              ),
+                            ));
+                            // context.push(AppRouteName.operation, extra: bloc);
+                          }
+                        },
                         leading: CircleAvatar(
                           radius: 24,
                           backgroundImage: CachedNetworkImageProvider(
