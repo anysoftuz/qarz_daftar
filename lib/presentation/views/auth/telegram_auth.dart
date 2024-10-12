@@ -62,10 +62,18 @@ class TelegramLogin {
     try {
       print(ans);
       String id = ans.split('"id":')[1].split(',')[0];
-      String firstName = ans.split('"first_name":"')[1].split('",')[0];
-      String lastName = ans.split('"last_name":"')[1].split('",')[0];
-      String photoUrl = ans.split('"photo_url":"')[1].split('",')[0];
-      String username = ans.split('"username":"')[1].split('",')[0];
+      String firstName = ans.contains("first_name")
+          ? ans.split('"first_name":"')[1].split('",')[0]
+          : " ";
+      String lastName = ans.contains("last_name")
+          ? ans.split('"last_name":"')[1].split('",')[0]
+          : " ";
+      String photoUrl = ans.contains("photo_url")
+          ? ans.split('"photo_url":"')[1].split('",')[0]
+          : "";
+      String username = ans.contains("username")
+          ? ans.split('"username":"')[1].split('",')[0]
+          : "";
       String hash = ans.split('"hash":"')[1].split('"')[0];
       userData["id"] = id;
       userData["first_name"] = firstName;
@@ -74,6 +82,7 @@ class TelegramLogin {
       userData["username"] = username;
       userData["hash"] = hash;
     } catch (e) {
+      print(e);
       return false;
     }
     return true;
@@ -127,7 +136,7 @@ class Session {
     return response.body;
   }
 
-    // Method to clear cookies
+  // Method to clear cookies
   void clearCookies() {
     cookies = "";
   }

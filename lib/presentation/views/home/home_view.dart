@@ -60,17 +60,19 @@ class _HomeViewState extends State<HomeView> {
 
     // Listen for events
     socket.on('notifications', (data) {
-      final bloc = context.read<UsersBloc>();
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          insetPadding: const EdgeInsets.all(16),
-          child: PayHistoryInfoDialog(
-            model: NotificationModel.fromJson(data),
-            bloc: bloc,
+      if (data != null) {
+        final bloc = context.read<UsersBloc>();
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            insetPadding: const EdgeInsets.all(16),
+            child: PayHistoryInfoDialog(
+              model: NotificationModel.fromJson(data),
+              bloc: bloc,
+            ),
           ),
-        ),
-      );
+        );
+      }
     });
   }
 

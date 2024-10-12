@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
-import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -71,7 +69,7 @@ class LendingSuccesDialog extends StatelessWidget {
           const SizedBox(height: 32),
           WButton(
             onTap: () {
-              context.go(AppRouteName.home);
+              Navigator.pop(context);
             },
             text: "Go to main",
           ),

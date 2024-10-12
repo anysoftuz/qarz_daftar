@@ -11,7 +11,6 @@ import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/extensions.dart';
 import 'package:qarz_daftar/utils/formatters.dart';
-import 'package:qarz_daftar/utils/log_service.dart';
 
 final TelegramLogin telegramLogin = TelegramLogin(
   "7578089863:AAEYQXaO8gi2awhCy7ZmkrCw1ghUsmALIm0",
@@ -61,9 +60,8 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
                   var success = await telegramLogin.checkLogin();
                   print(success);
                   var data = await telegramLogin.getData();
-
+                  print(data);
                   if (data) {
-                    Log.e(telegramLogin.userData);
                     context.read<AuthBloc>().add(SendCodeEvent(
                           body: SendCodeModel(
                             phone: phoneNumber,
