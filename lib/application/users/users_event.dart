@@ -12,7 +12,11 @@ class GetContactsEvent extends UsersEvent {
   });
 }
 
-class GetHistoryEvent extends UsersEvent {}
+class GetHistoryEvent extends UsersEvent {
+  final String? phone;
+
+  GetHistoryEvent({this.phone});
+}
 
 class PostContactsEvent extends UsersEvent {
   final List<PhonsModel> model;

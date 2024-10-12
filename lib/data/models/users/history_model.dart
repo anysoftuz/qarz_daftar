@@ -25,6 +25,8 @@ class HistoryModel {
   final String deadline;
   @JsonKey(name: "currency")
   final String currency;
+  @JsonKey(name: "status")
+  final String status;
   @JsonKey(name: "concat")
   final String concat;
   @JsonKey(name: "avatar")
@@ -40,6 +42,7 @@ class HistoryModel {
     this.currency = "",
     this.concat = "",
     this.avatar = "",
+    this.status = "",
     this.contractorType = "",
   });
 

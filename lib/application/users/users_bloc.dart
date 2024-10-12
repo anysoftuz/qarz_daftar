@@ -38,11 +38,19 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
     on<GetHistoryEvent>((event, emit) async {
       emit(state.copyWith(historyStatus: FormzSubmissionStatus.inProgress));
-      final response = await _repo.getHistory();
+      final model =
+          event.phone != null ? FilterModel(phone: event.phone) : FilterModel();
+      final response = await _repo.getHistory(model);
       if (response.isRight) {
         emit(state.copyWith(
           historyStatus: FormzSubmissionStatus.success,
           history: response.right,
+          historyLending: response.right
+              .where((element) => element.contractorType == "lending")
+              .toList(),
+          historyBrow: response.right
+              .where((element) => element.contractorType == "borrowing")
+              .toList(),
         ));
       } else {
         emit(state.copyWith(historyStatus: FormzSubmissionStatus.failure));

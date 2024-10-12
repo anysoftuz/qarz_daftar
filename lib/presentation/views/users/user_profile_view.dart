@@ -1,15 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
-import 'package:qarz_daftar/presentation/views/users/widgets/pay_history_info_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/caller.dart';
+import 'package:qarz_daftar/utils/extensions.dart';
+import 'package:qarz_daftar/utils/my_function.dart';
 
 class UserProfileView extends StatefulWidget {
   const UserProfileView({super.key, required this.model});
@@ -20,6 +22,14 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
+  @override
+  void initState() {
+    context
+        .read<UsersBloc>()
+        .add(GetHistoryEvent(phone: widget.model.contractorPhone));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,156 +103,147 @@ class _UserProfileViewState extends State<UserProfileView> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: TabBarView(
-                children: [
-                  ListView.builder(
-                    itemCount: 5,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.color.borderColor,
-                        borderRadius: index == 0
-                            ? const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                              )
-                            : index == 4
+              child: BlocBuilder<UsersBloc, UsersState>(
+                builder: (context, state) {
+                  return TabBarView(
+                    children: [
+                      ListView.builder(
+                        itemCount: state.historyLending.length,
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                        itemBuilder: (context, index) => DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: context.color.borderColor,
+                            borderRadius: index == 0
                                 ? const BorderRadius.vertical(
-                                    bottom: Radius.circular(8),
+                                    top: Radius.circular(8),
                                   )
-                                : null,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          final bloc = context.read<UsersBloc>();
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              insetPadding: const EdgeInsets.all(16),
-                              child: PayHistoryInfoDialog(bloc: bloc),
-                            ),
-                          );
-                        },
-                        title: const Text(
-                          "Jahongir Maqsudov",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                                : index == (state.historyLending.length - 1)
+                                    ? const BorderRadius.vertical(
+                                        bottom: Radius.circular(8),
+                                      )
+                                    : null,
                           ),
-                        ),
-                        subtitle: const Text(
-                          "Closed",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: greyText,
-                          ),
-                        ),
-                        leading: const CircleAvatar(
-                          radius: 24,
-                          backgroundColor: backGroundColor,
-                          child: Text(
-                            "JB",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF6E7781),
-                            ),
-                          ),
-                        ),
-                        trailing: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "863 000 uzs",
-                              style: TextStyle(
+                          child: ListTile(
+                            onTap: () {},
+                            title: Text(
+                              state.historyLending[index].concat,
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text(
-                              "01.02.2023",
-                              style: TextStyle(
+                            subtitle: Text(
+                              state.historyLending[index].status
+                                  .toCapitalized(),
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: greyText,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  ListView.builder(
-                    itemCount: 5,
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.color.borderColor,
-                        borderRadius: index == 0
-                            ? const BorderRadius.vertical(
-                                top: Radius.circular(8),
-                              )
-                            : index == 4
-                                ? const BorderRadius.vertical(
-                                    bottom: Radius.circular(8),
-                                  )
-                                : null,
-                      ),
-                      child: ListTile(
-                        onTap: () {},
-                        title: const Text(
-                          "Jahongir Maqsudov",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: const Text(
-                          "Closed",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: greyText,
-                          ),
-                        ),
-                        leading: const CircleAvatar(
-                          radius: 24,
-                          backgroundColor: backGroundColor,
-                          child: Text(
-                            "JB",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF6E7781),
+                            leading: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: backGroundColor,
+                              backgroundImage: CachedNetworkImageProvider(
+                                state.historyLending[index].avatar,
+                              ),
+                            ),
+                            trailing: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${MyFunction.priceFormat(int.tryParse(state.historyLending[index].amount) ?? 0)} ${state.historyLending[index].currency}",
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  MyFunction.dateFormatDate(
+                                    state.historyLending[index].deadline,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: greyText,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        trailing: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "863 000 uzs",
-                              style: TextStyle(
+                      ),
+                      ListView.builder(
+                        itemCount: state.historyBrow.length,
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                        itemBuilder: (context, index) => DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: context.color.borderColor,
+                            borderRadius: index == 0
+                                ? const BorderRadius.vertical(
+                                    top: Radius.circular(8),
+                                  )
+                                : index == (state.historyBrow.length - 1)
+                                    ? const BorderRadius.vertical(
+                                        bottom: Radius.circular(8),
+                                      )
+                                    : null,
+                          ),
+                          child: ListTile(
+                            onTap: () {},
+                            title: Text(
+                              "${context.read<AuthBloc>().state.usergetModel.firstName} ${context.read<AuthBloc>().state.usergetModel.lastName}",
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text(
-                              "01.02.2023",
-                              style: TextStyle(
+                            subtitle: Text(
+                              state.historyBrow[index].contractorType
+                                  .toCapitalized(),
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: greyText,
                               ),
                             ),
-                          ],
+                            leading: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: backGroundColor,
+                              backgroundImage: CachedNetworkImageProvider(
+                                state.historyBrow[index].avatar,
+                              ),
+                            ),
+                            trailing: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${MyFunction.priceFormat(int.tryParse(state.historyBrow[index].amount) ?? 0)} ${state.historyBrow[index].currency}",
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  MyFunction.dateFormatDate(
+                                    state.historyBrow[index].deadline,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: greyText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                },
               ),
             ),
           ],

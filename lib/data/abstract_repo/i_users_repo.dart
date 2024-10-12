@@ -28,7 +28,7 @@ abstract class IUsersRepo {
       getNotification();
   Future<Either<Failure, List<GivenAmountModel>>> getGivenAmount();
   Future<Either<Failure, List<GivenAmountModel>>> getTakenAmount();
-  Future<Either<Failure, List<HistoryModel>>> getHistory();
+  Future<Either<Failure, List<HistoryModel>>> getHistory(FilterModel model);
   Future<Either<Failure, List<GraphicStatisticsModel>>> getGraphicStatistics();
   Future<Either<Failure, List<BannedModel>>> getBannedUsers();
 

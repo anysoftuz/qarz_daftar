@@ -116,6 +116,14 @@ class _PayHistoryInfoDialogState extends State<PayHistoryInfoDialog> {
                   isDisabled: true,
                   text: "Closed",
                 )
+              else if (widget.model.confirmStatus == "refusal")
+                WButton(
+                  onTap: () {},
+                  height: 36,
+                  disabledColor: grey,
+                  isDisabled: true,
+                  text: "Refuse",
+                )
               else if (widget.model.confirmStatus != "active" &&
                   widget.model.confirmStatus != "confirm")
                 ValueListenableBuilder(

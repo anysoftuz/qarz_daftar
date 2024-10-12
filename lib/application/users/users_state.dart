@@ -24,6 +24,8 @@ class UsersState extends Equatable {
   final List<GraphicStatisticsModel> graphicStatistics;
   final List<BannedModel> banneds;
   final List<HistoryModel> history;
+  final List<HistoryModel> historyLending;
+  final List<HistoryModel> historyBrow;
   const UsersState({
     this.status = FormzSubmissionStatus.initial,
     this.statusTr = FormzSubmissionStatus.initial,
@@ -47,6 +49,8 @@ class UsersState extends Equatable {
     this.graphicStatistics = const [],
     this.banneds = const [],
     this.history = const [],
+    this.historyLending = const [],
+    this.historyBrow = const [],
   });
 
   @override
@@ -73,6 +77,8 @@ class UsersState extends Equatable {
         banneds,
         history,
         contacts,
+        historyLending,
+        historyBrow,
       ];
 
   UsersState copyWith({
@@ -88,6 +94,7 @@ class UsersState extends Equatable {
     FormzSubmissionStatus? bannedStatus,
     FormzSubmissionStatus? historyStatus,
     ContactsModel? contactsModel,
+    List<Datum>? contacts,
     List<OperationModel>? operations,
     List<OperationModel>? operationsTr,
     ContactsModel? popular,
@@ -97,7 +104,8 @@ class UsersState extends Equatable {
     List<GraphicStatisticsModel>? graphicStatistics,
     List<BannedModel>? banneds,
     List<HistoryModel>? history,
-    List<Datum>? contacts,
+    List<HistoryModel>? historyLending,
+    List<HistoryModel>? historyBrow,
   }) {
     return UsersState(
       status: status ?? this.status,
@@ -112,6 +120,7 @@ class UsersState extends Equatable {
       bannedStatus: bannedStatus ?? this.bannedStatus,
       historyStatus: historyStatus ?? this.historyStatus,
       contactsModel: contactsModel ?? this.contactsModel,
+      contacts: contacts ?? this.contacts,
       operations: operations ?? this.operations,
       operationsTr: operationsTr ?? this.operationsTr,
       popular: popular ?? this.popular,
@@ -121,7 +130,8 @@ class UsersState extends Equatable {
       graphicStatistics: graphicStatistics ?? this.graphicStatistics,
       banneds: banneds ?? this.banneds,
       history: history ?? this.history,
-      contacts: contacts ?? this.contacts,
+      historyLending: historyLending ?? this.historyLending,
+      historyBrow: historyBrow ?? this.historyBrow,
     );
   }
 }

@@ -339,9 +339,9 @@ class UsersRepo implements IUsersRepo {
   }
 
   @override
-  Future<Either<Failure, List<HistoryModel>>> getHistory() async {
+  Future<Either<Failure, List<HistoryModel>>> getHistory(FilterModel model) async {
     try {
-      final result = await dataSourcheImpl.getHistory();
+      final result = await dataSourcheImpl.getHistory(model);
       return Right(result);
     } on DioException {
       return Left(DioFailure());

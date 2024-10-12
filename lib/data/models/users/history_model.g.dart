@@ -14,6 +14,7 @@ HistoryModel _$HistoryModelFromJson(Map<String, dynamic> json) => HistoryModel(
       currency: json['currency'] as String? ?? "",
       concat: json['concat'] as String? ?? "",
       avatar: json['avatar'] as String? ?? "",
+      status: json['status'] as String? ?? "",
       contractorType: json['contractor_type'] as String? ?? "",
     );
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$HistoryModelToJson(HistoryModel instance) =>
       'debt': instance.debt,
       'deadline': instance.deadline,
       'currency': instance.currency,
+      'status': instance.status,
       'concat': instance.concat,
       'avatar': instance.avatar,
       'contractor_type': instance.contractorType,

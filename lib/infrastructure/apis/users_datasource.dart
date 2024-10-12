@@ -25,7 +25,7 @@ abstract class UsersDatasource {
   Future<ContactsModel> getpopular();
   Future<List<GivenAmountModel>> getGivenAmount();
   Future<List<GivenAmountModel>> getTakenAmount();
-  Future<List<HistoryModel>> getHistory();
+  Future<List<HistoryModel>> getHistory(FilterModel model);
   Future<List<GraphicStatisticsModel>> getGraphicStatistics();
   Future<List<BannedModel>> getBannedUsers();
   Future<GenericPagination<NotificationModel>> getNotification();
@@ -228,10 +228,11 @@ class UsersDatasourceImpl implements UsersDatasource {
   }
 
   @override
-  Future<List<HistoryModel>> getHistory() async {
+  Future<List<HistoryModel>> getHistory(FilterModel model) async {
     return await _handle.apiCantrol(
       request: () => dio.post(
         'mobile/operations/mobile/operations/history',
+        data: model.date,
       ),
       body: (response) => (response as List)
           .map((e) => HistoryModel.fromJson(e as Map<String, dynamic>))
