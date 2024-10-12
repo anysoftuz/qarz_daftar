@@ -80,6 +80,15 @@ class _NotificationViewState extends State<NotificationView> {
                             isDisabled: true,
                             text: "Closed",
                           )
+                        else if (state.notification[index].confirmStatus ==
+                            "refusal")
+                          WButton(
+                            onTap: () {},
+                            height: 36,
+                            disabledColor: grey,
+                            isDisabled: true,
+                            text: "Refuse",
+                          )
                         else if (state.notification[index].confirmStatus !=
                                 "active" &&
                             state.notification[index].confirmStatus !=

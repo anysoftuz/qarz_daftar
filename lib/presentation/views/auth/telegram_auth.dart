@@ -1,5 +1,6 @@
 //library flutter_telegram_login;
 import 'package:http/http.dart' as http;
+import 'package:qarz_daftar/utils/log_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TelegramLogin {
@@ -57,8 +58,9 @@ class TelegramLogin {
 
   Future<bool> getData() async {
     String ans = await _session.get(
-        "https://oauth.telegram.org/auth?bot_id=$_botId&origin=$_botDomain&embed=1",
-        {});
+      "https://oauth.telegram.org/auth?bot_id=$_botId&origin=$_botDomain&embed=1",
+      {},
+    );
     try {
       print(ans);
       String id = ans.split('"id":')[1].split(',')[0];
@@ -100,6 +102,7 @@ class Session {
   Future<String> get(String url, Map<String, String> headers) async {
     var uri = Uri.parse(url);
     headers["cookie"] = cookies;
+    Log.e(cookies);
     final response = await http.get(uri, headers: headers);
     if (response.headers["set-cookie"] != null) {
       cookies = '$cookies${response.headers["set-cookie"]!};';
