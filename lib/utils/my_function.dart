@@ -63,7 +63,8 @@ class MyFunction {
     for (var element in notification) {
       if (element.confirmStatus != "active" &&
           element.confirmStatus != "confirm" &&
-          element.confirmStatus != "closed") {
+          element.confirmStatus != "closed" &&
+          element.confirmStatus != "refusal") {
         count += 1;
       }
     }
@@ -77,7 +78,8 @@ class MyFunction {
     for (var element in notifications) {
       if (element.confirmStatus != "active" &&
           element.confirmStatus != "confirm" &&
-          element.confirmStatus != "closed") {
+          element.confirmStatus != "closed" &&
+          element.confirmStatus != "refusal") {
         notification.add(element);
       }
     }
