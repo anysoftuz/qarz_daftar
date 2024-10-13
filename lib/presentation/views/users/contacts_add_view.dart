@@ -15,7 +15,6 @@ import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/caller.dart';
-import 'package:qarz_daftar/utils/log_service.dart';
 
 class ContactsAddView extends StatefulWidget {
   const ContactsAddView({super.key});
@@ -27,7 +26,7 @@ class ContactsAddView extends StatefulWidget {
 class _ContactsAddViewState extends State<ContactsAddView> {
   List<Contact>? _contacts;
 
-  List<Contact> filteredPeople = [];
+  List<Datum> filteredPeople = [];
   bool _permissionDenied = false;
   TextEditingController searchController = TextEditingController();
 
@@ -74,9 +73,10 @@ class _ContactsAddViewState extends State<ContactsAddView> {
   void filterPeople() {
     String searchText = searchController.text.toLowerCase();
     setState(() {
-      filteredPeople = _contacts!.where((person) {
-        return person.displayName.toLowerCase().contains(searchText) ||
-            person.phones.first.number.contains(searchText);
+      filteredPeople =
+          context.read<UsersBloc>().state.contactsModel.data.where((person) {
+        return person.fullName.toLowerCase().contains(searchText) ||
+            person.phone.contains(searchText);
       }).toList();
     });
   }
@@ -124,116 +124,101 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                     context.read<UsersBloc>().add(GetContactsEvent());
                     await Future.delayed(const Duration(seconds: 1));
                   },
-                  child: ListView.separated(
-                    padding: const EdgeInsets.only(bottom: 100),
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: context.color.borderColor,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          if (context
-                              .read<AuthBloc>()
-                              .state
-                              .usergetModel
-                              .phone
-                              .isEmpty) {
-                            Caller.launchUrlWeb(
-                              "https://t.me/qarz_daftar1_bot",
-                            ).whenComplete(
-                              () {
-                                context.read<AuthBloc>().add(GetMeEvent());
-                              },
-                            );
-                          } else if (context
+                  child: Builder(builder: (context) {
+                    // if (_permissionDenied) {
+                    //   return const Center(child: Text('Kirishga ruhsat berilamgan'));
+                    // }
+                    // if (_contacts == null) {
+                    //   return const Center(child: CircularProgressIndicator());
+                    // }
+
+                    return ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 100),
+                      itemBuilder: (context, index) {
+                        final model = searchController.text.isEmpty
+                            ? state.contactsModel.data
+                            : filteredPeople;
+                        return DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: context.color.borderColor,
+                          ),
+                          child: ListTile(
+                            onTap: () {
+                              if (context
                                   .read<AuthBloc>()
                                   .state
                                   .usergetModel
-                                  .phone ==
-                              state.contactsModel.data[index].phone) {
-                            context.go(AppRouteName.profile);
-                          } else {
-                            final bloc = context.read<UsersBloc>();
-                            Navigator.of(context, rootNavigator: true)
-                                .push(MaterialPageRoute(
-                              builder: (context) => BlocProvider.value(
-                                value: bloc,
-                                child: OperationsView(
-                                  user: state.contactsModel.data[index],
-                                ),
+                                  .phone
+                                  .isEmpty) {
+                                Caller.launchUrlWeb(
+                                  "https://t.me/qarz_daftar1_bot",
+                                ).whenComplete(
+                                  () {
+                                    context.read<AuthBloc>().add(GetMeEvent());
+                                  },
+                                );
+                              } else if (context
+                                      .read<AuthBloc>()
+                                      .state
+                                      .usergetModel
+                                      .phone ==
+                                  model[index].phone) {
+                                context.go(AppRouteName.profile);
+                              } else {
+                                final bloc = context.read<UsersBloc>();
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(MaterialPageRoute(
+                                  builder: (context) => BlocProvider.value(
+                                    value: bloc,
+                                    child: OperationsView(
+                                      user: model[index],
+                                    ),
+                                  ),
+                                ));
+                                // context.push(AppRouteName.operation, extra: bloc);
+                              }
+                            },
+                            leading: CircleAvatar(
+                              radius: 24,
+                              backgroundImage: CachedNetworkImageProvider(
+                                model[index].avatar,
                               ),
-                            ));
-                            // context.push(AppRouteName.operation, extra: bloc);
-                          }
-                        },
-                        leading: CircleAvatar(
-                          radius: 24,
-                          backgroundImage: CachedNetworkImageProvider(
-                            state.contactsModel.data[index].avatar,
+                            ),
+                            title: Text(
+                              model[index].fullName,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: Text(model[index].phone),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AppIcons.star.svg(),
+                                const SizedBox(width: 4),
+                                Text(
+                                  model[index].score.toString(),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        title: Text(
-                          state.contactsModel.data[index].fullName,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(state.contactsModel.data[index].phone),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppIcons.star.svg(),
-                            const SizedBox(width: 4),
-                            Text(
-                              state.contactsModel.data[index].score.toString(),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8),
-                    itemCount: state.contactsModel.data.length,
-                  ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
+                      itemCount: searchController.text.isEmpty
+                          ? state.contactsModel.data.length
+                          : filteredPeople.length,
+                    );
+                  }),
                 ),
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  Widget _body(List<Datum> data) {
-    if (_permissionDenied) {
-      return const Center(child: Text('Permission denied'));
-    }
-    if (_contacts == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    final contacts =
-        searchController.text.isNotEmpty ? filteredPeople : _contacts;
-    return ListView.builder(
-      itemCount: contacts?.length ?? 0,
-      itemBuilder: (context, i) => ListTile(
-        onTap: () {
-          Log.e(contacts[i]);
-        },
-        leading: CircleAvatar(
-          backgroundImage: contacts![i].photo != null
-              ? MemoryImage(contacts[i].photo!)
-              : null,
-        ),
-        title: Text(contacts[i].displayName),
-        subtitle: Text(
-          contacts[i].phones.isNotEmpty
-              ? contacts[i].phones.first.number
-              : '(none)',
-        ),
-      ),
     );
   }
 }

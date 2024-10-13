@@ -17,6 +17,7 @@ import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/apis/users_datasource.dart';
 import 'package:qarz_daftar/infrastructure/repo/users_repo.dart';
+import 'package:qarz_daftar/utils/log_service.dart';
 
 part 'users_event.dart';
 part 'users_state.dart';
@@ -39,12 +40,14 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     on<GetHistoryEvent>((event, emit) async {
       emit(state.copyWith(historyStatus: FormzSubmissionStatus.inProgress));
       final model =
-          event.phone != null ? FilterModel(phone: event.phone) : FilterModel();
+          event.id != null ? FilterModel(userId: event.id) : FilterModel();
+      Log.i(event.id);
+      Log.e(model.userId);
       final response = await _repo.getHistory(model);
       if (response.isRight) {
         emit(state.copyWith(
           historyStatus: FormzSubmissionStatus.success,
-          history: response.right,
+          history: event.id != null ? null : response.right,
           historyLending: response.right
               .where((element) => element.contractorType == "lending")
               .toList(),

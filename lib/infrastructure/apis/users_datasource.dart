@@ -232,7 +232,7 @@ class UsersDatasourceImpl implements UsersDatasource {
     return await _handle.apiCantrol(
       request: () => dio.post(
         'mobile/operations/mobile/operations/history',
-        data: model.date,
+        data: model.toJson(),
       ),
       body: (response) => (response as List)
           .map((e) => HistoryModel.fromJson(e as Map<String, dynamic>))

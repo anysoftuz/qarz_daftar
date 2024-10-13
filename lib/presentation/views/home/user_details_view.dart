@@ -211,95 +211,99 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       '${MyFunction.daysLeft(widget.model.deadline)} days left',
                 ),
                 const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: WButton(
-                        onTap: () {
-                          final bloc = context.read<UsersBloc>();
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              insetPadding: const EdgeInsets.all(16),
-                              child: EditDeadlineDialog(
-                                bloc: bloc,
-                                model: widget.model,
-                              ),
-                            ),
-                          );
-                        },
-                        color: Colors.transparent,
-                        border: Border.all(
-                          color: context.color.white.withOpacity(.4),
-                        ),
-                        textColor: context.color.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppIcons.edit.svg(color: context.color.white),
-                            const SizedBox(width: 8),
-                            const Text("Edit deadline")
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: WButton(
-                        onTap: () {
-                          final bloc = context.read<UsersBloc>();
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              insetPadding: const EdgeInsets.all(16),
-                              child: EditPartialPayDialog(
-                                bloc: bloc,
-                                model: widget.model,
-                              ),
-                            ),
-                          );
-                        },
-                        color: Colors.transparent,
-                        border: Border.all(
-                          color: context.color.white.withOpacity(.4),
-                        ),
-                        textColor: context.color.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppIcons.moneyClock.svg(color: context.color.white),
-                            const SizedBox(width: 8),
-                            const Text("Partial pay")
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 12),
-                WButton(
-                  onTap: () {
-                    final bloc = context.read<UsersBloc>();
-                    showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        insetPadding: const EdgeInsets.all(16),
-                        child: EditPayAllDialog(
-                          bloc: bloc,
-                          model: widget.model,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                if (widget.model.status == 'active' ||
+                    widget.model.status == 'refusal') ...[
+                  Row(
                     children: [
-                      AppIcons.leftPay.svg(),
-                      const SizedBox(width: 8),
-                      const Text("Pay all")
+                      Expanded(
+                        child: WButton(
+                          onTap: () {
+                            final bloc = context.read<UsersBloc>();
+                            showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                insetPadding: const EdgeInsets.all(16),
+                                child: EditDeadlineDialog(
+                                  bloc: bloc,
+                                  model: widget.model,
+                                ),
+                              ),
+                            );
+                          },
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: context.color.white.withOpacity(.4),
+                          ),
+                          textColor: context.color.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AppIcons.edit.svg(color: context.color.white),
+                              const SizedBox(width: 8),
+                              const Text("Edit deadline")
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: WButton(
+                          onTap: () {
+                            final bloc = context.read<UsersBloc>();
+                            showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                insetPadding: const EdgeInsets.all(16),
+                                child: EditPartialPayDialog(
+                                  bloc: bloc,
+                                  model: widget.model,
+                                ),
+                              ),
+                            );
+                          },
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: context.color.white.withOpacity(.4),
+                          ),
+                          textColor: context.color.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AppIcons.moneyClock
+                                  .svg(color: context.color.white),
+                              const SizedBox(width: 8),
+                              const Text("Partial pay")
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                )
+                  const SizedBox(height: 12),
+                  WButton(
+                    onTap: () {
+                      final bloc = context.read<UsersBloc>();
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          insetPadding: const EdgeInsets.all(16),
+                          child: EditPayAllDialog(
+                            bloc: bloc,
+                            model: widget.model,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppIcons.leftPay.svg(),
+                        const SizedBox(width: 8),
+                        const Text("Pay all")
+                      ],
+                    ),
+                  )
+                ],
               ],
             ),
           ),

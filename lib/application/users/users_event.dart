@@ -13,9 +13,9 @@ class GetContactsEvent extends UsersEvent {
 }
 
 class GetHistoryEvent extends UsersEvent {
-  final String? phone;
+  final String? id;
 
-  GetHistoryEvent({this.phone});
+  GetHistoryEvent({this.id});
 }
 
 class PostContactsEvent extends UsersEvent {

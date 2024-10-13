@@ -38,6 +38,8 @@ class OperationModel {
   final dynamic mediasIds;
   @JsonKey(name: "contractor_score")
   final int contractorScore;
+  @JsonKey(name: "contractor_id")
+  final int contractorId;
   @JsonKey(name: "contractor_phone")
   final String contractorPhone;
 
@@ -54,6 +56,7 @@ class OperationModel {
     this.createdAt = "",
     this.mediasIds,
     this.contractorScore = 0,
+    this.contractorId = 0,
     this.contractorPhone = "",
   });
 

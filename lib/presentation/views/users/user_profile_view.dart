@@ -24,9 +24,9 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   @override
   void initState() {
-    context
-        .read<UsersBloc>()
-        .add(GetHistoryEvent(phone: widget.model.contractorPhone));
+    context.read<UsersBloc>().add(GetHistoryEvent(
+          id: widget.model.contractorId.toString(),
+        ));
     super.initState();
   }
 

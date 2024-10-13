@@ -130,4 +130,12 @@ class MyFunction {
     Log.e(peice);
     return priceFormat(peice);
   }
+
+  static String typeOperation(String name) {
+    if (name == "borrowing") {
+      return "Olingan qarz";
+    } else {
+      return "Berilgan qarz";
+    }
+  }
 }

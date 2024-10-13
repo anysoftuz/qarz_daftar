@@ -39,7 +39,7 @@ class ActiveView extends StatelessWidget {
               ),
               child: ListTile(
                 onTap: () {
-                  if (state.operations[index].contractorType == "borrowing") {
+                  if (state.operations[index].contractorType != "borrowing") {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => UserProfileView(
                         model: state.operations[index],
@@ -90,7 +90,9 @@ class ActiveView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      state.operations[index].contractorType.toUpperCase(),
+                      MyFunction.typeOperation(
+                        state.operations[index].contractorType,
+                      ),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

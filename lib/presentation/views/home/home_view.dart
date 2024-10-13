@@ -505,7 +505,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         child: ListTile(
                           onTap: () {
-                            if (state.operations[index].contractorType ==
+                            if (state.operations[index].contractorType !=
                                 "borrowing") {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => UserProfileView(
@@ -557,8 +557,9 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ),
                               Text(
-                                state.operations[index].contractorType
-                                    .toUpperCase(),
+                                MyFunction.typeOperation(
+                                  state.operations[index].contractorType,
+                                ),
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,

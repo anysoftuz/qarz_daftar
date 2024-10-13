@@ -20,6 +20,7 @@ OperationModel _$OperationModelFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] as String? ?? "",
       mediasIds: json['medias_ids'],
       contractorScore: (json['contractor_score'] as num?)?.toInt() ?? 0,
+      contractorId: (json['contractor_id'] as num?)?.toInt() ?? 0,
       contractorPhone: json['contractor_phone'] as String? ?? "",
     );
 
@@ -37,5 +38,6 @@ Map<String, dynamic> _$OperationModelToJson(OperationModel instance) =>
       'created_at': instance.createdAt,
       'medias_ids': instance.mediasIds,
       'contractor_score': instance.contractorScore,
+      'contractor_id': instance.contractorId,
       'contractor_phone': instance.contractorPhone,
     };
