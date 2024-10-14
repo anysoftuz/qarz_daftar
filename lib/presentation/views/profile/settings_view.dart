@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 
@@ -15,7 +16,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
@@ -25,7 +26,7 @@ class _SettingsViewState extends State<SettingsView> {
                 context.push(AppRouteName.notificationSettings);
               },
               title: Text(
-                "Notifications",
+                AppLocalizations.of(context)!.notifications,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -44,7 +45,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             ListTile(
               title: Text(
-                "Change phone number",
+                AppLocalizations.of(context)!.changePhone,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -66,7 +67,7 @@ class _SettingsViewState extends State<SettingsView> {
                 context.push(AppRouteName.lenguage);
               },
               title: Text(
-                "Language",
+                AppLocalizations.of(context)!.lenguage,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -88,7 +89,7 @@ class _SettingsViewState extends State<SettingsView> {
                 context.push(AppRouteName.theme);
               },
               title: Text(
-                "Themes",
+                AppLocalizations.of(context)!.theme,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,

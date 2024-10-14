@@ -64,6 +64,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
       }
     });
+    on<RefreshTokenEvent>((event, emit) async {
+      final response = await _repository.getMe();
+      if (response.isRight) {
+        emit(state.copyWith(
+          status: AuthenticationStatus.authenticated,
+          usergetModel: response.right,
+        ));
+      } else {
+        emit(state.copyWith(status: AuthenticationStatus.unauthenticated));
+      }
+    });
 
     // on<GetMeTelegramEvent>((event, emit) async {
     //   await StorageRepository.putString(
@@ -104,6 +115,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await StorageRepository.putString(
           StorageKeys.TOKEN,
           response.right.user.accessToken,
+        );
+        await StorageRepository.putString(
+          StorageKeys.REFRESH,
+          response.right.user.refreshToken,
         );
         serviceLocator<DioSettings>().setBaseOptions(
           token: response.right.user.accessToken,

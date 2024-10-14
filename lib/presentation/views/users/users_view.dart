@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/users/active_view.dart';
 import 'package:qarz_daftar/presentation/views/users/blacklist_view.dart';
 import 'package:qarz_daftar/presentation/views/users/contacts_add_view.dart';
@@ -32,7 +33,7 @@ class _UsersViewState extends State<UsersView> {
     return Scaffold(
       backgroundColor: context.color.contColor,
       appBar: AppBar(
-        title: const Text("List"),
+        title: Text(AppLocalizations.of(context)!.list),
         actions: [
           TextButton(
             onPressed: () {
@@ -44,9 +45,9 @@ class _UsersViewState extends State<UsersView> {
               children: [
                 AppIcons.filter.svg(),
                 const SizedBox(width: 4),
-                const Text(
-                  "Filter",
-                  style: TextStyle(color: blue),
+                Text(
+                  AppLocalizations.of(context)!.filter,
+                  style: const TextStyle(color: blue),
                 ),
               ],
             ),
@@ -60,11 +61,11 @@ class _UsersViewState extends State<UsersView> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: CommercialTab(
-                tabLabels: const [
-                  "Active",
-                  "History",
-                  "Blacklist",
-                  "Contacts",
+                tabLabels: [
+                  AppLocalizations.of(context)!.active,
+                  AppLocalizations.of(context)!.history,
+                  AppLocalizations.of(context)!.blacklist,
+                  AppLocalizations.of(context)!.contacts,
                 ],
                 onTabTap: (int value) {},
               ),

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/common/presentation/paginator_list.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -30,7 +31,7 @@ class _ContactsViewState extends State<ContactsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Contacts"),
+        title: Text(AppLocalizations.of(context)!.contacts),
         actions: [
           TextButton(
             onPressed: () {
@@ -39,15 +40,15 @@ class _ContactsViewState extends State<ContactsView> {
                 builder: (context) => AddContactView(bloc: block),
               ));
             },
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.add,
                   color: mainBlue,
                 ),
                 Text(
-                  "Add new",
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.addNew,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: mainBlue,
@@ -66,7 +67,7 @@ class _ContactsViewState extends State<ContactsView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomTextField(
-                  hintText: "Search",
+                  hintText: AppLocalizations.of(context)!.search,
                   fillColor: context.color.borderColor,
                   prefixIcon: AppIcons.search.svg(),
                   onChanged: (value) {

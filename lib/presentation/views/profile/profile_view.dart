@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/profile/edit_profile_view.dart';
 import 'package:qarz_daftar/presentation/views/users/widgets/bar_chart.dart';
@@ -32,7 +33,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text(AppLocalizations.of(context)?.profile ?? ""),
         actions: [
           TextButton(
             onPressed: () {
@@ -62,9 +63,9 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 AppIcons.logout.svg(color: red),
                 const SizedBox(width: 4),
-                const Text(
-                  "Log out",
-                  style: TextStyle(color: red),
+                Text(
+                  AppLocalizations.of(context)!.logOut,
+                  style: const TextStyle(color: red),
                 ),
               ],
             ),
@@ -137,11 +138,11 @@ class _ProfileViewState extends State<ProfileView> {
                     );
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 8),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, bottom: 8),
                   child: Text(
-                    "Loans given",
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.loansGiven,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: mainBlue,
@@ -206,11 +207,11 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 8),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, bottom: 8),
                   child: Text(
-                    "Loans taken",
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.loansTaken,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: red,
@@ -299,7 +300,7 @@ class _ProfileViewState extends State<ProfileView> {
                       context.push(AppRouteName.settings);
                     },
                     leading: AppIcons.settings.svg(color: context.color.white),
-                    title: const Text("Settings"),
+                    title: Text(AppLocalizations.of(context)!.settings),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                     trailing:
                         AppIcons.arrowRight.svg(color: context.color.white),

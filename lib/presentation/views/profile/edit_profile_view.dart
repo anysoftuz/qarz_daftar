@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/data/models/auth/user_get_model.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -15,7 +16,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Edit Profile")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.editProfile)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -35,9 +36,9 @@ class _EditProfileViewState extends State<EditProfileView> {
               child: Column(
                 children: [
                   CupertinoListTile(
-                    title: const Text(
-                      "First Name",
-                      style: TextStyle(
+                    title: Text(
+                      AppLocalizations.of(context)!.firstName,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: gray,
@@ -54,9 +55,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                   ),
                   const Divider(height: 1),
                   CupertinoListTile(
-                    title: const Text(
-                      "Last Name",
-                      style: TextStyle(
+                    title: Text(
+                      AppLocalizations.of(context)!.lastName,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: gray,
@@ -73,9 +74,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                   ),
                   const Divider(height: 1),
                   CupertinoListTile(
-                    title: const Text(
-                      "Phone",
-                      style: TextStyle(
+                    title: Text(
+                      AppLocalizations.of(context)!.phoneNumer,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: gray,
@@ -93,16 +94,16 @@ class _EditProfileViewState extends State<EditProfileView> {
                     ),
                   ),
                   const Divider(height: 1),
-                  const CupertinoListTile(
+                  CupertinoListTile(
                     title: Text(
-                      "Login",
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.login,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: gray,
                       ),
                     ),
-                    subtitle: Text(
+                    subtitle: const Text(
                       "Telegram",
                       style: TextStyle(
                         fontSize: 16,

@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/data/models/home/graphic_statistics_model.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
 import 'package:qarz_daftar/utils/log_service.dart';
@@ -56,9 +57,9 @@ class BarChartSample2State extends State<BarChartSample2> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Text(
-                'Statistics',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.statistics,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),

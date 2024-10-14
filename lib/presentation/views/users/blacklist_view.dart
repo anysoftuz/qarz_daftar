@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -21,7 +22,7 @@ class BlacklistView extends StatelessWidget {
           child: Column(
             children: [
               CustomTextField(
-                hintText: "Search",
+                hintText: AppLocalizations.of(context)!.search,
                 fillColor: context.color.borderColor,
                 prefixIcon: AppIcons.search.svg(),
                 onChanged: (String value) {},

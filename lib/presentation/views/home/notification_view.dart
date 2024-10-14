@@ -5,6 +5,7 @@ import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 
@@ -20,7 +21,7 @@ class _NotificationViewState extends State<NotificationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Notifications")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.notifications)),
       body: BlocBuilder<UsersBloc, UsersState>(
         builder: (context, state) {
           if (state.notificationStatus.isInProgress) {
@@ -78,7 +79,7 @@ class _NotificationViewState extends State<NotificationView> {
                             height: 36,
                             disabledColor: grey,
                             isDisabled: true,
-                            text: "Closed",
+                            text: AppLocalizations.of(context)!.closed,
                           )
                         else if (state.notification[index].confirmStatus ==
                             "refusal")
@@ -153,7 +154,8 @@ class _NotificationViewState extends State<NotificationView> {
                                                       .itemId));
                                         }
                                       },
-                                      text: "Confirm",
+                                      text:
+                                          AppLocalizations.of(context)!.confirm,
                                     ),
                                   )
                                 ],
@@ -166,7 +168,7 @@ class _NotificationViewState extends State<NotificationView> {
                             height: 36,
                             disabledColor: grey,
                             isDisabled: true,
-                            text: "Confirmed",
+                            text: AppLocalizations.of(context)!.confirm,
                           )
                       ],
                     ),

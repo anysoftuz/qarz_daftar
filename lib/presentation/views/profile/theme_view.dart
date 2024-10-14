@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/main.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -36,7 +37,7 @@ class _ThemeViewState extends State<ThemeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Mavzu")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.theme)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ValueListenableBuilder(
@@ -51,7 +52,7 @@ class _ThemeViewState extends State<ThemeView> {
                   trailing: AppIcons.moon.svg(
                     color: value == 0 ? mainBlue : dark,
                   ),
-                  title: 'Qorong’u',
+                  title: AppLocalizations.of(context)!.dark,
                   onTap: () {
                     AppScope.update(
                       context,
@@ -67,7 +68,7 @@ class _ThemeViewState extends State<ThemeView> {
                   trailing: AppIcons.sun.svg(
                     color: value == 1 ? mainBlue : dark,
                   ),
-                  title: 'Yorug’',
+                  title: AppLocalizations.of(context)!.light,
                   onTap: () {
                     AppScope.update(
                       context,
@@ -84,7 +85,7 @@ class _ThemeViewState extends State<ThemeView> {
                     Icons.phone_iphone,
                     color: value == 2 ? mainBlue : dark,
                   ),
-                  title: 'Qurilma mavzusi',
+                  title: AppLocalizations.of(context)!.system,
                   onTap: () {
                     AppScope.update(
                       context,

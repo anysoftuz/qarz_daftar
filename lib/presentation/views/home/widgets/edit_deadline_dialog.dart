@@ -3,6 +3,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/deadline_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/info_tile_itam.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
@@ -67,7 +68,7 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
               children: [
                 const SizedBox(height: 8),
                 InfoTileItam(
-                  title: 'Deadline',
+                  title: AppLocalizations.of(context)!.deadline,
                   subtitle: MyFunction.dateFormat(widget.model.deadline),
                   icon: AppIcons.secundomer,
                   treling:
@@ -75,7 +76,7 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
-                  title: "New deadline",
+                  title: AppLocalizations.of(context)!.newDeadline,
                   hintText: "29.02.2024",
                   fillColor: Colors.transparent,
                   suffixIcon: AppIcons.calendar.svg(),
@@ -118,9 +119,9 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
                       },
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      "Add to blacklist",
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.addToBlackList,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -145,7 +146,7 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
                     ),
                     color: Colors.transparent,
                     textColor: context.color.white,
-                    text: "Cancel",
+                    text: AppLocalizations.of(context)!.cancel,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -163,7 +164,7 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
                         ..pop()
                         ..pop();
                     },
-                    text: "Save",
+                    text: AppLocalizations.of(context)!.save,
                   ),
                 )
               ],

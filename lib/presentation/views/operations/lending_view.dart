@@ -9,6 +9,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/home/post_operation_model.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/info_tile_itam.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/lending_succes_dialog.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
@@ -54,7 +55,7 @@ class _LendingViewState extends State<LendingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Lending")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.lent)),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         decoration: BoxDecoration(
@@ -104,7 +105,7 @@ class _LendingViewState extends State<LendingView> {
                 children: [
                   AppIcons.banknote.svg(color: white),
                   const SizedBox(width: 8),
-                  const Text("Confirm lending")
+                  Text(AppLocalizations.of(context)!.confirm)
                 ],
               ),
             );
@@ -203,7 +204,7 @@ class _LendingViewState extends State<LendingView> {
               ),
               const SizedBox(height: 12),
               InfoTileItam(
-                title: 'Lent',
+                title: AppLocalizations.of(context)!.lent,
                 subtitle:
                     '${MyFunction.priceFormat(widget.amount)} ${widget.currency}',
                 icon: AppIcons.banknote,
@@ -211,22 +212,22 @@ class _LendingViewState extends State<LendingView> {
               ),
               const SizedBox(height: 12),
               InfoTileItam(
-                title: 'Given at',
+                title: AppLocalizations.of(context)!.givenAt,
                 subtitle: MyFunction.dateFormat(DateTime.now().toString()),
                 icon: AppIcons.calendar,
               ),
               const SizedBox(height: 12),
               InfoTileItam(
-                title: 'Deadline',
+                title: AppLocalizations.of(context)!.deadline,
                 subtitle: MyFunction.dateFormat(widget.deadline),
                 icon: AppIcons.secundomer,
                 treling: '${MyFunction.daysLeft(widget.deadline)} days left',
                 colorTreling: context.color.white,
               ),
               const SizedBox(height: 12),
-              const Text(
-                "Phone",
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.description,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),

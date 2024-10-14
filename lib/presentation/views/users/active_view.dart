@@ -92,6 +92,7 @@ class ActiveView extends StatelessWidget {
                     Text(
                       MyFunction.typeOperation(
                         state.operations[index].contractorType,
+                        context,
                       ),
                       style: TextStyle(
                         fontSize: 12,

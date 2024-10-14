@@ -8,6 +8,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/phons_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/users/add_contact_view.dart';
@@ -91,7 +92,7 @@ class _ContactsAddViewState extends State<ContactsAddView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                hintText: "Search",
+                hintText: AppLocalizations.of(context)!.search,
                 fillColor: context.color.borderColor,
                 prefixIcon: AppIcons.search.svg(),
                 controller: searchController,
@@ -106,13 +107,13 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                       builder: (context) => AddContactView(bloc: block),
                     ));
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.add, color: mainBlue),
+                      const Icon(Icons.add, color: mainBlue),
                       Text(
-                        "Add new contact",
-                        style: TextStyle(color: mainBlue),
+                        AppLocalizations.of(context)!.addNew,
+                        style: const TextStyle(color: mainBlue),
                       ),
                     ],
                   ),

@@ -5,6 +5,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -79,7 +80,10 @@ class EditPayAllDialog extends StatelessWidget {
                   bloc.add(PostTransactionsEvent(
                     id: model.id,
                     model: TransactionModel(
-                        amount: model.amount, type: "pay-all", note: "Rahmat"),
+                      amount: model.amount,
+                      type: "pay-all",
+                      note: "Rahmat",
+                    ),
                     onSucces: () {
                       Navigator.of(context)
                         ..pop()
@@ -87,7 +91,7 @@ class EditPayAllDialog extends StatelessWidget {
                     },
                   ));
                 },
-                text: "Pay all",
+                text: AppLocalizations.of(context)!.payAll,
                 color: orang,
                 isLoading: state.status.isInProgress,
               );
@@ -101,7 +105,7 @@ class EditPayAllDialog extends StatelessWidget {
             ),
             color: Colors.transparent,
             textColor: context.color.white,
-            text: "Cancel",
+            text: AppLocalizations.of(context)!.cancel,
           ),
         ],
       ),

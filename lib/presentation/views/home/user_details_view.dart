@@ -5,6 +5,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_deadline_dialog.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_partial_pay_dialog.dart';
 import 'package:qarz_daftar/presentation/views/home/widgets/edit_pay_all_dialog.dart';
@@ -73,7 +74,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                   children: [
                     AppIcons.hand.svg(),
                     const SizedBox(width: 4),
-                    const Text("Borrowing")
+                    Text(AppLocalizations.of(context)!.borrowed)
                   ],
                 ),
               ),
@@ -107,7 +108,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                   children: [
                     AppIcons.banknote.svg(),
                     const SizedBox(width: 4),
-                    const Text("Lending")
+                    Text(AppLocalizations.of(context)!.lent)
                   ],
                 ),
               ),
@@ -190,21 +191,21 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InfoTileItam(
-                  title: 'Lent',
+                  title: AppLocalizations.of(context)!.borrowed,
                   subtitle:
                       '${MyFunction.priceFormat(widget.model.amount)} ${widget.model.currency}',
                   icon: AppIcons.banknote,
-                  color: mainBlue,
+                  color: red,
                 ),
                 const SizedBox(height: 12),
                 InfoTileItam(
-                  title: 'Given at',
+                  title: AppLocalizations.of(context)!.givenAt,
                   subtitle: MyFunction.dateFormat(widget.model.createdAt),
                   icon: AppIcons.calendar,
                 ),
                 const SizedBox(height: 12),
                 InfoTileItam(
-                  title: 'Deadline',
+                  title: AppLocalizations.of(context)!.deadline,
                   subtitle: MyFunction.dateFormat(widget.model.deadline),
                   icon: AppIcons.secundomer,
                   treling:
@@ -299,7 +300,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       children: [
                         AppIcons.leftPay.svg(),
                         const SizedBox(width: 8),
-                        const Text("Pay all")
+                        Text(AppLocalizations.of(context)!.payAll)
                       ],
                     ),
                   )
@@ -307,11 +308,11 @@ class _UserDetailsViewState extends State<UserDetailsView> {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              "History",
-              style: TextStyle(
+              AppLocalizations.of(context)!.history,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),

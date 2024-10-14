@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/contacts_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/operations/borrowing_view.dart';
 import 'package:qarz_daftar/presentation/views/operations/lending_view.dart';
@@ -86,9 +87,7 @@ class _OperationsViewState extends State<OperationsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Operation"),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.operation)),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         decoration: BoxDecoration(
@@ -134,7 +133,7 @@ class _OperationsViewState extends State<OperationsView> {
                   children: [
                     AppIcons.hand.svg(),
                     const SizedBox(width: 4),
-                    const Text("Borrowing")
+                    Text(AppLocalizations.of(context)!.borrowed)
                   ],
                 ),
               ),
@@ -177,7 +176,7 @@ class _OperationsViewState extends State<OperationsView> {
                   children: [
                     AppIcons.banknote.svg(),
                     const SizedBox(width: 4),
-                    const Text("Lending")
+                    Text(AppLocalizations.of(context)!.lent)
                   ],
                 ),
               ),
@@ -196,7 +195,7 @@ class _OperationsViewState extends State<OperationsView> {
           child: Column(
             children: [
               CustomTextField(
-                title: "Phone number",
+                title: AppLocalizations.of(context)!.phoneNumer,
                 hintText: "+998",
                 prefixIcon: AppIcons.phone.svg(),
                 suffixIcon: AppIcons.contact.svg(),
@@ -234,7 +233,7 @@ class _OperationsViewState extends State<OperationsView> {
                 valueListenable: isUZS,
                 builder: (context, value, _) {
                   return CustomTextField(
-                    title: "Loan amount",
+                    title: AppLocalizations.of(context)!.loanAmount,
                     hintText: "0.00",
                     controller: controllerAmout,
                     keyboardType: TextInputType.number,
@@ -254,7 +253,7 @@ class _OperationsViewState extends State<OperationsView> {
               ),
               const SizedBox(height: 16),
               CustomTextField(
-                title: "Deadline",
+                title: AppLocalizations.of(context)!.deadline,
                 hintText: "29.02.2024",
                 keyboardType: TextInputType.datetime,
                 formatter: [Formatters.dateFormatter],
@@ -356,9 +355,9 @@ class _OperationsViewState extends State<OperationsView> {
                     },
                   ),
                   const SizedBox(width: 8),
-                  const Text(
-                    "Add to blacklist",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.addToBlackList,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
@@ -367,8 +366,8 @@ class _OperationsViewState extends State<OperationsView> {
               ),
               const SizedBox(height: 16),
               CustomTextField(
-                title: "The purpose of the loan",
-                hintText: "Type description...",
+                title: AppLocalizations.of(context)!.description,
+                hintText: AppLocalizations.of(context)!.description,
                 noHeight: true,
                 maxLines: 6,
                 minLines: 5,

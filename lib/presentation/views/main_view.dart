@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/widgets/w_scale_animation.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -63,7 +64,7 @@ class _MainViewState extends State<MainView> {
                     },
                     currentIndex: widget.navigationShell.currentIndex,
                     icon: AppIcons.users,
-                    title: "List",
+                    title: AppLocalizations.of(context)!.list,
                   ),
                   WBottomIteam(
                     index: 2,
@@ -72,7 +73,7 @@ class _MainViewState extends State<MainView> {
                     },
                     currentIndex: widget.navigationShell.currentIndex,
                     icon: AppIcons.profile,
-                    title: "Profile",
+                    title: AppLocalizations.of(context)!.profile,
                   ),
                 ],
               ),

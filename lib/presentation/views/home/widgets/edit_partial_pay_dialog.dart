@@ -5,6 +5,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/data/models/users/transaction_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -43,9 +44,9 @@ class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Partial pay",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.partialPay,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -74,7 +75,7 @@ class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
-                  title: "Note",
+                  title: AppLocalizations.of(context)!.description,
                   hintText: "",
                   maxLines: 5,
                   minLines: 4,
@@ -102,7 +103,7 @@ class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
                     ),
                     color: Colors.transparent,
                     textColor: context.color.white,
-                    text: "Cancel",
+                    text: AppLocalizations.of(context)!.cancel,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -126,7 +127,7 @@ class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
                             },
                           ));
                         },
-                        text: "Pay",
+                        text: AppLocalizations.of(context)!.pay,
                         isLoading: state.status.isInProgress,
                       );
                     },

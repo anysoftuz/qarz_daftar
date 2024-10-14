@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
@@ -101,7 +102,7 @@ class _HomeViewState extends State<HomeView> {
                 title: CustomTextField(
                   fillColor: dark.withOpacity(.2),
                   prefixIcon: AppIcons.search.svg(color: white),
-                  hintText: "Search",
+                  hintText: AppLocalizations.of(context)!.search,
                   hintTextColor: white,
                   borderColor: Colors.transparent,
                   borderRadius: 48,
@@ -172,9 +173,9 @@ class _HomeViewState extends State<HomeView> {
                                     children: [
                                       AppIcons.banknote.svg(),
                                       const SizedBox(width: 8),
-                                      const Text(
-                                        "Lent",
-                                        style: TextStyle(
+                                      Text(
+                                        AppLocalizations.of(context)!.lent,
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                           color: mainBlue,
@@ -270,9 +271,9 @@ class _HomeViewState extends State<HomeView> {
                                     children: [
                                       AppIcons.hand.svg(),
                                       const SizedBox(width: 8),
-                                      const Text(
-                                        "Borrowed",
-                                        style: TextStyle(
+                                      Text(
+                                        AppLocalizations.of(context)!.borrowed,
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                           color: red,
@@ -363,11 +364,12 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (state.popular.data.isNotEmpty) ...[
-                            const Padding(
-                              padding: EdgeInsets.only(left: 16, bottom: 8),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, bottom: 8),
                               child: Text(
-                                "Popular users",
-                                style: TextStyle(
+                                AppLocalizations.of(context)!.popularUser,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -440,9 +442,9 @@ class _HomeViewState extends State<HomeView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
-                                  "Active",
-                                  style: TextStyle(
+                                Text(
+                                  AppLocalizations.of(context)!.active,
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -453,9 +455,9 @@ class _HomeViewState extends State<HomeView> {
                                   },
                                   child: Row(
                                     children: [
-                                      const Text(
-                                        "View all",
-                                        style: TextStyle(color: blue),
+                                      Text(
+                                        AppLocalizations.of(context)!.viewAll,
+                                        style: const TextStyle(color: blue),
                                       ),
                                       const SizedBox(width: 4),
                                       AppIcons.arrowRight.svg()
@@ -559,6 +561,7 @@ class _HomeViewState extends State<HomeView> {
                               Text(
                                 MyFunction.typeOperation(
                                   state.operations[index].contractorType,
+                                  context,
                                 ),
                                 style: TextStyle(
                                   fontSize: 12,

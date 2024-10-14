@@ -3,7 +3,7 @@ part of 'auth_bloc.dart';
 sealed class AuthEvent {}
 
 class SendCodeEvent extends AuthEvent {
-final SendCodeModel body;
+  final SendCodeModel body;
   final VoidCallback onError;
   final Function(UserModel model) onSucces;
 
@@ -13,6 +13,8 @@ final SendCodeModel body;
     required this.onSucces,
   });
 }
+
+class RefreshTokenEvent extends AuthEvent {}
 
 class GetMeEvent extends AuthEvent {}
 
