@@ -320,12 +320,13 @@ class _OperationsViewState extends State<OperationsView> {
                       color: context.color.borderColor,
                     ),
                   ),
-                  hintText: "1 week / 1 month",
+                  hintText:
+                      "1 ${AppLocalizations.of(context)!.week} / 1 ${AppLocalizations.of(context)!.moon}",
                 ),
                 items: dateList.map((Map<String, dynamic> value) {
                   return DropdownMenuItem<Map<String, dynamic>>(
                     value: value,
-                    child: Text(value['name']),
+                    child: Text(MyFunction.dayTranslet(value['day'], context)),
                   );
                 }).toList(),
                 onChanged: (value) {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -60,7 +61,7 @@ class ActiveView extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
+                  "${MyFunction.daysLeft(state.operations[index].deadline)} ${AppLocalizations.of(context)!.daysLeft}",
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,

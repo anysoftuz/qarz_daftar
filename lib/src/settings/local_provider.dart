@@ -7,7 +7,7 @@ class LocaleProvider with ChangeNotifier {
   Locale _locale = Locale(
     StorageRepository.getString(
       StorageKeys.LANGUAGE,
-      defValue: 'uz',
+      defValue: 'ru',
     ),
   );
   Locale get locale => _locale;

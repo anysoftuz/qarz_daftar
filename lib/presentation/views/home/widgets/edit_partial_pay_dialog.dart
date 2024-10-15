@@ -66,7 +66,7 @@ class _EditPartialPayDialogState extends State<EditPartialPayDialog> {
               children: [
                 const SizedBox(height: 8),
                 CustomTextField(
-                  title: "Amount",
+                  title: AppLocalizations.of(context)!.amount,
                   hintText: "0.0",
                   controller: controllerAmout,
                   keyboardType: TextInputType.number,

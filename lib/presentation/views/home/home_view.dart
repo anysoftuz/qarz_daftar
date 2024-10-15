@@ -529,7 +529,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                           subtitle: Text(
-                            "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
+                            "${MyFunction.daysLeft(state.operations[index].deadline)} ${AppLocalizations.of(context)!.daysLeft}",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

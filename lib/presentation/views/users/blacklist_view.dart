@@ -48,7 +48,7 @@ class BlacklistView extends StatelessWidget {
                             onTap: () {
                               context.read<UsersBloc>().add(GetBannedEvent());
                             },
-                            text: "Refresh",
+                            text: AppLocalizations.of(context)!.refresh,
                           ),
                           const SizedBox(height: 120),
                         ],

@@ -158,4 +158,37 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get givenAt => 'Дано в';
+
+  @override
+  String get amount => 'Сумма';
+
+  @override
+  String get daysLeft => 'осталось дней';
+
+  @override
+  String get editDeadline => 'Изменить срок';
+
+  @override
+  String get refresh => 'Обновить';
+
+  @override
+  String get date => 'Дата';
+
+  @override
+  String get loanTaken => 'Полученный долг';
+
+  @override
+  String get loanGiven => 'Выданный долг';
+
+  @override
+  String get week => 'неделя';
+
+  @override
+  String get day => 'день';
+
+  @override
+  String get moon => 'месяц';
+
+  @override
+  String get info_pay => 'Вы хотите погасить весь существующий долг полностью?';
 }

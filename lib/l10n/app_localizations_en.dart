@@ -158,4 +158,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get givenAt => 'Given at';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get daysLeft => 'days left';
+
+  @override
+  String get editDeadline => 'Edit deadline';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get loanTaken => 'Loan taken';
+
+  @override
+  String get loanGiven => 'Loan given';
+
+  @override
+  String get week => 'week';
+
+  @override
+  String get day => 'day';
+
+  @override
+  String get moon => 'moon';
+
+  @override
+  String get info_pay => 'Do you want to pay off all your existing debt in full?';
 }

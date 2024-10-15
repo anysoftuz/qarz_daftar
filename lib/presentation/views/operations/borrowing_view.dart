@@ -215,7 +215,8 @@ class _BorrowingViewState extends State<BorrowingView> {
                 title: AppLocalizations.of(context)!.deadline,
                 subtitle: MyFunction.dateFormat(widget.deadline),
                 icon: AppIcons.secundomer,
-                treling: '${MyFunction.daysLeft(widget.deadline)} days left',
+                treling:
+                    '${MyFunction.daysLeft(widget.deadline)} ${AppLocalizations.of(context)!.daysLeft}',
                 colorTreling: context.color.white,
               ),
               const SizedBox(height: 12),

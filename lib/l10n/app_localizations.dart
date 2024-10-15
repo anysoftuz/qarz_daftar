@@ -402,6 +402,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Given at'**
   String get givenAt;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @daysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'days left'**
+  String get daysLeft;
+
+  /// No description provided for @editDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deadline'**
+  String get editDeadline;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @loanTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan taken'**
+  String get loanTaken;
+
+  /// No description provided for @loanGiven.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan given'**
+  String get loanGiven;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'week'**
+  String get week;
+
+  /// No description provided for @day.
+  ///
+  /// In en, this message translates to:
+  /// **'day'**
+  String get day;
+
+  /// No description provided for @moon.
+  ///
+  /// In en, this message translates to:
+  /// **'moon'**
+  String get moon;
+
+  /// No description provided for @info_pay.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to pay off all your existing debt in full?'**
+  String get info_pay;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

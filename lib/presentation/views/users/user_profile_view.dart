@@ -5,6 +5,7 @@ import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/users/operations_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/commercial_tab.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -94,9 +95,9 @@ class _UserProfileViewState extends State<UserProfileView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CommercialTab(
-                tabLabels: const [
-                  "Berilgan qarzlar",
-                  "Olingan qarzlar",
+                tabLabels: [
+                  AppLocalizations.of(context)!.loanGiven,
+                  AppLocalizations.of(context)!.loanTaken,
                 ],
                 onTabTap: (int value) {},
               ),

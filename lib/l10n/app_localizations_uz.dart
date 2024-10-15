@@ -158,4 +158,37 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get givenAt => 'Berilgan sana';
+
+  @override
+  String get amount => 'Miqdor';
+
+  @override
+  String get daysLeft => 'qolgan kunlar';
+
+  @override
+  String get editDeadline => 'Muddatni tahrirlash';
+
+  @override
+  String get refresh => 'Yangilash';
+
+  @override
+  String get date => 'Sana';
+
+  @override
+  String get loanTaken => 'Olingan qarz';
+
+  @override
+  String get loanGiven => 'Berilgan qarz';
+
+  @override
+  String get week => 'hafta';
+
+  @override
+  String get day => 'kun';
+
+  @override
+  String get moon => 'oy';
+
+  @override
+  String get info_pay => 'Mavjud qarzingizni to\'liq to\'lashni xohlaysizmi?';
 }

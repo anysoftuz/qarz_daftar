@@ -209,7 +209,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                   subtitle: MyFunction.dateFormat(widget.model.deadline),
                   icon: AppIcons.secundomer,
                   treling:
-                      '${MyFunction.daysLeft(widget.model.deadline)} days left',
+                      '${MyFunction.daysLeft(widget.model.deadline)} ${AppLocalizations.of(context)!.daysLeft}',
                 ),
                 const SizedBox(height: 12),
                 if (widget.model.status == 'active' ||
@@ -241,7 +241,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                             children: [
                               AppIcons.edit.svg(color: context.color.white),
                               const SizedBox(width: 8),
-                              const Text("Edit deadline")
+                              Text(AppLocalizations.of(context)!.editDeadline)
                             ],
                           ),
                         ),
@@ -270,10 +270,11 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              AppIcons.moneyClock
-                                  .svg(color: context.color.white),
+                              AppIcons.moneyClock.svg(
+                                color: context.color.white,
+                              ),
                               const SizedBox(width: 8),
-                              const Text("Partial pay")
+                              Text(AppLocalizations.of(context)!.partialPay)
                             ],
                           ),
                         ),
@@ -346,7 +347,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       ),
                     ),
                     subtitle: Text(
-                      "${MyFunction.daysLeft(state.operations[index].deadline)} days left",
+                      "${MyFunction.daysLeft(state.operations[index].deadline)} ${AppLocalizations.of(context)!.daysLeft}",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

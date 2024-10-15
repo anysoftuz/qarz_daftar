@@ -140,4 +140,18 @@ class MyFunction {
       return AppLocalizations.of(context)!.loansGiven;
     }
   }
+
+  static String dayTranslet(int day, BuildContext context) {
+    if (day == 7) {
+      return "1 ${AppLocalizations.of(context)!.week}";
+    }
+    if (day == 10) {
+      return "10 ${AppLocalizations.of(context)!.day}";
+    }
+    if (day == 14) {
+      return "2 ${AppLocalizations.of(context)!.week}";
+    } else {
+      return "1 ${AppLocalizations.of(context)!.moon}";
+    }
+  }
 }

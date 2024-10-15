@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -47,9 +48,9 @@ class LendingSuccesDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            "Successful",
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.successful,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
@@ -71,7 +72,7 @@ class LendingSuccesDialog extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            text: "Go to main",
+            text: AppLocalizations.of(context)!.goToMain,
           ),
         ],
       ),

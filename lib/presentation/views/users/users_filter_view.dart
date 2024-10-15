@@ -60,7 +60,7 @@ class _UsersFilterViewState extends State<UsersFilterView> {
                                   : AppIcons.checkboxRadio.svg(),
                               const SizedBox(width: 8),
                               Text(
-                                "Berilgan qarzlar",
+                                AppLocalizations.of(context)!.loanGiven,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

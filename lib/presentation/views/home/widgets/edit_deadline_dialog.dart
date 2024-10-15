@@ -46,9 +46,9 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Edit deadline",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.editDeadline,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -72,7 +72,7 @@ class _EditDeadlineDialogState extends State<EditDeadlineDialog> {
                   subtitle: MyFunction.dateFormat(widget.model.deadline),
                   icon: AppIcons.secundomer,
                   treling:
-                      '${MyFunction.daysLeft(widget.model.deadline)} days left',
+                      '${MyFunction.daysLeft(widget.model.deadline)} ${AppLocalizations.of(context)!.daysLeft}',
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(

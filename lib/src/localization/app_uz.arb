@@ -49,5 +49,16 @@
   "theme": "Mavzu",
   "photofact": "Foto dalil",
   "deletePhoto": "Fotoni o'chirish",
-  "givenAt": "Berilgan sana"
+  "givenAt": "Berilgan sana",
+  "amount": "Miqdor",
+  "daysLeft": "qolgan kunlar",
+  "editDeadline": "Muddatni tahrirlash",
+  "refresh": "Yangilash",
+  "date": "Sana",
+  "loanTaken": "Olingan qarz",
+  "loanGiven": "Berilgan qarz",
+  "week": "hafta",
+  "day": "kun",
+  "moon": "oy",
+  "info_pay": "Mavjud qarzingizni to'liq to'lashni xohlaysizmi?"
 }

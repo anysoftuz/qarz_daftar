@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/icons.dart';
@@ -23,7 +24,7 @@ class _AddContactViewState extends State<AddContactView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add new contact")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addNew)),
       bottomNavigationBar: SafeArea(
         child: BlocBuilder<UsersBloc, UsersState>(
           bloc: widget.bloc,
@@ -50,7 +51,7 @@ class _AddContactViewState extends State<AddContactView> {
                 ));
               },
               isLoading: state.status.isInProgress,
-              text: "Add contact",
+              text: AppLocalizations.of(context)!.addNew,
             );
           },
         ),
@@ -66,14 +67,14 @@ class _AddContactViewState extends State<AddContactView> {
           child: Column(
             children: [
               CustomTextField(
-                title: "Full name",
+                title: AppLocalizations.of(context)!.firstName,
                 fillColor: Colors.transparent,
                 controller: controllerName,
                 onChanged: (value) {},
               ),
               const SizedBox(height: 12),
               CustomTextField(
-                title: "Phone number",
+                title: AppLocalizations.of(context)!.phoneNumer,
                 hintText: "+998",
                 fillColor: Colors.transparent,
                 controller: controllerPhone,

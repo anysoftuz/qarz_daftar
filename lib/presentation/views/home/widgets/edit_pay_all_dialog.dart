@@ -55,17 +55,17 @@ class EditPayAllDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            "Want to pay all?",
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.wantToPayAll,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.",
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.info_pay,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
