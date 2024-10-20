@@ -106,7 +106,7 @@ class HistoryView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${MyFunction.priceFormat(int.tryParse(state.history[index].amount) ?? 0)} ${state.operations[index].currency}",
+                    "${MyFunction.priceFormat(int.tryParse(state.history[index].amount) ?? 0)} ${state.history[index].currency}",
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -114,7 +114,7 @@ class HistoryView extends StatelessWidget {
                   ),
                   Text(
                     MyFunction.typeOperation(
-                      state.operations[index].contractorType,
+                      state.history[index].contractorType,
                       context,
                     ),
                     style: TextStyle(

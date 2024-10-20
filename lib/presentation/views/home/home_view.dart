@@ -56,9 +56,13 @@ class _HomeViewState extends State<HomeView> {
     });
 
     socket.onDisconnect((_) {
-      print('Disconnected');
+      socket = IO.io(
+        'ws://138.68.80.51:3000/ws',
+        IO.OptionBuilder().setTransports(['websocket']).setExtraHeaders(
+            {'authorization': authToken}).build(),
+      );
     });
-
+   
     // Listen for events
     socket.on('notifications', (data) {
       if (data != null) {
