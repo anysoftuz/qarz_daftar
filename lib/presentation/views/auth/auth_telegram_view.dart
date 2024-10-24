@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/presentation/views/auth/confirmation_login_view.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -44,11 +45,16 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
           const SizedBox(height: 40),
           WButton(
             margin: const EdgeInsets.symmetric(horizontal: 16),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ConfirmationLoginView(),
-              ));
-             
+            onTap: () async {
+              final connection = await isInternetConnected();
+              if (connection) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ConfirmationLoginView(),
+                ));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Internet mavjud emas")));
+              }
             },
             color: white,
             textColor: black,

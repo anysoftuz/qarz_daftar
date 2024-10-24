@@ -59,12 +59,14 @@ class _UsersFilterViewState extends State<UsersFilterView> {
                                   ? AppIcons.checkboxRadioActive.svg()
                                   : AppIcons.checkboxRadio.svg(),
                               const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!.loanGiven,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: context.color.darkText,
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!.loanGiven,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: context.color.darkText,
+                                  ),
                                 ),
                               )
                             ],
@@ -91,12 +93,14 @@ class _UsersFilterViewState extends State<UsersFilterView> {
                                   ? AppIcons.checkboxRadioActive.svg()
                                   : AppIcons.checkboxRadio.svg(),
                               const SizedBox(width: 8),
-                              Text(
-                                "Olingan qarzlar",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: context.color.darkText,
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!.loansTaken,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: context.color.darkText,
+                                  ),
                                 ),
                               ),
                             ],
@@ -109,7 +113,7 @@ class _UsersFilterViewState extends State<UsersFilterView> {
               ),
               const SizedBox(height: 12),
               CustomTextField(
-                title: "Date",
+                title: AppLocalizations.of(context)!.date,
                 hintText: "29.02.2024",
                 controller: controllerDate,
                 fillColor: Colors.transparent,
@@ -138,7 +142,7 @@ class _UsersFilterViewState extends State<UsersFilterView> {
                 valueListenable: isUZS,
                 builder: (context, value, __) {
                   return CustomTextField(
-                    title: "Loan amount",
+                    title: AppLocalizations.of(context)!.loanAmount,
                     hintText: "0.00",
                     fillColor: Colors.transparent,
                     suffixIcon: Text(value ? "UZS" : "USD"),

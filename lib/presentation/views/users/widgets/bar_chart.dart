@@ -125,8 +125,9 @@ class BarChartSample2State extends State<BarChartSample2> {
                   leftTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: 40,
-                      interval: 100,
+                      reservedSize: 60,
+                      interval:
+                          MyFunction.kattason(widget.graphicStatistics) / 5,
                       getTitlesWidget: leftTitles,
                     ),
                   ),
@@ -151,7 +152,7 @@ class BarChartSample2State extends State<BarChartSample2> {
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
-    if (value % 100 == 0) {
+    if (value % 1000 == 0) {
       return SideTitleWidget(
         axisSide: meta.axisSide,
         space: 0,
