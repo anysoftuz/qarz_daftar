@@ -47,85 +47,92 @@ class HistoryView extends StatelessWidget {
             ],
           );
         }
-        return ListView.builder(
-          itemCount: state.history.length,
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-          itemBuilder: (context, index) => DecoratedBox(
-            decoration: BoxDecoration(
-              color: context.color.borderColor,
-              borderRadius: index == 0
-                  ? const BorderRadius.vertical(
-                      top: Radius.circular(8),
-                    )
-                  : index == 4
-                      ? const BorderRadius.vertical(
-                          bottom: Radius.circular(8),
-                        )
-                      : null,
-            ),
-            child: ListTile(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => UserProfileView(
-                    model: OperationModel(
-                      amount: int.tryParse(state.history[index].amount) ?? 0,
-                      contractorFullName: state.history[index].concat,
-                      contractorAvatar: state.history[index].avatar,
-                      contractorPhone: "",
-                      contractorType: state.history[index].contractorType,
-                      deadline: state.history[index].deadline,
-                      debt: int.tryParse(state.history[index].debt) ?? 0,
-                      currency: state.history[index].currency,
-                    ),
-                  ),
-                ));
-              },
-              title: Text(
-                state.history[index].concat,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+        return RefreshIndicator.adaptive(
+          onRefresh: () async {
+            context.read<UsersBloc>().add(GetHistoryEvent());
+            await Future.delayed(Duration.zero);
+          },
+          child: ListView.builder(
+            itemCount: state.history.length,
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+            itemBuilder: (context, index) => DecoratedBox(
+              decoration: BoxDecoration(
+                color: context.color.borderColor,
+                borderRadius: index == 0
+                    ? const BorderRadius.vertical(
+                        top: Radius.circular(8),
+                      )
+                    : index == 4
+                        ? const BorderRadius.vertical(
+                            bottom: Radius.circular(8),
+                          )
+                        : null,
               ),
-              subtitle: Text(
-                MyFunction.dateFormatDate(state.history[index].deadline),
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              leading: CircleAvatar(
-                radius: 24,
-                backgroundColor: backGroundColor,
-                backgroundImage: CachedNetworkImageProvider(
-                  state.history[index].avatar,
-                ),
-              ),
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${MyFunction.priceFormat(int.tryParse(state.history[index].amount) ?? 0)} ${state.history[index].currency}",
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+              child: ListTile(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UserProfileView(
+                      model: OperationModel(
+                        amount: int.tryParse(state.history[index].amount) ?? 0,
+                        contractorFullName: state.history[index].concat,
+                        contractorAvatar: state.history[index].avatar,
+                        contractorPhone: "",
+                        contractorType: state.history[index].contractorType,
+                        deadline: state.history[index].deadline,
+                        debt: int.tryParse(state.history[index].debt) ?? 0,
+                        currency: state.history[index].currency,
+                      ),
                     ),
+                  ));
+                },
+                title: Text(
+                  state.history[index].concat,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Text(
-                    MyFunction.typeOperation(
-                      state.history[index].contractorType,
-                      context,
-                    ),
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: state.history[index].contractorType == "borrowing"
-                          ? red
-                          : mainBlue,
-                    ),
+                ),
+                subtitle: Text(
+                  MyFunction.dateFormatDate(state.history[index].deadline),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
+                ),
+                leading: CircleAvatar(
+                  radius: 24,
+                  backgroundColor: backGroundColor,
+                  backgroundImage: CachedNetworkImageProvider(
+                    state.history[index].avatar,
+                  ),
+                ),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${MyFunction.priceFormat(int.tryParse(state.history[index].amount) ?? 0)} ${state.history[index].currency}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      MyFunction.typeOperation(
+                        state.history[index].contractorType,
+                        context,
+                      ),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color:
+                            state.history[index].contractorType == "borrowing"
+                                ? red
+                                : mainBlue,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

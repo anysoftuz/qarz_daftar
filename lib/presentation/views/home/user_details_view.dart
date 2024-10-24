@@ -236,12 +236,17 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                             color: context.color.white.withOpacity(.4),
                           ),
                           textColor: context.color.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               AppIcons.edit.svg(color: context.color.white),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context)!.editDeadline)
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!.editDeadline,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -249,6 +254,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: WButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           onTap: () {
                             final bloc = context.read<UsersBloc>();
                             showDialog(
@@ -274,7 +280,11 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                                 color: context.color.white,
                               ),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context)!.partialPay)
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!.partialPay,
+                                ),
+                              )
                             ],
                           ),
                         ),

@@ -104,7 +104,19 @@ class BarChartSample2State extends State<BarChartSample2> {
                     getTooltipColor: ((group) {
                       return Colors.grey;
                     }),
-                    getTooltipItem: (a, b, c, d) => null,
+                    tooltipRoundedRadius: 100,
+                    tooltipPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
+                    tooltipMargin: 8,
+                    getTooltipItem: (a, b, c, d) => BarTooltipItem(
+                      MyFunction.priceFormat(c.toY.round() * 1000),
+                      const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: white,
+                      ),
+                    ),
                   ),
                 ),
                 titlesData: FlTitlesData(
