@@ -40,19 +40,19 @@ class _ProfileViewState extends State<ProfileView> {
               showAdaptiveDialog(
                 context: context,
                 builder: (context) => AlertDialog.adaptive(
-                  title: const Text("Haqiqattan chiqmoqchimisiz"),
+                  title: Text(AppLocalizations.of(context)!.doYouWantToGoOut),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Yoq'),
+                      child: Text(AppLocalizations.of(context)!.no),
                     ),
                     TextButton(
                       onPressed: () {
                         context.read<AuthBloc>().add(LogOutEvent());
                       },
-                      child: const Text(
-                        'Ha',
-                        style: TextStyle(color: Colors.red),
+                      child: Text(
+                        AppLocalizations.of(context)!.yes,
+                        style: const TextStyle(color: Colors.red),
                       ),
                     ),
                   ],
