@@ -60,5 +60,12 @@
   "week": "week",
   "day": "day",
   "moon": "moon",
+  "doYouWantToGoOut": "Do you want to go out?",
+  "yes": "Yes",
+  "no": "No",
+  "enter":"Enter",
+  "loginToTheSystem":"Login to the system",
+  "loginDescription":"To log in, you must have Telegram messenger installed on your phone and a Telegram account",
+  "loginViaTelegram":"Login via Telegram",
   "info_pay": "Do you want to pay off all your existing debt in full?"
 }

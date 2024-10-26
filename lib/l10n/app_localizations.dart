@@ -463,6 +463,48 @@ abstract class AppLocalizations {
   /// **'moon'**
   String get moon;
 
+  /// No description provided for @doYouWantToGoOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to go out?'**
+  String get doYouWantToGoOut;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @enter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter'**
+  String get enter;
+
+  /// No description provided for @loginToTheSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Login to the system'**
+  String get loginToTheSystem;
+
+  /// No description provided for @loginDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'To log in, you must have Telegram messenger installed on your phone and a Telegram account'**
+  String get loginDescription;
+
+  /// No description provided for @loginViaTelegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Login via Telegram'**
+  String get loginViaTelegram;
+
   /// No description provided for @info_pay.
   ///
   /// In en, this message translates to:

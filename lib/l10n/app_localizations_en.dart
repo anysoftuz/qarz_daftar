@@ -190,5 +190,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moon => 'moon';
 
   @override
+  String get doYouWantToGoOut => 'Do you want to go out?';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get enter => 'Enter';
+
+  @override
+  String get loginToTheSystem => 'Login to the system';
+
+  @override
+  String get loginDescription => 'To log in, you must have Telegram messenger installed on your phone and a Telegram account';
+
+  @override
+  String get loginViaTelegram => 'Login via Telegram';
+
+  @override
   String get info_pay => 'Do you want to pay off all your existing debt in full?';
 }

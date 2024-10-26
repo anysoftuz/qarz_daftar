@@ -19,10 +19,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get logOut => 'Chiqish';
 
   @override
-  String get loansTaken => 'Olingan qarzlar';
+  String get loansTaken => 'Olingan qarz';
 
   @override
-  String get loansGiven => 'Berilgan qarzlar';
+  String get loansGiven => 'Berilgan qarz';
 
   @override
   String get list => 'Ro\'yxat';
@@ -43,19 +43,19 @@ class AppLocalizationsUz extends AppLocalizations {
   String get filter => 'Filtr';
 
   @override
-  String get search => 'Qidiruv';
+  String get search => 'Qidirish';
 
   @override
-  String get popularUser => 'Ommabop foydalanuvchilar';
+  String get popularUser => 'Ommabop foydalanuvchi';
 
   @override
   String get viewAll => 'Hammasini ko\'rish';
 
   @override
-  String get lent => 'Berilgan qarzlar';
+  String get lent => 'Berilgan';
 
   @override
-  String get borrowed => 'Olingan qarzlar';
+  String get borrowed => 'Olingan';
 
   @override
   String get operation => 'Operatsiya';
@@ -73,22 +73,22 @@ class AppLocalizationsUz extends AppLocalizations {
   String get addToBlackList => 'Qora ro\'yxatga qo\'shish';
 
   @override
-  String get description => 'Tavsif';
+  String get description => 'Tafsilot';
 
   @override
   String get addNew => 'Yangi qo\'shish';
 
   @override
-  String get notifications => 'Bildirishnomalar';
+  String get notifications => 'Xabarnomalar';
 
   @override
-  String get closed => 'Yopildi';
+  String get closed => 'Yopilgan';
 
   @override
   String get light => 'Yorug\'';
 
   @override
-  String get dark => 'Qorong\'i';
+  String get dark => 'Qorong\'u';
 
   @override
   String get system => 'Tizim';
@@ -109,13 +109,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get lastName => 'Familiya';
 
   @override
-  String get login => 'Login';
+  String get login => 'Kirish';
 
   @override
   String get confirm => 'Tasdiqlash';
 
   @override
-  String get loginTelegram => 'Telegram orqali kirish';
+  String get loginTelegram => 'Telegramga kirish';
 
   @override
   String get save => 'Saqlash';
@@ -127,7 +127,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get newDeadline => 'Yangi muddat';
 
   @override
-  String get pay => 'To\'lov';
+  String get pay => 'To\'lash';
 
   @override
   String get partialPay => 'Qisman to\'lov';
@@ -145,16 +145,16 @@ class AppLocalizationsUz extends AppLocalizations {
   String get payAll => 'Hammasini to\'lash';
 
   @override
-  String get wantToPayAll => 'Hammasini to\'lashni xohlaysizmi?';
+  String get wantToPayAll => 'Hammasini to\'laysizmi?';
 
   @override
   String get theme => 'Mavzu';
 
   @override
-  String get photofact => 'Foto dalil';
+  String get photofact => 'Fotofakt';
 
   @override
-  String get deletePhoto => 'Fotoni o\'chirish';
+  String get deletePhoto => 'Rasmni o\'chirish';
 
   @override
   String get givenAt => 'Berilgan sana';
@@ -163,10 +163,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get amount => 'Miqdor';
 
   @override
-  String get daysLeft => 'qolgan kunlar';
+  String get daysLeft => 'kun qoldi';
 
   @override
-  String get editDeadline => 'Muddatni tahrirlash';
+  String get editDeadline => 'Muddatni o\'zgartirish';
 
   @override
   String get refresh => 'Yangilash';
@@ -190,5 +190,26 @@ class AppLocalizationsUz extends AppLocalizations {
   String get moon => 'oy';
 
   @override
-  String get info_pay => 'Mavjud qarzingizni to\'liq to\'lashni xohlaysizmi?';
+  String get doYouWantToGoOut => 'Rostanam chiqmoqchimisiz';
+
+  @override
+  String get yes => 'Ha';
+
+  @override
+  String get no => 'Yo\'q';
+
+  @override
+  String get enter => 'Kirish';
+
+  @override
+  String get loginToTheSystem => 'Tizimga kirish';
+
+  @override
+  String get loginDescription => 'Kirish uchun telefoningizda Telegram messenjeri o\'rnatilgan bo\'lishi va Telegram akkauntingiz bo\'lishi kerak';
+
+  @override
+  String get loginViaTelegram => 'Telegram orqali kirish';
+
+  @override
+  String get info_pay => 'Barcha qarzlaringizni to\'liq to\'laysizmi?';
 }

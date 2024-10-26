@@ -4,6 +4,7 @@ import 'package:formz/formz.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
 import 'package:qarz_daftar/data/models/auth/send_code_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/auth/telegram_auth.dart';
 import 'package:qarz_daftar/presentation/widgets/custom_text_field.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
@@ -102,7 +103,7 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
               isLoading: state.statusCode.isInProgress,
               margin: const EdgeInsets.symmetric(horizontal: 16)
                   .copyWith(bottom: 16),
-              text: isCheck ? "Тасдиқлаш" : "Kirish",
+              text: isCheck ?AppLocalizations.of(context)!.confirm : "Kirish",
             );
           },
         ),

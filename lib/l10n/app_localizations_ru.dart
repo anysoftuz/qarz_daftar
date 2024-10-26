@@ -10,31 +10,31 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profile => 'Профиль';
 
   @override
-  String get settings => 'Настройка';
+  String get settings => 'Настройки';
 
   @override
   String get statistics => 'Статистика';
 
   @override
-  String get logOut => 'Выход';
+  String get logOut => 'Выйти';
 
   @override
-  String get loansTaken => 'Полученные долги';
+  String get loansTaken => 'Взятые долги';
 
   @override
   String get loansGiven => 'Выданные долги';
 
   @override
-  String get list => 'Лист';
+  String get list => 'Список';
 
   @override
-  String get active => 'Актив';
+  String get active => 'Активные';
 
   @override
   String get history => 'История';
 
   @override
-  String get blacklist => 'Черный список';
+  String get blacklist => 'Черный';
 
   @override
   String get contacts => 'Контакты';
@@ -46,16 +46,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get search => 'Поиск';
 
   @override
-  String get popularUser => 'Популярные пользователи';
+  String get popularUser => 'Популярный пользователь';
 
   @override
-  String get viewAll => 'Просмотреть все';
+  String get viewAll => 'Смотреть все';
 
   @override
-  String get lent => 'Выданные долги';
+  String get lent => 'Дал взаймы';
 
   @override
-  String get borrowed => 'Полученные долги';
+  String get borrowed => 'Взял взаймы';
 
   @override
   String get operation => 'Операция';
@@ -67,7 +67,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loanAmount => 'Сумма долга';
 
   @override
-  String get deadline => 'Срок';
+  String get deadline => 'Крайний срок';
 
   @override
   String get addToBlackList => 'Добавить в черный список';
@@ -76,7 +76,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get description => 'Описание';
 
   @override
-  String get addNew => 'Добавить новый';
+  String get addNew => 'Добавить новое';
 
   @override
   String get notifications => 'Уведомления';
@@ -85,19 +85,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get closed => 'Закрыто';
 
   @override
-  String get light => 'Light';
+  String get light => 'Светлая';
 
   @override
-  String get dark => 'Dark';
+  String get dark => 'Темная';
 
   @override
-  String get system => 'System';
+  String get system => 'Системная';
 
   @override
   String get lenguage => 'Язык';
 
   @override
-  String get changePhone => 'Изменить телефон';
+  String get changePhone => 'Изменить номер телефона';
 
   @override
   String get editProfile => 'Редактировать профиль';
@@ -112,10 +112,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get login => 'Логин';
 
   @override
-  String get confirm => 'Подтверждать';
+  String get confirm => 'Подтвердить';
 
   @override
-  String get loginTelegram => 'Войти в Telegram';
+  String get loginTelegram => 'Войти через Telegram';
 
   @override
   String get save => 'Сохранить';
@@ -127,13 +127,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get newDeadline => 'Новый срок';
 
   @override
-  String get pay => 'Оплата';
+  String get pay => 'Оплатить';
 
   @override
   String get partialPay => 'Частичная оплата';
 
   @override
-  String get goToMain => 'Перейти к основному';
+  String get goToMain => 'На главную';
 
   @override
   String get successful => 'Успешно';
@@ -145,19 +145,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get payAll => 'Оплатить все';
 
   @override
-  String get wantToPayAll => 'Хотите заплатить все?';
+  String get wantToPayAll => 'Хотите оплатить все?';
 
   @override
   String get theme => 'Тема';
 
   @override
-  String get photofact => 'Фото факт';
+  String get photofact => 'Фотофакт';
 
   @override
   String get deletePhoto => 'Удалить фото';
 
   @override
-  String get givenAt => 'Дано в';
+  String get givenAt => 'Выдано';
 
   @override
   String get amount => 'Сумма';
@@ -166,7 +166,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get daysLeft => 'осталось дней';
 
   @override
-  String get editDeadline => 'Изменить срок';
+  String get editDeadline => 'Редактировать срок';
 
   @override
   String get refresh => 'Обновить';
@@ -175,10 +175,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get date => 'Дата';
 
   @override
-  String get loanTaken => 'Полученный долг';
+  String get loanTaken => 'Долг взят';
 
   @override
-  String get loanGiven => 'Выданный долг';
+  String get loanGiven => 'Долг выдан';
 
   @override
   String get week => 'неделя';
@@ -190,5 +190,26 @@ class AppLocalizationsRu extends AppLocalizations {
   String get moon => 'месяц';
 
   @override
-  String get info_pay => 'Вы хотите погасить весь существующий долг полностью?';
+  String get doYouWantToGoOut => 'Хочешь выйти?';
+
+  @override
+  String get yes => 'Да';
+
+  @override
+  String get no => 'Нет';
+
+  @override
+  String get enter => 'Входить';
+
+  @override
+  String get loginToTheSystem => 'Вход в систему';
+
+  @override
+  String get loginDescription => 'Для входа в систему необходимо, чтобы на вашем телефоне был установлен мессенджер Telegram и у вас была учетная запись Telegram';
+
+  @override
+  String get loginViaTelegram => 'Войти через Telegram';
+
+  @override
+  String get info_pay => 'Вы хотите погасить всю существующую задолженность полностью?';
 }

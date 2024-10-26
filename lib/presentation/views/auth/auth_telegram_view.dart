@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/views/auth/confirmation_login_view.dart';
 import 'package:qarz_daftar/presentation/widgets/w_button.dart';
 import 'package:qarz_daftar/src/assets/colors/colors.dart';
@@ -22,19 +23,19 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
         children: [
           AppImages.banner.imgAsset(width: double.infinity),
           const SizedBox(height: 32),
-          const Text(
-            "Тизимга кириш",
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.loginToTheSystem,
+            style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w500,
               color: white,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
-              "Тизимга кириш учун телефонингизда телеграм мессенжери ўрнатилган ва телеграм аккаунтингиз бўлиши керак",
-              style: TextStyle(
+              AppLocalizations.of(context)!.loginDescription,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: white,
@@ -63,7 +64,7 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
               children: [
                 AppImages.telegram.imgAsset(height: 24),
                 const SizedBox(width: 8),
-                const Text("Телеграм орқали кириш")
+                Text(AppLocalizations.of(context)!.loginTelegram)
               ],
             ),
           ),
