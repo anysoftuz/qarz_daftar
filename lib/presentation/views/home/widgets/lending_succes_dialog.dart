@@ -32,7 +32,7 @@ class LendingSuccesDialog extends StatelessWidget {
                 Center(
                   child: CircleAvatar(
                     radius: 24,
-                    backgroundColor: mainBlue.withOpacity(.1),
+                    backgroundColor: mainBlue.withValues(alpha: .1),
                     child: AppIcons.succes.svg(),
                   ),
                 ),

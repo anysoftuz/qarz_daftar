@@ -157,8 +157,9 @@ class _WTextFieldState extends State<WTextField>
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                        color:
-                            widget.hasError ? red : contColor.withOpacity(.1)),
+                        color: widget.hasError
+                            ? red
+                            : contColor.withValues(alpha: .1)),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -171,22 +172,26 @@ class _WTextFieldState extends State<WTextField>
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                      color: widget.hasError ? red : contColor.withOpacity(.1),
+                      color: widget.hasError
+                          ? red
+                          : contColor.withValues(alpha: .1),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                        color:
-                            widget.hasError ? red : contColor.withOpacity(.1)),
+                        color: widget.hasError
+                            ? red
+                            : contColor.withValues(alpha: .1)),
                   ),
                   hintText: widget.hintText,
                   hintStyle: widget.hintStyle ??
                       Theme.of(context).textTheme.headlineMedium!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color:
-                                widget.hasError ? red : white.withOpacity(.5),
+                            color: widget.hasError
+                                ? red
+                                : white.withValues(alpha: .5),
                           ),
                   contentPadding: widget.contentPadding,
                   suffixIconConstraints:

@@ -86,7 +86,7 @@ List<BoxShadow> wboxShadow = [
     offset: const Offset(0, 4),
     blurRadius: 4,
     spreadRadius: 0,
-    color: black.withOpacity(.25),
+    color: black.withValues(alpha: .25),
   ),
 ];
 
@@ -95,7 +95,7 @@ List<BoxShadow> wboxShadowRed = [
     offset: const Offset(0, 0),
     blurRadius: 8,
     spreadRadius: 3,
-    color: const Color(0xFFFA193E).withOpacity(.5),
+    color: const Color(0xFFFA193E).withValues(alpha: .5),
   ),
 ];
 
@@ -134,8 +134,8 @@ RadialGradient radialGradient = RadialGradient(
   center: Alignment.centerRight,
   radius: 1.5,
   colors: [
-    blue.withOpacity(.5),
-    backGroundColor.withOpacity(.5),
+    blue.withValues(alpha: .5),
+    backGroundColor.withValues(alpha: .5),
   ],
 );
 

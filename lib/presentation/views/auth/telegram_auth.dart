@@ -10,7 +10,7 @@ class TelegramLogin {
   String? _botDomain;
   Map<String, String> userData = {};
 
-  TelegramLogin(botId, botDomain) {
+  TelegramLogin(String botId, String botDomain) {
     _botId = botId;
     _botDomain = botDomain;
   }
@@ -37,7 +37,6 @@ class TelegramLogin {
     if (ans == "true") {
       return true;
     } else {
-      print(ans);
       return false;
     }
   }
@@ -62,7 +61,6 @@ class TelegramLogin {
       {},
     );
     try {
-      print(ans);
       String id = ans.split('"id":')[1].split(',')[0];
       String firstName = ans.contains("first_name")
           ? ans.split('"first_name":"')[1].split('",')[0]
@@ -84,7 +82,6 @@ class TelegramLogin {
       userData["username"] = username;
       userData["hash"] = hash;
     } catch (e) {
-      print(e);
       return false;
     }
     return true;

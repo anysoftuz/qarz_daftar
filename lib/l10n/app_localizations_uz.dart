@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -205,7 +207,8 @@ class AppLocalizationsUz extends AppLocalizations {
   String get loginToTheSystem => 'Tizimga kirish';
 
   @override
-  String get loginDescription => 'Kirish uchun telefoningizda Telegram messenjeri o\'rnatilgan bo\'lishi va Telegram akkauntingiz bo\'lishi kerak';
+  String get loginDescription =>
+      'Kirish uchun telefoningizda Telegram messenjeri o\'rnatilgan bo\'lishi va Telegram akkauntingiz bo\'lishi kerak';
 
   @override
   String get loginViaTelegram => 'Telegram orqali kirish';

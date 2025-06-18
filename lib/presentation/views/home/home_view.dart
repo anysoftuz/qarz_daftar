@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:qarz_daftar/application/auth/auth_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:qarz_daftar/application/users/users_bloc.dart';
 import 'package:qarz_daftar/data/models/home/notification_model.dart';
 import 'package:qarz_daftar/infrastructure/core/context_extension.dart';
 import 'package:qarz_daftar/infrastructure/repo/storage_repository.dart';
+import 'package:qarz_daftar/l10n/app_localizations.dart';
 import 'package:qarz_daftar/presentation/routes/route_name.dart';
 import 'package:qarz_daftar/presentation/views/operations/operations_view.dart';
 import 'package:qarz_daftar/presentation/views/users/user_profile_view.dart';
@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
             {'authorization': authToken}).build(),
       );
     });
-   
+
     // Listen for events
     socket.on('notifications', (data) {
       if (data != null) {
@@ -104,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
               SliverAppBar(
                 title: CustomTextField(
-                  fillColor: dark.withOpacity(.2),
+                  fillColor: dark.withValues(alpha: .2),
                   prefixIcon: AppIcons.search.svg(color: white),
                   hintText: AppLocalizations.of(context)!.search,
                   hintTextColor: white,
@@ -135,7 +135,7 @@ class _HomeViewState extends State<HomeView> {
                 actions: [
                   CircleAvatar(
                     radius: 24,
-                    backgroundColor: dark.withOpacity(.2),
+                    backgroundColor: dark.withValues(alpha: .2),
                     child: badges.Badge(
                       showBadge:
                           MyFunction.notificationLeng(state.notification) > 0,
@@ -201,7 +201,7 @@ class _HomeViewState extends State<HomeView> {
                                         TextSpan(
                                           text: ' UZS',
                                           style: TextStyle(
-                                            color: white.withOpacity(.4),
+                                            color: white.withValues(alpha: .4),
                                             fontSize: 24,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -229,7 +229,8 @@ class _HomeViewState extends State<HomeView> {
                                             text:
                                                 ' ${state.takenAmount[index].currency.toUpperCase()}',
                                             style: TextStyle(
-                                              color: white.withOpacity(.4),
+                                              color:
+                                                  white.withValues(alpha: .4),
                                               fontSize: 24,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -243,7 +244,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           CircleAvatar(
                             radius: 20,
-                            backgroundColor: white.withOpacity(.1),
+                            backgroundColor: white.withValues(alpha: .1),
                             child: IconButton(
                               onPressed: () {
                                 context.go(AppRouteName.users);
@@ -258,7 +259,7 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    Divider(color: white.withOpacity(.1)),
+                    Divider(color: white.withValues(alpha: .1)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16)
                           .copyWith(bottom: 24),
@@ -299,7 +300,7 @@ class _HomeViewState extends State<HomeView> {
                                         TextSpan(
                                           text: ' UZS',
                                           style: TextStyle(
-                                            color: white.withOpacity(.4),
+                                            color: white.withValues(alpha: .4),
                                             fontSize: 24,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -327,7 +328,8 @@ class _HomeViewState extends State<HomeView> {
                                             text:
                                                 ' ${state.givenAmount[index].currency.toUpperCase()}',
                                             style: TextStyle(
-                                              color: white.withOpacity(.4),
+                                              color:
+                                                  white.withValues(alpha: .4),
                                               fontSize: 24,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -341,7 +343,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           CircleAvatar(
                             radius: 20,
-                            backgroundColor: white.withOpacity(.1),
+                            backgroundColor: white.withValues(alpha: .1),
                             child: IconButton(
                               onPressed: () {},
                               icon: AppIcons.arrowRight.svg(
@@ -398,7 +400,7 @@ class _HomeViewState extends State<HomeView> {
                                         "https://t.me/qarz_daftar1_bot",
                                       ).whenComplete(
                                         () {
-                                          if (mounted) {
+                                          if (context.mounted) {
                                             context
                                                 .read<AuthBloc>()
                                                 .add(GetMeEvent());

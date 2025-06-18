@@ -382,7 +382,7 @@ class _OperationsViewState extends State<OperationsView> {
                 onTap: () {
                   imagesFile();
                 },
-                color: mainBlue.withOpacity(.2),
+                color: mainBlue.withValues(alpha: .2),
                 child: const Icon(
                   Icons.camera_alt_outlined,
                   color: mainBlue,

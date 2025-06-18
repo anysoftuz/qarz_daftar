@@ -121,7 +121,7 @@ class _NotificationViewState extends State<NotificationView> {
                                       },
                                       border: Border.all(
                                           color: context.color.white
-                                              .withOpacity(.2)),
+                                              .withValues(alpha: .2)),
                                       textColor: context.color.white,
                                       color: Colors.transparent,
                                       isLoading: state

@@ -64,7 +64,7 @@ class WButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isDisabled
-              ? disabledColor ?? mainBlue.withOpacity(.3)
+              ? disabledColor ?? mainBlue.withValues(alpha: .3)
               : color ?? mainBlue,
           borderRadius: BorderRadius.circular(borderRadius),
           border: border,

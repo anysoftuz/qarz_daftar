@@ -104,7 +104,6 @@ class BarChartSample2State extends State<BarChartSample2> {
                     getTooltipColor: ((group) {
                       return Colors.grey;
                     }),
-                    tooltipRoundedRadius: 100,
                     tooltipPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 4,
@@ -166,7 +165,7 @@ class BarChartSample2State extends State<BarChartSample2> {
     );
     if (value % 1000 == 0) {
       return SideTitleWidget(
-        axisSide: meta.axisSide,
+        meta: meta,
         space: 0,
         child: Text(value.toInt().toString(), style: style),
       );
@@ -196,7 +195,7 @@ class BarChartSample2State extends State<BarChartSample2> {
     );
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 16, //margin top
       child: text,
     );

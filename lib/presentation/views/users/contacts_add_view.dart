@@ -25,10 +25,7 @@ class ContactsAddView extends StatefulWidget {
 }
 
 class _ContactsAddViewState extends State<ContactsAddView> {
-  List<Contact>? _contacts;
-
   List<Datum> filteredPeople = [];
-  bool _permissionDenied = false;
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -44,7 +41,6 @@ class _ContactsAddViewState extends State<ContactsAddView> {
   Future _fetchContacts() async {
     List<PhonsModel> phones = [];
     if (!await FlutterContacts.requestPermission(readonly: true)) {
-      setState(() => _permissionDenied = true);
     } else {
       final contacts = await FlutterContacts.getContacts();
       for (var i = 0; i < contacts.length; i++) {
@@ -63,8 +59,6 @@ class _ContactsAddViewState extends State<ContactsAddView> {
           fullName: contacts[i].displayName,
         ));
       }
-
-      setState(() => _contacts = contacts);
     }
     if (mounted) {
       context.read<UsersBloc>().add(PostContactsEvent(model: phones));
@@ -156,7 +150,11 @@ class _ContactsAddViewState extends State<ContactsAddView> {
                                   "https://t.me/qarz_daftar1_bot",
                                 ).whenComplete(
                                   () {
-                                    context.read<AuthBloc>().add(GetMeEvent());
+                                    if (context.mounted) {
+                                      context
+                                          .read<AuthBloc>()
+                                          .add(GetMeEvent());
+                                    }
                                   },
                                 );
                               } else if (context

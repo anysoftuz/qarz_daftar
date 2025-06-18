@@ -20,7 +20,7 @@ class WTabBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: greyBack.withOpacity(.12),
+        color: greyBack.withValues(alpha: .12),
       ),
       child: TabBar(
         dividerColor: Colors.transparent,
@@ -31,16 +31,16 @@ class WTabBar extends StatelessWidget {
             BoxShadow(
               blurRadius: 1,
               offset: const Offset(0, 3),
-              color: black.withOpacity(0.04),
+              color: black.withValues(alpha: 0.04),
             ),
             BoxShadow(
               blurRadius: 8,
               offset: const Offset(0, 3),
-              color: black.withOpacity(0.12),
+              color: black.withValues(alpha: 0.12),
             ),
           ],
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: black.withOpacity(0.04)),
+            side: BorderSide(color: black.withValues(alpha: 0.04)),
             borderRadius: BorderRadius.circular(6),
           ),
           color: white,

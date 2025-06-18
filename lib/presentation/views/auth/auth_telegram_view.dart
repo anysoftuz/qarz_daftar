@@ -49,12 +49,16 @@ class _AuthTelegramViewState extends State<AuthTelegramView> {
             onTap: () async {
               final connection = await isInternetConnected();
               if (connection) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ConfirmationLoginView(),
-                ));
+                if (context.mounted) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ConfirmationLoginView(),
+                  ));
+                }
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Internet mavjud emas")));
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Internet mavjud emas")));
+                }
               }
             },
             color: white,

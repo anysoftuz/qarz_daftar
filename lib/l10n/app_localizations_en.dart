@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -205,11 +207,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginToTheSystem => 'Login to the system';
 
   @override
-  String get loginDescription => 'To log in, you must have Telegram messenger installed on your phone and a Telegram account';
+  String get loginDescription =>
+      'To log in, you must have Telegram messenger installed on your phone and a Telegram account';
 
   @override
   String get loginViaTelegram => 'Login via Telegram';
 
   @override
-  String get info_pay => 'Do you want to pay off all your existing debt in full?';
+  String get info_pay =>
+      'Do you want to pay off all your existing debt in full?';
 }

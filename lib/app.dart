@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
                     debugPrint('STATE LISTENER ============> ${state.status}');
                     switch (state.status) {
                       case AuthenticationStatus.unauthenticated:
-                        AppRouts.router.pushReplacement(AppRouteName.auth);
+                        AppRouts.router.pushReplacement(AppRouteName.home);
                         break;
                       case AuthenticationStatus.authenticated:
                         AppRouts.router.go(AppRouteName.home);

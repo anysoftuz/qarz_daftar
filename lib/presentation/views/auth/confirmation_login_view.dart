@@ -53,49 +53,54 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
                       isCheck = false;
                     });
                   } else {
-                    context.showSnackBar(
-                      message: "User topilmadi nomerni tekshiring",
-                    );
+                    if (context.mounted) {
+                      context.showSnackBar(
+                        message: "User topilmadi nomerni tekshiring",
+                      );
+                    }
                   }
                 } else {
-                  var success = await telegramLogin.checkLogin();
-                  print(success);
+                  await telegramLogin.checkLogin();
                   var data = await telegramLogin.getData();
-                  print(data);
                   if (data) {
-                    context.read<AuthBloc>().add(SendCodeEvent(
-                          body: SendCodeModel(
-                            phone: phoneNumber,
-                            id: int.tryParse(
-                                  telegramLogin.userData["id"].toString(),
-                                ) ??
-                                0,
-                            firstName:
-                                telegramLogin.userData["first_name"] ?? "",
-                            lastName: telegramLogin.userData["last_name"] ?? "",
-                            fullName:
-                                "${telegramLogin.userData["first_name"]} ${telegramLogin.userData["last_name"]}",
-                            avatar: telegramLogin.userData["photo_url"]
-                                    ?.replaceAll("/", "") ??
-                                "",
-                          ),
-                          onError: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "Telefon raqam yoki kodingiz hato kirgazilgan",
+                    if (context.mounted) {
+                      context.read<AuthBloc>().add(SendCodeEvent(
+                            body: SendCodeModel(
+                              phone: phoneNumber,
+                              id: int.tryParse(
+                                    telegramLogin.userData["id"].toString(),
+                                  ) ??
+                                  0,
+                              firstName:
+                                  telegramLogin.userData["first_name"] ?? "",
+                              lastName:
+                                  telegramLogin.userData["last_name"] ?? "",
+                              fullName:
+                                  "${telegramLogin.userData["first_name"]} ${telegramLogin.userData["last_name"]}",
+                              avatar: telegramLogin.userData["photo_url"]
+                                      ?.replaceAll("/", "") ??
+                                  "",
+                            ),
+                            onError: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Telefon raqam yoki kodingiz hato kirgazilgan",
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          onSucces: (model) {
-                            telegramLogin.clearCookies();
-                          },
-                        ));
+                              );
+                            },
+                            onSucces: (model) {
+                              telegramLogin.clearCookies();
+                            },
+                          ));
+                    }
                   } else {
-                    context.showSnackBar(
-                      message: "Iltimos Telegramda kirishga ruxsat bering",
-                    );
+                    if (context.mounted) {
+                      context.showSnackBar(
+                        message: "Iltimos Telegramda kirishga ruxsat bering",
+                      );
+                    }
                   }
                 }
               },
@@ -103,7 +108,7 @@ class _ConfirmationLoginViewState extends State<ConfirmationLoginView> {
               isLoading: state.statusCode.isInProgress,
               margin: const EdgeInsets.symmetric(horizontal: 16)
                   .copyWith(bottom: 16),
-              text: isCheck ?AppLocalizations.of(context)!.confirm : "Kirish",
+              text: isCheck ? AppLocalizations.of(context)!.confirm : "Kirish",
             );
           },
         ),

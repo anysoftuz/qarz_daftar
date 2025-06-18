@@ -146,7 +146,8 @@ class _PayHistoryInfoDialogState extends State<PayHistoryInfoDialog> {
                               Navigator.pop(context);
                             },
                             border: Border.all(
-                                color: context.color.white.withOpacity(.2)),
+                                color:
+                                    context.color.white.withValues(alpha: .2)),
                             textColor: context.color.white,
                             color: Colors.transparent,
                             isLoading: state.notifRefus.isInProgress &&

@@ -39,7 +39,7 @@ class EditPayAllDialog extends StatelessWidget {
                 Center(
                   child: CircleAvatar(
                     radius: 24,
-                    backgroundColor: orang.withOpacity(.1),
+                    backgroundColor: orang.withValues(alpha: .1),
                     child: AppIcons.question.svg(),
                   ),
                 ),

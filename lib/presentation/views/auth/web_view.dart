@@ -68,7 +68,7 @@ class _TelegramLoginPageState extends State<TelegramLoginPage> {
       if (response.statusCode == 200) {
         final model = TelegramModel.fromJson(jsonDecode(response.body));
         if (model.success) {
-          if (context.mounted) {
+          if (mounted) {
             context.read<AuthBloc>().add(GetMeTelegramEvent(
                   onError: () {
                     ScaffoldMessenger.of(context).showSnackBar(

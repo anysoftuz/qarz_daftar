@@ -83,7 +83,7 @@ class _MainViewState extends State<MainView> {
                 if (context.read<AuthBloc>().state.usergetModel.phone.isEmpty) {
                   Caller.launchUrlWeb("https://t.me/qarz_daftar1_bot").then(
                     (value) {
-                      if (mounted) {
+                      if (context.mounted) {
                         context.read<AuthBloc>().add(GetMeEvent());
                       }
                     },
@@ -103,19 +103,19 @@ class _MainViewState extends State<MainView> {
                 height: 64,
                 width: 64,
                 foregroundDecoration: BoxDecoration(
-                  color: mainBlue.withOpacity(.2),
+                  color: mainBlue.withValues(alpha: .2),
                   borderRadius: BorderRadius.circular(68),
                   border: Border.all(color: mainBlue),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 8,
                       offset: const Offset(0, 4),
-                      color: mainBlue.withOpacity(.2),
+                      color: mainBlue.withValues(alpha: .2),
                     ),
                     BoxShadow(
                       blurRadius: 8,
                       offset: const Offset(0, 2),
-                      color: mainBlue.withOpacity(.2),
+                      color: mainBlue.withValues(alpha: .2),
                     ),
                   ],
                 ),

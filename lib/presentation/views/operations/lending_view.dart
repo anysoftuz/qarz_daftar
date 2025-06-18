@@ -137,7 +137,7 @@ class _LendingViewState extends State<LendingView> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                color: mainBlue.withOpacity(.2),
+                                color: mainBlue.withValues(alpha: .2),
                               ),
                               alignment: Alignment.center,
                               child: ListTile(
@@ -165,7 +165,7 @@ class _LendingViewState extends State<LendingView> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: red.withOpacity(.2),
+                            color: red.withValues(alpha: .2),
                           ),
                           alignment: Alignment.center,
                           child: ListTile(

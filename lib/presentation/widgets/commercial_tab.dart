@@ -32,13 +32,13 @@ class CommercialTab extends StatelessWidget {
             // Theme.of(context).extension<ThemedColors>()!.whiteToDolphin,
             boxShadow: [
               BoxShadow(
-                color: black.withOpacity(0.04),
+                color: black.withValues(alpha: 0.04),
                 blurRadius: 1,
                 offset: const Offset(0, 3),
                 spreadRadius: 0,
               ),
               BoxShadow(
-                color: black.withOpacity(0.12),
+                color: black.withValues(alpha: 0.12),
                 blurRadius: 8,
                 offset: const Offset(0, 3),
               ),

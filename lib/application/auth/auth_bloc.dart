@@ -28,7 +28,7 @@ enum AuthenticationStatus {
 
 Future<bool> isInternetConnected() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
-  var connectionChecker = InternetConnectionChecker();
+  var connectionChecker = InternetConnectionChecker.I;
   if (connectivityResult.contains(ConnectivityResult.mobile) ||
       connectivityResult.contains(ConnectivityResult.wifi) ||
       connectivityResult.contains(ConnectivityResult.ethernet) ||

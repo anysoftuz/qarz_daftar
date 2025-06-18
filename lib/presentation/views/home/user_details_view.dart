@@ -233,7 +233,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                           },
                           color: Colors.transparent,
                           border: Border.all(
-                            color: context.color.white.withOpacity(.4),
+                            color: context.color.white.withValues(alpha: .4),
                           ),
                           textColor: context.color.white,
                           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -270,7 +270,7 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                           },
                           color: Colors.transparent,
                           border: Border.all(
-                            color: context.color.white.withOpacity(.4),
+                            color: context.color.white.withValues(alpha: .4),
                           ),
                           textColor: context.color.white,
                           child: Row(
